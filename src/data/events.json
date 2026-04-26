@@ -1,0 +1,36 @@
+{
+  "recurring": {
+    "name": "Synthomaha Monthly Meetup",
+    "dayOfWeek": "Friday",
+    "weekOfMonth": 1,
+    "time": "20:00",
+    "location": "Shakedown St",
+    "description": "Monthly gathering of Omaha's electronic music community. Live DJ sets, networking, and good vibes."
+  },
+  "upcoming": [
+    {
+      "id": "may-2026",
+      "name": "Synthomaha Monthly Meetup",
+      "date": "2026-05-01",
+      "time": "20:00",
+      "location": "Shakedown St",
+      "description": "First Friday of May - join us for electronic music and friends"
+    },
+    {
+      "id": "june-2026",
+      "name": "Synthomaha Monthly Meetup",
+      "date": "2026-06-05",
+      "time": "20:00",
+      "location": "Shakedown St",
+      "description": "First Friday of June - dancing under the lights"
+    },
+    {
+      "id": "july-2026",
+      "name": "Synthomaha Monthly Meetup",
+      "date": "2026-07-10",
+      "time": "20:00",
+      "location": "Shakedown St",
+      "description": "First Friday of July - summer vibes edition"
+    }
+  ]
+}
