@@ -25,4 +25,5 @@ Link to your netlify project
 
 ## Build and preview locally
 
-> netlify dev
+- `bun run dev` - Start local dev server
+- `bun run preview` - Preview production build locally

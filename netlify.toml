@@ -1,0 +1,8 @@
+[build]
+  command = "bun run build"
+  functions = "netlify/functions"
+  publish = "dist"
+
+# Form handling configuration
+[form]
+  enabled = true
