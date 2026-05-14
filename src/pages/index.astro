@@ -12,22 +12,16 @@ import BookingForm from '../components/BookingForm';
             <h1 class="text-5xl sm:text-6xl font-bold mb-4 text-primary">Synthomaha</h1>
             <p class="text-xl sm:text-2xl text-gray-300">Omaha's Electronic Music Community</p>
         </div>
-        
+
         <p class="text-lg text-gray-400 max-w-2xl mx-auto mb-8">
-            Monthly meetups for electronic music lovers, producers, and DJs. Connect with the local synth community at <span class="text-primary font-semibold">Shakedown St</span>.
+            Monthly meetups for electronic music lovers, producers, and DJs. Connect with the local synth community at <span class="text-primary font-semibold"
+                >Shakedown St</span
+            >.
         </p>
-        
+
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a 
-                href="#calendar" 
-                class="px-8 py-3 bg-primary text-black font-semibold rounded hover:bg-primary/80 transition-colors"
-            >
-                View Events
-            </a>
-            <a 
-                href="#contact" 
-                class="px-8 py-3 border border-primary text-primary font-semibold rounded hover:bg-primary hover:text-black transition-colors"
-            >
+            <a href="#calendar" class="px-8 py-3 bg-primary text-black font-semibold rounded hover:bg-primary/80 transition-colors"> View Events </a>
+            <a href="#contact" class="px-8 py-3 border border-primary text-primary font-semibold rounded hover:bg-primary hover:text-black transition-colors">
                 Get in Touch
             </a>
         </div>
@@ -36,16 +30,18 @@ import BookingForm from '../components/BookingForm';
     <!-- About Section -->
     <section class="py-12 sm:py-16 mb-16 border-t border-b border-primary/50">
         <h2 class="text-3xl font-bold mb-6 text-primary">About Synthomaha</h2>
-        
+
         <div class="space-y-4 text-gray-300">
             <p>
-                Synthomaha is a community gathering for electronic music enthusiasts in Omaha. Whether you're into techno, house, ambient, industrial, or any flavor of electronic music, you'll find your people here.
+                Synthomaha is a community gathering for electronic music enthusiasts in Omaha. Whether you're into techno, house, ambient, industrial, or any
+                flavor of electronic music, you'll find your people here.
             </p>
-            
+
             <p>
-                We meet <strong>once a month at Shakedown St</strong> for live DJ sets, networking, and celebrating the local electronic music scene. It's the perfect place to discover new sounds, share your work, and connect with fellow musicians and producers.
+                We meet <strong>once a month at Shakedown St</strong> for live DJ sets, networking, and celebrating the local electronic music scene. It's the perfect
+                place to discover new sounds, share your work, and connect with fellow musicians and producers.
             </p>
-            
+
             <p class="pt-4">
                 <strong>Looking to play a gig or collaborate?</strong> Reach out to us below - we're always looking for talented DJs, producers, and performers.
             </p>
@@ -60,23 +56,19 @@ import BookingForm from '../components/BookingForm';
     <!-- Email Signup Section -->
     <section class="py-12 sm:py-16 mb-16 bg-black/30 rounded-lg p-8 border border-primary/50">
         <h2 class="text-3xl font-bold mb-4 text-primary">Stay Updated</h2>
-        <p class="text-gray-300 mb-6">
-            Get notified about upcoming events, special performances, and community news.
-        </p>
+        <p class="text-gray-300 mb-6">Get notified about upcoming events, special performances, and community news.</p>
         <EmailSignupForm client:load />
     </section>
 
     <!-- Contact/Booking Section -->
     <section class="py-12 sm:py-16" id="contact">
         <h2 class="text-3xl font-bold mb-8 text-primary">Booking & Inquiries</h2>
-        
+
         <div class="grid sm:grid-cols-2 gap-8">
             <div>
                 <h3 class="text-xl font-semibold mb-4 text-primary">Get in Touch</h3>
-                <p class="text-gray-300 mb-6">
-                    Have a gig inquiry? Want to collaborate? Looking to sponsor an event? We'd love to hear from you!
-                </p>
-                
+                <p class="text-gray-300 mb-6">Have a gig inquiry? Want to collaborate? Looking to sponsor an event? We'd love to hear from you!</p>
+
                 <div class="space-y-3 text-sm text-gray-400">
                     <div>
                         <p class="font-semibold text-primary">Location</p>
@@ -92,7 +84,7 @@ import BookingForm from '../components/BookingForm';
                     </div>
                 </div>
             </div>
-            
+
             <div>
                 <BookingForm client:load />
             </div>

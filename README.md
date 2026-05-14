@@ -3,6 +3,7 @@
 synth night in Omaha
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/48146f69-e891-405d-83a7-c981680f79e9/deploy-status)](https://app.netlify.com/projects/synthomaha/deploys)
+
 ## Pre-reqs
 
 [Node.js](https://nodejs.org/) v22.22.2
