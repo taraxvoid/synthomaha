@@ -1,6 +1,6 @@
-import { Blobs } from '@netlify/blobs';
+import { getStore } from '@netlify/blobs';
 
-const blobs = new Blobs({ token: process.env.NETLIFY_BLOBS_CONTEXT });
+const blobs = getStore('data');
 
 export default async (req: Request) => {
     if (req.method !== 'POST') {
@@ -24,7 +24,7 @@ export default async (req: Request) => {
         // Check if email already subscribed
         if (!updatedSubscribers.includes(email)) {
             updatedSubscribers.push(email);
-            await blobs.set('subscribers.json', updatedSubscribers, { type: 'json' });
+            await blobs.setJSON('subscribers.json', updatedSubscribers);
         }
 
         return new Response(JSON.stringify({ success: true, message: 'Subscribed!' }), {

@@ -1,6 +1,6 @@
-import { Blobs } from '@netlify/blobs';
+import { getStore } from '@netlify/blobs';
 
-const blobs = new Blobs({ token: process.env.NETLIFY_BLOBS_CONTEXT });
+const blobs = getStore('data');
 
 export default async (req: Request) => {
     if (req.method !== 'POST') {
@@ -31,7 +31,7 @@ export default async (req: Request) => {
         };
 
         requests.push(newRequest);
-        await blobs.set('booking-requests.json', requests, { type: 'json' });
+        await blobs.setJSON('booking-requests.json', requests);
 
         return new Response(JSON.stringify({ success: true, message: 'Booking request received!' }), {
             status: 200,
