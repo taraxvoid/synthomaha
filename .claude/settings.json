@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bun run *)",
+      "Bash(bunx favicons *)",
+      "Bash(node scripts/generate-favicons.mjs)"
+    ]
+  }
+}

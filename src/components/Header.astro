@@ -2,22 +2,30 @@
 import Logo from '../components/Logo.astro';
 
 const navItems = [
-    { linkText: 'Home', href: '/' },
     { linkText: 'Events', href: '#calendar' },
+    { linkText: 'Signup', href: '#signup' },
     { linkText: 'Contact', href: '#contact' }
 ];
 ---
 
-<nav class="flex flex-wrap items-center gap-4 pt-6 pb-16 sm:pt-12 sm:pb-24">
+<nav class="flex flex-wrap items-center gap-4 pt-6 pb-8 sm:pt-12 sm:pb-12">
     <a href="/">
         <Logo />
     </a>
     {
         !!navItems?.length && (
-            <ul class="flex flex-wrap gap-x-4 gap-y-1">
+            <ul class="flex flex-wrap gap-x-2 gap-y-2">
                 {navItems.map((item) => (
                     <li>
-                        <a href={item.href} class="inline-block px-1.5 py-1 sm:px-3 sm:py-2">
+                        <a
+                            href={item.href}
+                            class="no-underline inline-block px-3 py-1.5 text-sm font-semibold tracking-wide uppercase
+                                   border border-primary/60 rounded
+                                   bg-black/30 text-primary
+                                   shadow-[inset_0_1px_0_rgba(255,255,255,0.08),inset_0_-2px_0_rgba(0,0,0,0.4)]
+                                   hover:bg-primary hover:text-primary-content hover:border-primary
+                                   transition-colors"
+                        >
                             {item.linkText}
                         </a>
                     </li>

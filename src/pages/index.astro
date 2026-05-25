@@ -5,89 +5,47 @@ import EmailSignupForm from '../components/EmailSignupForm';
 import BookingForm from '../components/BookingForm';
 ---
 
-<Layout title="Synthomaha - Omaha's Electronic Music Meetup">
-    <!-- Hero Section -->
-    <section class="py-20 sm:py-32 mb-16 text-center">
-        <div class="mb-8">
-            <h1 class="text-5xl sm:text-6xl font-bold mb-4 text-primary">Synthomaha</h1>
-            <p class="text-xl sm:text-2xl text-gray-300">Omaha's Electronic Music Community</p>
-        </div>
-
-        <p class="text-lg text-gray-400 max-w-2xl mx-auto mb-8">
-            Monthly meetups for electronic music lovers, producers, and DJs. Connect with the local synth community at <span class="text-primary font-semibold"
-                >Shakedown St</span
-            >.
-        </p>
-
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="#calendar" class="px-8 py-3 bg-primary text-black font-semibold rounded hover:bg-primary/80 transition-colors"> View Events </a>
-            <a href="#contact" class="px-8 py-3 border border-primary text-primary font-semibold rounded hover:bg-primary hover:text-black transition-colors">
-                Get in Touch
-            </a>
-        </div>
-    </section>
+<Layout title="SynthOmaha - Omaha's Electronic Music Meetup">
+    <!-- Hidden static forms for Netlify Forms detection at build time -->
+    <form name="signup" data-netlify="true" hidden>
+        <input type="email" name="email" />
+    </form>
+    <form name="booking" data-netlify="true" hidden>
+        <input type="text" name="name" />
+        <input type="email" name="email" />
+        <input type="text" name="subject" />
+        <textarea name="message"></textarea>
+    </form>
 
     <!-- About Section -->
-    <section class="py-12 sm:py-16 mb-16 border-t border-b border-primary/50">
+    <section class="py-6 mb-4 border-t border-b border-primary/50">
         <h2 class="text-3xl font-bold mb-6 text-primary">About Synthomaha</h2>
 
-        <div class="space-y-4 text-gray-300">
+        <div class="space-y-4 text-inherit">
             <p>
-                Synthomaha is a community gathering for electronic music enthusiasts in Omaha. Whether you're into techno, house, ambient, industrial, or any
-                flavor of electronic music, you'll find your people here.
-            </p>
+                Last Monday of the month at <strong>Shakedown Street Bar in Benson</strong> starting at 8PM<br />
 
-            <p>
-                We meet <strong>once a month at Shakedown St</strong> for live DJ sets, networking, and celebrating the local electronic music scene. It's the perfect
-                place to discover new sounds, share your work, and connect with fellow musicians and producers.
-            </p>
-
-            <p class="pt-4">
-                <strong>Looking to play a gig or collaborate?</strong> Reach out to us below - we're always looking for talented DJs, producers, and performers.
+                Performing is <em>entirely</em> optional and wallflowers are celebrated.
             </p>
         </div>
     </section>
 
     <!-- Event Calendar -->
-    <section class="py-12 sm:py-16 mb-16" id="calendar">
+    <section class="mb-4" id="calendar">
         <EventCalendar />
     </section>
 
-    <!-- Email Signup Section -->
-    <section class="py-12 sm:py-16 mb-16 bg-black/30 rounded-lg p-8 border border-primary/50">
-        <h2 class="text-3xl font-bold mb-4 text-primary">Stay Updated</h2>
-        <p class="text-gray-300 mb-6">Get notified about upcoming events, special performances, and community news.</p>
+    <!-- Email Signup -->
+    <section class="py-6 mb-4 border-t border-primary/50" id="signup">
+        <h2 class="text-2xl font-bold mb-4 text-primary">Stay in the Loop</h2>
+        <p class="text-inherit mb-6">Get notified about upcoming events and news.</p>
         <EmailSignupForm client:load />
     </section>
 
-    <!-- Contact/Booking Section -->
-    <section class="py-12 sm:py-16" id="contact">
-        <h2 class="text-3xl font-bold mb-8 text-primary">Booking & Inquiries</h2>
-
-        <div class="grid sm:grid-cols-2 gap-8">
-            <div>
-                <h3 class="text-xl font-semibold mb-4 text-primary">Get in Touch</h3>
-                <p class="text-gray-300 mb-6">Have a gig inquiry? Want to collaborate? Looking to sponsor an event? We'd love to hear from you!</p>
-
-                <div class="space-y-3 text-sm text-gray-400">
-                    <div>
-                        <p class="font-semibold text-primary">Location</p>
-                        <p>Shakedown St, Omaha, NE</p>
-                    </div>
-                    <div>
-                        <p class="font-semibold text-primary">Frequency</p>
-                        <p>First Friday of every month</p>
-                    </div>
-                    <div>
-                        <p class="font-semibold text-primary">Time</p>
-                        <p>8:00 PM - Late</p>
-                    </div>
-                </div>
-            </div>
-
-            <div>
-                <BookingForm client:load />
-            </div>
-        </div>
+    <!-- Contact / Booking -->
+    <section class="py-6 mb-4 border-t border-primary/50" id="contact">
+        <h2 class="text-2xl font-bold mb-4 text-primary">Book or Contact Us</h2>
+        <p class="text-inherit mb-6">Interested in performing, booking, or just want to say hi?</p>
+        <BookingForm client:load />
     </section>
 </Layout>

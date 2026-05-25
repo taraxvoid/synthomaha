@@ -20,10 +20,10 @@ export default function BookingForm() {
         setStatus('loading');
 
         try {
-            const response = await fetch('/.netlify/functions/send-booking-request', {
+            const response = await fetch('/', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData)
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({ 'form-name': 'booking', ...formData }).toString()
             });
 
             if (response.ok) {
@@ -42,7 +42,8 @@ export default function BookingForm() {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-4 max-w-2xl">
+        <form onSubmit={handleSubmit} className="space-y-4 max-w-2xl" name="booking" data-netlify="true">
+            <input type="hidden" name="form-name" value="booking" />
             <div>
                 <label htmlFor="name" className="block text-sm font-medium mb-2">
                     Your Name

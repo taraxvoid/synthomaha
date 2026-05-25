@@ -10,10 +10,10 @@ export default function EmailSignupForm() {
         setStatus('loading');
 
         try {
-            const response = await fetch('/.netlify/functions/subscribe-email', {
+            const response = await fetch('/', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email })
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({ 'form-name': 'signup', email }).toString()
             });
 
             if (response.ok) {
@@ -32,7 +32,8 @@ export default function EmailSignupForm() {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-4" id="signup">
+        <form onSubmit={handleSubmit} className="space-y-4" id="signup" name="signup" data-netlify="true">
+            <input type="hidden" name="form-name" value="signup" />
             <div>
                 <label htmlFor="email" className="block text-sm font-medium mb-2">
                     Email Address

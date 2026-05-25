@@ -2,12 +2,9 @@
 
 @theme {
     --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-    --color-primary: #f67280;
-    --color-primary-content: #101828;
-    --color-complementary: #355c7d;
-    --background-image-noise:
-        linear-gradient(to bottom, color-mix(in oklab, var(--color-gray-950) 0%, transparent), color-mix(in oklab, var(--color-gray-950) 100%, transparent)),
-        url('/images/noise.png');
+    --color-primary: #c8a84b;
+    --color-primary-content: #1a1816;
+    --color-complementary: #242220;
 }
 
 @layer base {
