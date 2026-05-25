@@ -17,8 +17,8 @@ const response = await favicons(source, {
         appleStartup: false,
         favicons: true,
         windows: false,
-        yandex: false,
-    },
+        yandex: false
+    }
 });
 
 for (const image of response.images) {

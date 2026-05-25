@@ -1,48 +1,69 @@
 ---
+
 ---
 
 <!--
-  Logo: "Omaha" — O is a roughly circular oval with 6 evenly spaced gray
-  patch jacks connected by alternating purple and pink cables bowing outward.
-  Center (21,22), rx=16 ry=15. Jacks at 0°/60°/120°/180°/240°/300° from top.
+  Logo: "Omaha" — O is a blue ellipse (very visible) with 8 gray patch jacks
+  scattered at irregular positions on the oval perimeter. 4 cables (pink, purple,
+  red, green) each connect a top-area jack to a lower-area jack, hanging downward
+  like real synth patch cables. Cables cross for organic/messy look.
+  Oval center (21,22), rx=18, ry=17.
+
+  Jack positions:
+    J0(10,8)  J1(24,5)  J2(36,11)  J3(39,22)
+    J4(34,34) J5(8,35)  J6(3,22)   J7(6,13)
+
+  Cable pairs (all go top→bottom):
+    Pink   — J1(24,5)  → J5(8,35)   sweeps left on way down
+    Purple — J0(10,8)  → J4(34,34)  sweeps right on way down (crosses pink)
+    Red    — J2(36,11) → J6(3,22)   upper-right to left, long sag
+    Green  — J7(6,13)  → J3(39,22)  upper-left to right, long sag (crosses red)
 -->
-<svg width="152" height="44" viewBox="0 0 152 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="SynthOmaha">
+<svg width="152" height="50" viewBox="0 0 152 50" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="SynthOmaha">
 
-  <!-- Jack coords: J0(21,7) J1(35,15) J2(35,30) J3(21,37) J4(7,30) J5(7,15) -->
+    <!-- O oval — same blue as text, very visible -->
+    <ellipse cx="21" cy="22" rx="18" ry="17" stroke="#60a5fa" stroke-width="2" fill="none"/>
 
-  <!-- Cables: alternating purple / pink, bowing outward -->
-  <path d="M21,7  Q32,5  35,15" stroke="#9333ea" stroke-width="2.3" stroke-linecap="round" fill="none"/>
-  <path d="M35,15 Q42,23 35,30" stroke="#db2777" stroke-width="2.3" stroke-linecap="round" fill="none"/>
-  <path d="M35,30 Q32,40 21,37" stroke="#9333ea" stroke-width="2.3" stroke-linecap="round" fill="none"/>
-  <path d="M21,37 Q10,40  7,30" stroke="#db2777" stroke-width="2.3" stroke-linecap="round" fill="none"/>
-  <path d="M7,30  Q0,23   7,15" stroke="#9333ea" stroke-width="2.3" stroke-linecap="round" fill="none"/>
-  <path d="M7,15  Q10,5  21,7"  stroke="#db2777" stroke-width="2.3" stroke-linecap="round" fill="none"/>
+    <!-- Pink: J1(24,5) → J5(8,35) — top sweeping left -->
+    <path d="M 24,5 C 28,20 12,28 8,35" stroke="#ec4899" stroke-width="2.2" stroke-linecap="round" fill="none"/>
 
-  <!-- Jack sockets (gray, visible against dark panel) -->
-  <circle cx="21" cy="7"  r="3.2" fill="#8c8880"/>
-  <circle cx="35" cy="15" r="3.2" fill="#8c8880"/>
-  <circle cx="35" cy="30" r="3.2" fill="#8c8880"/>
-  <circle cx="21" cy="37" r="3.2" fill="#8c8880"/>
-  <circle cx="7"  cy="30" r="3.2" fill="#8c8880"/>
-  <circle cx="7"  cy="15" r="3.2" fill="#8c8880"/>
+    <!-- Purple: J0(10,8) → J4(34,34) — upper-left sweeping right (crosses pink) -->
+    <path d="M 10,8 C 8,20 30,28 34,34" stroke="#9333ea" stroke-width="2.2" stroke-linecap="round" fill="none"/>
 
-  <!-- Jack holes -->
-  <circle cx="21" cy="7"  r="1.3" fill="#1a1816"/>
-  <circle cx="35" cy="15" r="1.3" fill="#1a1816"/>
-  <circle cx="35" cy="30" r="1.3" fill="#1a1816"/>
-  <circle cx="21" cy="37" r="1.3" fill="#1a1816"/>
-  <circle cx="7"  cy="30" r="1.3" fill="#1a1816"/>
-  <circle cx="7"  cy="15" r="1.3" fill="#1a1816"/>
+    <!-- Red: J2(36,11) → J6(3,22) — upper-right to left, deep sag -->
+    <path d="M 36,11 C 36,26 4,32 3,22" stroke="#ef4444" stroke-width="2.2" stroke-linecap="round" fill="none"/>
 
-  <!-- "MAHA" text — Orbitron for synth/manufacturer caps styling -->
-  <text
-    x="50"
-    y="30"
-    font-family="'Orbitron Variable', 'Orbitron', ui-sans-serif, sans-serif"
-    font-size="22"
-    font-weight="700"
-    letter-spacing="2"
-    fill="#ddd8cc"
-  >MAHA</text>
+    <!-- Green: J7(6,13) → J3(39,22) — upper-left to right, deep sag (crosses red) -->
+    <path d="M 6,13 C 8,30 36,32 39,22" stroke="#22c55e" stroke-width="2.2" stroke-linecap="round" fill="none"/>
 
+    <!-- Jack sockets (smaller than before) -->
+    <circle cx="10" cy="8"  r="2.2" fill="#8c8880"/>
+    <circle cx="24" cy="5"  r="2.2" fill="#8c8880"/>
+    <circle cx="36" cy="11" r="2.2" fill="#8c8880"/>
+    <circle cx="39" cy="22" r="2.2" fill="#8c8880"/>
+    <circle cx="34" cy="34" r="2.2" fill="#8c8880"/>
+    <circle cx="8"  cy="35" r="2.2" fill="#8c8880"/>
+    <circle cx="3"  cy="22" r="2.2" fill="#8c8880"/>
+    <circle cx="6"  cy="13" r="2.2" fill="#8c8880"/>
+
+    <!-- Jack holes -->
+    <circle cx="10" cy="8"  r="0.9" fill="#1a1816"/>
+    <circle cx="24" cy="5"  r="0.9" fill="#1a1816"/>
+    <circle cx="36" cy="11" r="0.9" fill="#1a1816"/>
+    <circle cx="39" cy="22" r="0.9" fill="#1a1816"/>
+    <circle cx="34" cy="34" r="0.9" fill="#1a1816"/>
+    <circle cx="8"  cy="35" r="0.9" fill="#1a1816"/>
+    <circle cx="3"  cy="22" r="0.9" fill="#1a1816"/>
+    <circle cx="6"  cy="13" r="0.9" fill="#1a1816"/>
+
+    <!-- "MAHA" text -->
+    <text
+        x="43"
+        y="34"
+        font-family="'Orbitron Variable', 'Orbitron', ui-sans-serif, sans-serif"
+        font-size="22"
+        font-weight="700"
+        letter-spacing="2"
+        fill="#60a5fa">MAHA</text
+    >
 </svg>

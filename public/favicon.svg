@@ -1,27 +1,46 @@
 <svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect width="512" height="512" rx="80" fill="#242220"/>
 
-  <!-- 6 evenly spaced jacks scaled to 512 canvas. Center (256,256), rx=195 ry=183 -->
-  <!-- J0(256,73) J1(425,165) J2(425,347) J3(256,439) J4(87,347) J5(87,165) -->
+  <!--
+    O oval scaled from logo: center (256,256), rx=210, ry=198.
+    8 jacks at irregular positions matching the logo design.
+    J0(127,92) J1(291,57) J2(432,127) J3(466,256)
+    J4(408,396) J5(104,408) J6(46,256)  J7(81,151)
+    4 cables: pink, purple, red, green — all top→bottom with organic sag.
+  -->
 
-  <path d="M256,73  Q388,55  425,165" stroke="#9333ea" stroke-width="26" stroke-linecap="round" fill="none"/>
-  <path d="M425,165 Q512,256 425,347" stroke="#db2777" stroke-width="26" stroke-linecap="round" fill="none"/>
-  <path d="M425,347 Q388,457 256,439" stroke="#9333ea" stroke-width="26" stroke-linecap="round" fill="none"/>
-  <path d="M256,439 Q124,457  87,347" stroke="#db2777" stroke-width="26" stroke-linecap="round" fill="none"/>
-  <path d="M87,347  Q0,256   87,165" stroke="#9333ea" stroke-width="26" stroke-linecap="round" fill="none"/>
-  <path d="M87,165  Q124,55  256,73"  stroke="#db2777" stroke-width="26" stroke-linecap="round" fill="none"/>
+  <!-- O oval — blue, very visible -->
+  <ellipse cx="256" cy="256" rx="210" ry="198" stroke="#60a5fa" stroke-width="24" fill="none"/>
 
-  <circle cx="256" cy="73"  r="38" fill="#8c8880"/>
-  <circle cx="425" cy="165" r="38" fill="#8c8880"/>
-  <circle cx="425" cy="347" r="38" fill="#8c8880"/>
-  <circle cx="256" cy="439" r="38" fill="#8c8880"/>
-  <circle cx="87"  cy="347" r="38" fill="#8c8880"/>
-  <circle cx="87"  cy="165" r="38" fill="#8c8880"/>
+  <!-- Pink: J1(291,57) → J5(104,408) sweeps left on way down -->
+  <path d="M 291,57 C 338,233 151,326 104,408" stroke="#ec4899" stroke-width="26" stroke-linecap="round" fill="none"/>
 
-  <circle cx="256" cy="73"  r="15" fill="#1a1816"/>
-  <circle cx="425" cy="165" r="15" fill="#1a1816"/>
-  <circle cx="425" cy="347" r="15" fill="#1a1816"/>
-  <circle cx="256" cy="439" r="15" fill="#1a1816"/>
-  <circle cx="87"  cy="347" r="15" fill="#1a1816"/>
-  <circle cx="87"  cy="165" r="15" fill="#1a1816"/>
+  <!-- Purple: J0(127,92) → J4(408,396) sweeps right on way down (crosses pink) -->
+  <path d="M 127,92 C 104,233 361,326 408,396" stroke="#9333ea" stroke-width="26" stroke-linecap="round" fill="none"/>
+
+  <!-- Red: J2(432,127) → J6(46,256) upper-right to left, deep sag -->
+  <path d="M 432,127 C 431,303 58,373 46,256" stroke="#ef4444" stroke-width="26" stroke-linecap="round" fill="none"/>
+
+  <!-- Green: J7(81,151) → J3(466,256) upper-left to right, deep sag (crosses red) -->
+  <path d="M 81,151 C 104,349 431,373 466,256" stroke="#22c55e" stroke-width="26" stroke-linecap="round" fill="none"/>
+
+  <!-- Jack sockets -->
+  <circle cx="127" cy="92"  r="26" fill="#8c8880"/>
+  <circle cx="291" cy="57"  r="26" fill="#8c8880"/>
+  <circle cx="432" cy="127" r="26" fill="#8c8880"/>
+  <circle cx="466" cy="256" r="26" fill="#8c8880"/>
+  <circle cx="408" cy="396" r="26" fill="#8c8880"/>
+  <circle cx="104" cy="408" r="26" fill="#8c8880"/>
+  <circle cx="46"  cy="256" r="26" fill="#8c8880"/>
+  <circle cx="81"  cy="151" r="26" fill="#8c8880"/>
+
+  <!-- Jack holes -->
+  <circle cx="127" cy="92"  r="11" fill="#1a1816"/>
+  <circle cx="291" cy="57"  r="11" fill="#1a1816"/>
+  <circle cx="432" cy="127" r="11" fill="#1a1816"/>
+  <circle cx="466" cy="256" r="11" fill="#1a1816"/>
+  <circle cx="408" cy="396" r="11" fill="#1a1816"/>
+  <circle cx="104" cy="408" r="11" fill="#1a1816"/>
+  <circle cx="46"  cy="256" r="11" fill="#1a1816"/>
+  <circle cx="81"  cy="151" r="11" fill="#1a1816"/>
 </svg>
