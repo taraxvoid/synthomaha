@@ -6,8 +6,6 @@ synth night in Omaha
 
 ## Pre-reqs
 
-[Node.js](https://nodejs.org/) v22.22.2
-
 [Bun](https://bun.com/docs/installation) for package handling
 
 (optional) [volta](https://volta.sh/) for node ver wrangling
