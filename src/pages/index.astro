@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import EventCalendar from '../components/EventCalendar.astro';
+import MusicianProfiles from '../components/MusicianProfiles.astro';
 import EmailSignupForm from '../components/EmailSignupForm';
 import BookingForm from '../components/BookingForm';
 ---
@@ -33,6 +34,11 @@ import BookingForm from '../components/BookingForm';
     <!-- Event Calendar -->
     <section class="mb-4" id="calendar">
         <EventCalendar />
+    </section>
+
+    <!-- Musicians -->
+    <section class="mb-4 border-t border-primary/50 pt-6" id="musicians">
+        <MusicianProfiles />
     </section>
 
     <!-- Email Signup -->

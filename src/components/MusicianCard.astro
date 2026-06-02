@@ -1,0 +1,91 @@
+---
+interface Props {
+    name: string;
+    bio?: string;
+    profileImage?: string;
+    bandcamp?: string;
+    soundcloud?: string;
+    instagram?: string;
+    website?: string;
+}
+
+const { name, bio, profileImage, bandcamp, soundcloud, instagram, website } = Astro.props;
+
+const instagramUrl = instagram ? `https://instagram.com/${instagram.replace(/^@/, '')}` : null;
+---
+
+<wa-card class="musician-card">
+    <div class="flex flex-col items-center text-center gap-3 p-2">
+        {
+            profileImage ? (
+                <img src={profileImage} alt={name} class="w-24 h-24 rounded-full object-cover border-2 border-primary/50" />
+            ) : (
+                <div class="w-24 h-24 rounded-full bg-white/10 border-2 border-primary/30 flex items-center justify-center">
+                    <svg class="w-10 h-10 opacity-40" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
+                    </svg>
+                </div>
+            )
+        }
+
+        <div>
+            <h3 class="text-lg font-semibold text-primary">{name}</h3>
+            {bio && <p class="text-sm opacity-70 mt-1 leading-relaxed">{bio}</p>}
+        </div>
+
+        <div class="flex flex-wrap justify-center gap-2 text-xs">
+            {
+                bandcamp && (
+                    <a
+                        href={bandcamp}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="btn no-underline"
+                        style="--btn-py: 0.4rem; --btn-px: 0.75rem; --btn-font-size: 0.75rem;"
+                    >
+                        Bandcamp
+                    </a>
+                )
+            }
+            {
+                soundcloud && (
+                    <a
+                        href={soundcloud}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="btn no-underline"
+                        style="--btn-py: 0.4rem; --btn-px: 0.75rem; --btn-font-size: 0.75rem;"
+                    >
+                        SoundCloud
+                    </a>
+                )
+            }
+            {
+                instagramUrl && (
+                    <a
+                        href={instagramUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="btn no-underline"
+                        style="--btn-py: 0.4rem; --btn-px: 0.75rem; --btn-font-size: 0.75rem;"
+                    >
+                        Instagram
+                    </a>
+                )
+            }
+            {
+                website && (
+                    <a
+                        href={website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="btn no-underline"
+                        style="--btn-py: 0.4rem; --btn-px: 0.75rem; --btn-font-size: 0.75rem;"
+                    >
+                        Website
+                    </a>
+                )
+            }
+        </div>
+    </div>
+</wa-card>

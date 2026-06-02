@@ -1,0 +1,56 @@
+# DecapBridge PKCE auth — no GitHub account required for editors
+# Register this site at https://decapbridge.com to get your UUIDs,
+# then replace <SITE_UUID> below with your site's UUID.
+backend:
+    name: git-gateway
+    repo: taraxvoid/synthomaha
+    branch: main
+    auth_type: pkce
+    base_url: https://auth.decapbridge.com
+    auth_endpoint: /sites/<SITE_UUID>/pkce
+    auth_token_endpoint: /sites/<SITE_UUID>/token
+    gateway_url: https://gateway.decapbridge.com
+
+media_folder: public/images/uploads
+public_folder: /images/uploads
+
+collections:
+    - name: events
+      label: Events
+      folder: src/content/events
+      create: true
+      delete: true
+      slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
+      extension: yaml
+      format: yaml
+      fields:
+          - { name: title, label: Title, widget: string }
+          - name: date
+            label: Date
+            widget: datetime
+            format: 'YYYY-MM-DD'
+            date_format: 'YYYY-MM-DD'
+            time_format: false
+          - { name: time, label: Start Time, widget: string, hint: '24h format, e.g. 20:00' }
+          - { name: endTime, label: End Time, widget: string, required: false, hint: '24h format, e.g. 22:00 — defaults to 2 hours after start if omitted' }
+          - { name: location, label: Location, widget: string }
+          - { name: description, label: Description, widget: text }
+          - { name: price, label: Price, widget: string, hint: 'Use 0 for free events' }
+          - { name: image, label: Event Image, widget: image, required: false }
+
+    - name: musicians
+      label: Musicians
+      folder: src/content/musicians
+      create: true
+      delete: true
+      slug: '{{slug}}'
+      extension: yaml
+      format: yaml
+      fields:
+          - { name: name, label: Stage Name, widget: string }
+          - { name: bio, label: Bio, widget: text, required: false }
+          - { name: profileImage, label: Profile Image, widget: image, required: false }
+          - { name: bandcamp, label: Bandcamp URL, widget: string, required: false }
+          - { name: soundcloud, label: SoundCloud URL, widget: string, required: false }
+          - { name: instagram, label: Instagram Handle, widget: string, required: false, hint: 'e.g. @handle' }
+          - { name: website, label: Website URL, widget: string, required: false }
