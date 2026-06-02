@@ -8,6 +8,9 @@
         "build": "astro build",
         "astro": "astro",
         "prepare": "husky",
+        "generate:logo": "bun run scripts/generate-logo-png.ts",
+        "generate:favicons": "bun run scripts/generate-favicons.mjs",
+        "generate": "bun run generate:logo && bun run generate:favicons",
         "check": "astro check",
         "fix": "prettier --plugin=prettier-plugin-astro --write .",
         "lint": "prettier --check --plugin=prettier-plugin-astro ."
@@ -19,6 +22,7 @@
         "@fontsource-variable/orbitron": "^5.2.8",
         "@netlify/blobs": "^10.7.4",
         "@netlify/functions": "^5.2.0",
+        "@resvg/resvg-js": "^2.6.2",
         "@tailwindcss/vite": "^4.1.16",
         "astro": "6.4.2",
         "blobshape": "^1.0.0",
