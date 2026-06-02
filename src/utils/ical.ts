@@ -58,8 +58,26 @@ export function generateEventICS(data: EventData, slug: string): string {
     ].join('\r\n');
 }
 
+// Recurring monthly jam — last Monday of every month at 8 PM
+function buildRecurringJamVEvent(): string {
+    return [
+        'BEGIN:VEVENT',
+        'UID:monthly-jam-recurring@synthomaha.net',
+        `DTSTAMP:${stamp()}`,
+        'DTSTART;TZID=America/Chicago:20250127T200000',
+        'RRULE:FREQ=MONTHLY;BYDAY=-1MO',
+        'DURATION:PT2H',
+        'SUMMARY:Monthly Jam - SynthOmaha',
+        'DESCRIPTION:Last Monday of every month — twiddle your knobs and tangle wires with like-minded folks. Free admission.',
+        'LOCATION:Shakedown Street in Benson',
+        'STATUS:CONFIRMED',
+        'SEQUENCE:0',
+        'END:VEVENT'
+    ].join('\r\n');
+}
+
 export function generateFeedICS(events: Array<{ data: EventData; id: string }>): string {
-    const vevents = events.map(({ data, id }) => buildVEvent(data, id)).join('\r\n');
+    const vevents = [buildRecurringJamVEvent(), ...events.map(({ data, id }) => buildVEvent(data, id))].join('\r\n');
     return [
         'BEGIN:VCALENDAR',
         'VERSION:2.0',
