@@ -1,18 +1,38 @@
-# DecapBridge PKCE auth — no GitHub account required for editors
-# Register this site at https://decapbridge.com to get your UUIDs,
-# then replace <SITE_UUID> below with your site's UUID.
+# Use DecapBridge PKCE auth since Netlify Identity was deprecated 2025
+
 backend:
     name: git-gateway
     repo: taraxvoid/synthomaha
     branch: main
     auth_type: pkce
     base_url: https://auth.decapbridge.com
-    auth_endpoint: /sites/<SITE_UUID>/pkce
-    auth_token_endpoint: /sites/<SITE_UUID>/token
+    auth_endpoint: /sites/f9f431f3-1bdf-43e8-b2d1-1d8eacbf1760/pkce
+    auth_token_endpoint: /sites/f9f431f3-1bdf-43e8-b2d1-1d8eacbf1760/token
     gateway_url: https://gateway.decapbridge.com
 
+logo_url: https://synthomaha.net/images/logo.png
 media_folder: public/images/uploads
 public_folder: /images/uploads
+
+# Enable PKCE fields (optional, recommended)
+auth:
+    email_claim: email
+
+# Add site links in Decap CMS (optional)
+site_url: https://synthomaha.net
+
+# Enable for local testing with `bunx decap-server`
+local_backend:
+    true
+
+    # See who did what (optional)
+commit_messages:
+    create: Create {{collection}} “{{slug}}” - {{author-name}} <{{author-login}}>
+    update: Update {{collection}} “{{slug}}” - {{author-name}} <{{author-login}}>
+    delete: Delete {{collection}} “{{slug}}” - {{author-name}} <{{author-login}}>
+    uploadMedia: Upload “{{path}}” - {{author-name}} <{{author-login}}>
+    deleteMedia: Delete “{{path}}” - {{author-name}} <{{author-login}}>
+    openAuthoring: Message {{message}} - {{author-name}} <{{author-login}}>
 
 collections:
     - name: events
