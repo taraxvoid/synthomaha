@@ -81,6 +81,10 @@ wa-card::part(footer) {
     border-top: 1px solid rgba(96, 165, 250, 0.15);
 }
 
+wa-card.musician-card::part(body) {
+    padding: 0.625rem 0.875rem;
+}
+
 @layer components {
     .markdown {
         > * {

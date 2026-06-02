@@ -12,78 +12,45 @@ interface Props {
 const { name, bio, profileImage, bandcamp, soundcloud, instagram, website } = Astro.props;
 
 const instagramUrl = instagram ? `https://instagram.com/${instagram.replace(/^@/, '')}` : null;
+
+const links = [
+    bandcamp && { href: bandcamp, label: 'Bandcamp' },
+    soundcloud && { href: soundcloud, label: 'SoundCloud' },
+    instagramUrl && { href: instagramUrl, label: 'Instagram' },
+    website && { href: website, label: 'Website' }
+].filter(Boolean) as { href: string; label: string }[];
 ---
 
-<wa-card>
-    <div class="flex gap-4 items-start">
+<wa-card class="musician-card">
+    <div class="flex items-center gap-3">
         {
             profileImage ? (
-                <img src={profileImage} alt={name} class="w-16 h-16 rounded-full object-cover border border-primary/30 shrink-0" />
+                <img src={profileImage} alt={name} class="w-9 h-9 rounded-full object-cover border border-primary/30 shrink-0" />
             ) : (
-                <div class="w-16 h-16 rounded-full bg-white/5 border border-primary/20 flex items-center justify-center shrink-0">
-                    <svg class="w-7 h-7 opacity-30" fill="currentColor" viewBox="0 0 24 24">
+                <div class="w-9 h-9 rounded-full bg-white/5 border border-primary/20 flex items-center justify-center shrink-0">
+                    <svg class="w-4 h-4 opacity-25" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
                     </svg>
                 </div>
             )
         }
-        <div class="grow min-w-0">
-            <h3 class="text-base font-semibold text-primary mb-1">{name}</h3>
-            {bio && <p class="text-xs opacity-70 mb-2 leading-relaxed">{bio}</p>}
-            <div class="flex flex-wrap gap-1.5">
-                {
-                    bandcamp && (
-                        <a
-                            href={bandcamp}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="btn no-underline"
-                            style="--btn-py: 0.2rem; --btn-px: 0.6rem; --btn-font-size: 0.7rem;"
-                        >
-                            Bandcamp
-                        </a>
-                    )
-                }
-                {
-                    soundcloud && (
-                        <a
-                            href={soundcloud}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="btn no-underline"
-                            style="--btn-py: 0.2rem; --btn-px: 0.6rem; --btn-font-size: 0.7rem;"
-                        >
-                            SoundCloud
-                        </a>
-                    )
-                }
-                {
-                    instagramUrl && (
-                        <a
-                            href={instagramUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="btn no-underline"
-                            style="--btn-py: 0.2rem; --btn-px: 0.6rem; --btn-font-size: 0.7rem;"
-                        >
-                            Instagram
-                        </a>
-                    )
-                }
-                {
-                    website && (
-                        <a
-                            href={website}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="btn no-underline"
-                            style="--btn-py: 0.2rem; --btn-px: 0.6rem; --btn-font-size: 0.7rem;"
-                        >
-                            Website
-                        </a>
-                    )
-                }
-            </div>
+        <div class="min-w-0">
+            <div class="text-sm font-semibold text-primary truncate">{name}</div>
+            {bio && <div class="text-xs opacity-60 truncate">{bio}</div>}
+            {
+                links.length > 0 && (
+                    <div class="text-xs opacity-50 mt-0.5 truncate">
+                        {links.map((link, i) => (
+                            <>
+                                {i > 0 && <span class="mx-1">·</span>}
+                                <a href={link.href} target="_blank" rel="noopener noreferrer" class="no-underline hover:opacity-80 hover:text-primary">
+                                    {link.label}
+                                </a>
+                            </>
+                        ))}
+                    </div>
+                )
+            }
         </div>
     </div>
 </wa-card>
