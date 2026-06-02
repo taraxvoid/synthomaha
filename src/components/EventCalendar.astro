@@ -24,12 +24,29 @@ const formatTime = (time: string) => {
 };
 ---
 
+<div class="mt-4">
+    <a
+        href="https://calendar.google.com/calendar/r?cid=webcal%3A%2F%2Fsynthomaha.net%2Fevents.ics"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn no-underline"
+    >
+        📅 Add to Google Calendar
+    </a>
+</div>
+
 <section class="py-4">
     <h2 class="text-3xl font-bold mb-6 text-primary">Event Calendar</h2>
 
     {
         upcomingEvents.length === 0 ? (
-            <p class="opacity-60">No upcoming events — check back soon.</p>
+            <p class="opacity-60">
+                No upcoming events —{' '}
+                <a href="#signup" class="underline">
+                    Subscribe to Email List
+                </a>{' '}
+                to be notified of new events!
+            </p>
         ) : (
             <div class="space-y-3">
                 {upcomingEvents.map((event) => (
@@ -52,7 +69,7 @@ const formatTime = (time: string) => {
                                         class="btn shrink-0 no-underline"
                                         style="--btn-py: 0.3rem; --btn-px: 0.75rem; --btn-font-size: 0.75rem;"
                                     >
-                                        📅 Save
+                                        📅 Add To Calendar (.ics)
                                     </a>
                                 </div>
                                 <p class="text-sm opacity-75 mb-3">{event.data.description}</p>
@@ -69,15 +86,4 @@ const formatTime = (time: string) => {
             </div>
         )
     }
-
-    <div class="mt-4">
-        <a
-            href="https://calendar.google.com/calendar/r?cid=webcal%3A%2F%2Fsynthomaha.net%2Fevents.ics"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn no-underline"
-        >
-            Add SynthOmaha to Google Calendar
-        </a>
-    </div>
 </section>
