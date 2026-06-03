@@ -5,14 +5,19 @@
 import { Resvg } from '@resvg/resvg-js';
 import { readFileSync, writeFileSync } from 'fs';
 import { resolve } from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
-const src = readFileSync(resolve(import.meta.dir, '../src/components/Logo.astro'), 'utf8');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const src = readFileSync(resolve(__dirname, '../src/components/Logo.astro'), 'utf8');
 
 const match = src.match(/<svg[\s\S]*?<\/svg>/);
 if (!match) throw new Error('No <svg> block found in Logo.astro');
 
 const svg = match[0];
-const fontPath = resolve(import.meta.dir, 'fonts/orbitron-700.ttf');
+const fontPath = resolve(__dirname, 'fonts/orbitron-700.ttf');
 
 const resvg = new Resvg(svg, {
     font: {
@@ -23,6 +28,6 @@ const resvg = new Resvg(svg, {
 });
 
 const png = resvg.render().asPng();
-const out = resolve(import.meta.dir, '../public/images/logo.png');
+const out = resolve(__dirname, '../public/images/logo.png');
 writeFileSync(out, png);
 console.log(`Written ${png.byteLength} bytes → ${out}`);
