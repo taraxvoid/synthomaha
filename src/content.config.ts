@@ -11,7 +11,8 @@ const events = defineCollection({
         location: z.string(),
         description: z.string(),
         price: z.string(),
-        image: z.string().optional()
+        image: z.string().optional(),
+        revision: z.number().optional().default(0)
     })
 });
 

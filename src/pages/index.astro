@@ -54,7 +54,6 @@ const visibleMusicians = allMusicians.filter((m) => !m.data.hidden).map((m) => (
     <!-- Booking -->
     <section class="py-6 mb-4 border-t border-primary/50" id="contact">
         <h2 class="text-2xl font-bold mb-4 text-primary">Booking</h2>
-        <p class="text-inherit mb-6">Interested in collaborating or booking for an event? Let us know!</p>
         <BookingForm client:load musicians={visibleMusicians} />
     </section></Layout
 >

@@ -24,14 +24,15 @@ const formatTime = (time: string) => {
 };
 ---
 
-<div class="mt-4">
+<div class="mt-4 flex flex-wrap gap-2">
+    <a href="webcal://synthomaha.net/events.ics" class="btn no-underline"> 📅 Subscribe (Mobile) </a>
     <a
         href="https://calendar.google.com/calendar/r?cid=webcal%3A%2F%2Fsynthomaha.net%2Fevents.ics"
         target="_blank"
         rel="noopener noreferrer"
         class="btn no-underline"
     >
-        📅 Add to Google Calendar
+        📅 Subscribe (Google Calendar)
     </a>
 </div>
 
@@ -65,11 +66,10 @@ const formatTime = (time: string) => {
                                     <h3 class="text-lg font-semibold text-primary leading-tight">{event.data.title}</h3>
                                     <a
                                         href={`/events/${event.id}.ics`}
-                                        download
                                         class="btn shrink-0 no-underline"
                                         style="--btn-py: 0.3rem; --btn-px: 0.75rem; --btn-font-size: 0.75rem;"
                                     >
-                                        📅 Add To Calendar (.ics)
+                                        📅 Add To Calendar
                                     </a>
                                 </div>
                                 <p class="text-sm opacity-75 mb-3">{event.data.description}</p>

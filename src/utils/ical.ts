@@ -6,6 +6,7 @@ export interface EventData {
     location: string;
     description: string;
     price: string;
+    revision?: number;
 }
 
 function formatICSTime(time: string): string {
@@ -38,8 +39,9 @@ function buildVEvent(data: EventData, slug: string): string {
         `SUMMARY:${data.title}`,
         `DESCRIPTION:${desc}`,
         `LOCATION:${data.location}`,
+        'URL:https://synthomaha.net/',
         'STATUS:CONFIRMED',
-        'SEQUENCE:0',
+        `SEQUENCE:${data.revision ?? 0}`,
         'END:VEVENT'
     ].join('\r\n');
 }

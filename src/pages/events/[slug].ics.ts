@@ -19,7 +19,7 @@ export const GET: APIRoute<{ event: CollectionEntry<'events'> }> = async ({ prop
     return new Response(ics, {
         headers: {
             'Content-Type': 'text/calendar; charset=utf-8',
-            'Content-Disposition': `attachment; filename="${event.id}.ics"`
+            'Content-Disposition': `inline; filename="${event.id}.ics"`
         }
     });
 };
