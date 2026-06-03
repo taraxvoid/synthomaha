@@ -1,7 +1,5 @@
+hidden: true
 name: 'tob'
 bio: 'Experimental Music Pioneer and Modular Synth Maestro'
 profileImage: '/images/uploads/tob.jpg'
-bandcamp: 'https://test.bandcamp.com'
-soundcloud: 'https://soundcloud.com/test'
-instagram: '@test'
 website: 'http://tob.sdf.org/'

@@ -3,6 +3,11 @@ import Layout from '../layouts/Layout.astro';
 import EventCalendar from '../components/EventCalendar.astro';
 import MusicianProfiles from '../components/MusicianProfiles.astro';
 import EmailSignupForm from '../components/EmailSignupForm';
+import BookingForm from '../components/BookingForm';
+import { getCollection } from 'astro:content';
+
+const allMusicians = await getCollection('musicians');
+const visibleMusicians = allMusicians.filter((m) => !m.data.hidden).map((m) => ({ name: m.data.name }));
 ---
 
 <Layout title="SynthOmaha - Electronic / Modular / Ambient / Experimental">
@@ -14,6 +19,7 @@ import EmailSignupForm from '../components/EmailSignupForm';
         <input type="text" name="name" />
         <input type="email" name="email" />
         <input type="text" name="subject" />
+        <input type="text" name="musician" />
         <textarea name="message"></textarea>
     </form>
 
@@ -48,6 +54,7 @@ import EmailSignupForm from '../components/EmailSignupForm';
     <!-- Booking -->
     <section class="py-6 mb-4 border-t border-primary/50" id="contact">
         <h2 class="text-2xl font-bold mb-4 text-primary">Booking</h2>
-        <p class="text-inherit"></p>
+        <p class="text-inherit mb-6">Interested in collaborating or booking for an event? Let us know!</p>
+        <BookingForm client:load musicians={visibleMusicians} />
     </section></Layout
 >

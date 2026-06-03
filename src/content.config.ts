@@ -24,7 +24,8 @@ const musicians = defineCollection({
         bandcamp: z.string().optional(),
         soundcloud: z.string().optional(),
         instagram: z.string().optional(),
-        website: z.string().optional()
+        website: z.string().optional(),
+        hidden: z.boolean().optional()
     })
 });
 
