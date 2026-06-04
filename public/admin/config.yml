@@ -74,3 +74,4 @@ collections:
           - { name: soundcloud, label: SoundCloud URL, widget: string, required: false }
           - { name: instagram, label: Instagram Handle, widget: string, required: false, hint: 'e.g. @handle' }
           - { name: website, label: Website URL, widget: string, required: false }
+          - { name: hidden, label: Hide this profile on the site, widget: boolean, required: false }
