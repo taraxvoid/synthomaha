@@ -25,4 +25,10 @@ Link to your netlify project
 ## Build and preview locally
 
 - `bun run dev` - Start local dev server
-- `bun run preview` - Preview production build locally
+- `netlify deploy` - Generate a preview deploy
+
+PRs against `main` will build a preview server on Netlify (details in the netlify bot's comment which is created on the PR)
+
+## Deploy to Production
+
+Merges to `main` will auto-deploy the site on Netlify. Use `netlify deploy --production` to deploy manually. 
