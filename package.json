@@ -1,51 +1,54 @@
 {
-    "name": "synthomaha.net",
-    "type": "module",
-    "version": "0.1.1",
-    "scripts": {
-        "dev": "astro dev",
-        "start": "astro dev",
-        "build": "astro build",
-        "astro": "astro",
-        "prepare": "husky",
-        "generate:logo": "bun run scripts/generate-logo-png.ts",
-        "generate:favicons": "bun run scripts/generate-favicons.mjs",
-        "generate": "bun run generate:logo && bun run generate:favicons",
-        "check": "astro check",
-        "lint:fix": "prettier --plugin=prettier-plugin-astro --write .",
-        "lint": "prettier --check --plugin=prettier-plugin-astro ."
-    },
-    "dependencies": {
-        "@astrojs/netlify": "7.0.11",
-        "@astrojs/react": "5.0.6",
-        "@fontsource-variable/inter": "^5.2.5",
-        "@fontsource-variable/orbitron": "^5.2.8",
-        "@netlify/blobs": "^10.7.4",
-        "@netlify/functions": "^5.2.0",
-        "@resvg/resvg-js": "^2.6.2",
-        "@tailwindcss/vite": "^4.1.16",
-        "astro": "6.4.2",
-        "blobshape": "^1.0.0",
-        "favicons": "^7.2.0",
-        "marked": "^17.0.0",
-        "marked-shiki": "^1.2.1",
-        "react": "^19.2.0",
-        "react-dom": "^19.2.0",
-        "tailwindcss": "^4.1.16",
-        "unique-names-generator": "^4.7.1"
-    },
-    "devDependencies": {
-        "@astrojs/check": "^0.9.9",
-        "@types/blobshape": "^1.0.3",
-        "@types/node": "^24.0.0",
-        "@types/react": "^19.2.2",
-        "@types/react-dom": "^19.2.2",
-        "husky": "^9.1.7",
-        "prettier": "^3.8.3",
-        "prettier-plugin-astro": "^0.14.1",
-        "typescript": "^6.0.3"
-    },
-    "volta": {
-        "node": "24.15.0"
-    }
+  "name": "synthomaha.net",
+  "type": "module",
+  "version": "1.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "astro": "astro",
+    "prepare": "husky",
+    "generate:logo": "bun run scripts/generate-logo-png.ts",
+    "generate:favicons": "bun run scripts/generate-favicons.mjs",
+    "generate": "bun run generate:logo && bun run generate:favicons",
+    "check": "astro check",
+    "lint": "biome check .",
+    "format": "biome check --write ."
+  },
+  "dependencies": {
+    "@astrojs/react": "5.0.7",
+    "@fontsource-variable/inter": "^5.2.8",
+    "@fontsource-variable/orbitron": "^5.2.8",
+    "@netlify/blobs": "^10.7.9",
+    "@netlify/functions": "^5.3.0",
+    "@resvg/resvg-js": "^2.6.2",
+    "@tailwindcss/vite": "^4.3.0",
+    "astro": "6.4.4",
+    "blobshape": "^1.0.0",
+    "favicons": "^7.3.0",
+    "marked": "^17.0.6",
+    "marked-shiki": "^1.2.1",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "tailwindcss": "^4.3.0",
+    "unique-names-generator": "^4.7.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "@biomejs/biome": "2.4.16",
+    "@types/blobshape": "^1.0.3",
+    "@types/node": "^24.13.0",
+    "@types/react": "^19.2.16",
+    "@types/react-dom": "^19.2.3",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.7",
+    "typescript": "^6.0.3"
+  },
+  "volta": {
+    "node": "24.15.0"
+  },
+  "lint-staged": {
+    "*.{css,html,js,cjs,json,md,yml}": "bunx biome format --write",
+    "*.{js,cjs,json,md,yml}": "bunx biome lint --write"
+  }
 }

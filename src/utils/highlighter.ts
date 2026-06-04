@@ -1,6 +1,6 @@
-import { createHighlighter } from 'shiki';
+import { createHighlighter } from 'shiki'
 
 export const highlighterPromise = createHighlighter({
-    langs: ['jsx', 'js'],
-    themes: ['min-dark']
-});
+  langs: ['jsx', 'js'],
+  themes: ['min-dark'],
+})

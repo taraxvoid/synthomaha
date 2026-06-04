@@ -1,27 +1,29 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection } from 'astro:content'
 
-const allEvents = await getCollection('events');
-const todayStr = new Date().toISOString().split('T')[0];
-const upcomingEvents = allEvents.filter((e) => e.data.date >= todayStr).sort((a, b) => a.data.date.localeCompare(b.data.date));
+const allEvents = await getCollection('events')
+const todayStr = new Date().toISOString().split('T')[0]
+const _upcomingEvents = allEvents
+  .filter((e) => e.data.date >= todayStr)
+  .sort((a, b) => a.data.date.localeCompare(b.data.date))
 
-const formatDate = (dateStr: string) => {
-    const date = new Date(dateStr + 'T12:00:00');
-    return date.toLocaleDateString('en-US', {
-        weekday: 'short',
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric'
-    });
-};
+const _formatDate = (dateStr: string) => {
+  const date = new Date(`${dateStr}T12:00:00`)
+  return date.toLocaleDateString('en-US', {
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  })
+}
 
-const formatTime = (time: string) => {
-    const [hours, minutes] = time.split(':');
-    const hour = parseInt(hours);
-    const ampm = hour >= 12 ? 'PM' : 'AM';
-    const displayHour = hour > 12 ? hour - 12 : hour === 0 ? 12 : hour;
-    return `${displayHour}:${minutes} ${ampm}`;
-};
+const _formatTime = (time: string) => {
+  const [hours, minutes] = time.split(':')
+  const hour = parseInt(hours, 10)
+  const ampm = hour >= 12 ? 'PM' : 'AM'
+  const displayHour = hour > 12 ? hour - 12 : hour === 0 ? 12 : hour
+  return `${displayHour}:${minutes} ${ampm}`
+}
 ---
 
 <div class="mt-4 flex flex-wrap gap-2">
@@ -31,9 +33,9 @@ const formatTime = (time: string) => {
         rel="noopener noreferrer"
         class="btn no-underline"
     >
-        📅 Subscribe (Google Calendar)
+        📅 Add to Google Calendar
     </a>
-    <a href="webcal://synthomaha.net/events.ics" class="btn no-underline"> 📅 Subscribe (Other Calendars) </a>
+    <a href="webcal://synthomaha.net/events.ics" class="btn no-underline"> 📅 Add to Apple Calendar</a>
 </div>
 
 <section class="py-4">

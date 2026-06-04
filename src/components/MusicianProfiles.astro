@@ -1,13 +1,12 @@
 ---
-import { getCollection } from 'astro:content';
-import MusicianCard from './MusicianCard.astro';
+import { getCollection } from 'astro:content'
 
-const allMusicians = await getCollection('musicians');
-const musicians = allMusicians.filter((m) => !m.data.hidden);
+const allMusicians = await getCollection('musicians')
+const _musicians = allMusicians.filter((m) => !m.data.hidden)
 ---
 
 <section class="py-4">
-    <h2 class="text-3xl font-bold mb-6 text-primary">Musicians</h2>
+    <h2 class="text-3xl font-bold mb-6 text-primary">Resident Musicians</h2>
 
     {
         musicians.length === 0 ? (

@@ -1,9 +1,9 @@
 ---
 interface Props {
-    class?: string;
+  class?: string
 }
 
-const { class: className } = Astro.props;
+const { class: className } = Astro.props
 ---
 
 <figure class:list={['diff relative grid w-full overflow-hidden select-none', className]} tabindex="0">
