@@ -1,5 +1,5 @@
 import { favicons } from 'favicons';
-import { readFileSync, writeFileSync, mkdirSync } from 'fs';
+import { readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
 const source = readFileSync('./public/favicon.svg');

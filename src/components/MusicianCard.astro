@@ -1,0 +1,51 @@
+---
+interface Props {
+    name: string;
+    bio?: string;
+    profileImage?: string;
+    bandcamp?: string;
+    soundcloud?: string;
+    instagram?: string;
+    website?: string;
+}
+
+const { name, bio, profileImage, bandcamp, soundcloud, instagram, website } = Astro.props;
+
+const instagramUrl = instagram ? `https://instagram.com/${instagram.replace(/^@/, '')}` : null;
+
+const links = [
+    bandcamp && { href: bandcamp, label: 'Bandcamp' },
+    soundcloud && { href: soundcloud, label: 'SoundCloud' },
+    instagramUrl && { href: instagramUrl, label: 'Instagram' },
+    website && { href: website, label: 'Website' }
+].filter(Boolean) as { href: string; label: string }[];
+
+const imageUrl = profileImage || '/images/logo.png';
+const isLogoFallback = !profileImage;
+---
+
+<wa-card class="musician-card">
+    <div class="flex gap-3">
+        <img
+            src={imageUrl}
+            alt={name}
+            class:list={['w-8 h-8 rounded-full object-cover border shrink-0 mt-0.5', isLogoFallback ? 'bg-white/5 p-1 border-primary/20' : 'border-primary/30']}
+            onerror="this.src='/images/logo.png'; this.classList.add('bg-white/5', 'p-1', 'border-primary/20'); this.classList.remove('border-primary/30')"
+        />
+        <div>
+            <div class="text-sm font-semibold text-primary">{name}</div>
+            {bio && <div class="text-xs opacity-70 mt-0.5 leading-snug">{bio}</div>}
+            {
+                links.length > 0 && (
+                    <div class="flex flex-wrap gap-x-3 gap-y-0.5 mt-1.5 text-xs">
+                        {links.map((link) => (
+                            <a href={link.href} target="_blank" rel="noopener noreferrer" class="text-primary">
+                                {link.label}
+                            </a>
+                        ))}
+                    </div>
+                )
+            }
+        </div>
+    </div>
+</wa-card>

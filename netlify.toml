@@ -6,3 +6,9 @@
 # Form handling configuration
 [form]
   enabled = true
+
+# Required for DecapBridge git-gateway proxy
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"

@@ -30,6 +30,61 @@
     }
 }
 
+/* Web-Awesome card theming — set on host AND part to cover both light/shadow DOM paths */
+wa-card {
+    display: block;
+    background: #2a2826;
+    border: 1px solid rgba(96, 165, 250, 0.3);
+    border-radius: 0.5rem;
+    color: #a8a29e;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s;
+}
+
+wa-card:hover {
+    border-color: #60a5fa;
+    box-shadow: 0 4px 16px rgba(96, 165, 250, 0.12);
+}
+
+wa-card::part(base) {
+    background: #2a2826;
+    border: 1px solid rgba(96, 165, 250, 0.3);
+    border-radius: 0.5rem;
+    color: #a8a29e;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s;
+}
+
+wa-card:hover::part(base) {
+    border-color: #60a5fa;
+    box-shadow: 0 4px 16px rgba(96, 165, 250, 0.12);
+}
+
+wa-card::part(header) {
+    background: #2a2826;
+    padding: 0.875rem 1.25rem;
+    border-bottom: 1px solid rgba(96, 165, 250, 0.15);
+}
+
+wa-card::part(body) {
+    background: #2a2826;
+    padding: 1rem 1.25rem;
+}
+
+wa-card::part(footer) {
+    background: #2a2826;
+    padding: 0.625rem 1.25rem;
+    border-top: 1px solid rgba(96, 165, 250, 0.15);
+}
+
+wa-card.musician-card::part(body) {
+    padding: 0.625rem 0.875rem;
+}
+
 @layer components {
     .markdown {
         > * {
