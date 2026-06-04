@@ -12,7 +12,7 @@
         "generate:favicons": "bun run scripts/generate-favicons.mjs",
         "generate": "bun run generate:logo && bun run generate:favicons",
         "check": "astro check",
-        "lint:fix": "prettier --plugin=prettier-plugin-astro --write .",
+        "format": "prettier --plugin=prettier-plugin-astro --write .",
         "lint": "prettier --check --plugin=prettier-plugin-astro ."
     },
     "dependencies": {
