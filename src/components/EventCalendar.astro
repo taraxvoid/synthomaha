@@ -24,20 +24,8 @@ const formatTime = (time: string) => {
 };
 ---
 
-<div class="mt-4 flex flex-wrap gap-2">
-    <a
-        href="https://calendar.google.com/calendar/r?cid=webcal%3A%2F%2Fsynthomaha.net%2Fevents.ics"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="btn no-underline"
-    >
-        📅 Subscribe (Google Calendar)
-    </a>
-    <a href="webcal://synthomaha.net/events.ics" class="btn no-underline"> 📅 Subscribe (Other Calendars) </a>
-</div>
-
 <section class="py-4">
-    <h2 class="text-3xl font-bold mb-6 text-primary">Event Calendar</h2>
+    <h2 class="text-3xl font-bold mb-6 text-primary">Upcoming Events</h2>
 
     {
         upcomingEvents.length === 0 ? (
@@ -57,23 +45,23 @@ const formatTime = (time: string) => {
                                 <img
                                     src={event.data.image}
                                     alt={event.data.title}
-                                    class="w-full sm:w-32 rounded object-cover shrink-0"
+                                    class="w-full sm:w-16 rounded object-cover shrink-0"
                                     style="max-height: 8rem;"
                                 />
                             )}
                             <div class="grow min-w-0">
-                                <div class="flex flex-wrap items-start justify-between gap-2 mb-2">
+                                <div class="flex flex-wrap items-start justify-between gap-1 mb-1">
                                     <h3 class="text-lg font-semibold text-primary leading-tight">{event.data.title}</h3>
                                     <a
                                         href={`/events/${event.id}.ics`}
                                         class="btn shrink-0 no-underline"
-                                        style="--btn-py: 0.3rem; --btn-px: 0.75rem; --btn-font-size: 0.75rem;"
+                                        style="--btn-py: 0.6rem; --btn-px: 1rem; --btn-font-size: 0.75rem;"
                                     >
                                         📅 Add To Calendar
                                     </a>
                                 </div>
-                                <p class="text-sm opacity-75 mb-3">{event.data.description}</p>
-                                <div class="flex flex-wrap gap-x-4 gap-y-1 text-xs opacity-70">
+                                <p class="text-lg opacity-75 mb-1">{event.data.description}</p>
+                                <div class="flex flex-wrap gap-x-1 gap-y-1 text-inherit">
                                     <span>📅 {formatDate(event.data.date)}</span>
                                     <span>🕗 {formatTime(event.data.time)}</span>
                                     <span>📍 {event.data.location}</span>
