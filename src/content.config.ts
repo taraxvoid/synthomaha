@@ -5,7 +5,7 @@ const events = defineCollection({
     loader: glob({ pattern: '**/*.yaml', base: './src/content/events' }),
     schema: z.object({
         title: z.string(),
-        date: z.string(), // YYYY-MM-DD, quoted in YAML to keep as string
+        date: z.union([z.string(), z.date().transform((d) => d.toISOString().slice(0, 10))]),
         time: z.string(), // HH:MM 24h
         endTime: z.string().optional(),
         location: z.string(),
