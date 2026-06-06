@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import type { SubmitEvent } from 'react';
 
 interface Musician {
     name: string;
@@ -48,7 +49,7 @@ export default function BookingForm({ musicians }: Props) {
         setOpenDropdown(false);
     };
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
         setStatus('loading');
 

@@ -1,11 +1,12 @@
 import { useState } from 'react';
+import type { SubmitEvent } from 'react';
 
 export default function EmailSignupForm() {
     const [email, setEmail] = useState('');
     const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
     const [message, setMessage] = useState('');
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
         setStatus('loading');
 
