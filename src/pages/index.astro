@@ -1,11 +1,11 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import EventCalendar from '../components/EventCalendar.astro';
-import MusicianProfiles from '../components/MusicianProfiles.astro';
-import EmailSignupForm from '../components/EmailSignupForm';
-import BookingForm from '../components/BookingForm';
 import { getCollection } from 'astro:content';
+import BookingForm from '../components/BookingForm';
+import EmailSignupForm from '../components/EmailSignupForm';
+import EventCalendar from '../components/EventCalendar.astro';
 import EventSubscribe from '../components/EventSubscribe.astro';
+import MusicianProfiles from '../components/MusicianProfiles.astro';
+import Layout from '../layouts/Layout.astro';
 
 const allMusicians = await getCollection('musicians');
 const visibleMusicians = allMusicians.filter((m) => !m.data.hidden).map((m) => ({ name: m.data.name }));

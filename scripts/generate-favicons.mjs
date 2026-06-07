@@ -1,6 +1,6 @@
+import { readFileSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { favicons } from 'favicons';
-import { readFileSync, writeFileSync } from 'fs';
-import { join } from 'path';
 
 const source = readFileSync('./public/favicon.svg');
 const dest = './public';

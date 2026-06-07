@@ -13,8 +13,8 @@
         "generate": "bun run generate:logo && bun run generate:favicons",
         "check": "astro check",
         "check:content": "astro sync",
-        "format": "prettier --plugin=prettier-plugin-astro --write .",
-        "lint": "prettier --check --plugin=prettier-plugin-astro .",
+        "format": "biome check --write .",
+        "lint": "biome check .",
         "test": "bun run test:unit",
         "test:unit": "bun test test/data.test.js test/build.test.js",
         "test:ical": "bun test test/ical.test.js"
@@ -39,13 +39,12 @@
     },
     "devDependencies": {
         "@astrojs/check": "^0.9.9",
+        "@biomejs/biome": "^2.4.16",
         "@types/blobshape": "^1.0.3",
         "@types/node": "^24.13.1",
         "@types/react": "^19.2.17",
         "@types/react-dom": "^19.2.3",
         "husky": "^9.1.7",
-        "prettier": "^3.8.3",
-        "prettier-plugin-astro": "^0.14.1",
         "typescript": "^6.0.3"
     },
     "volta": {

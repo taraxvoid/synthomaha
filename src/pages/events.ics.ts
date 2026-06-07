@@ -1,5 +1,5 @@
-import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
+import type { APIRoute } from 'astro';
 import { generateFeedICS } from '../utils/ical';
 
 export const prerender = true;
@@ -7,7 +7,9 @@ export const prerender = true;
 export const GET: APIRoute = async () => {
     const today = new Date().toISOString().split('T')[0];
     const allEvents = await getCollection('events');
-    const upcoming = allEvents.filter((e) => e.data.date >= today).sort((a, b) => a.data.date.localeCompare(b.data.date));
+    const upcoming = allEvents
+        .filter((e) => e.data.date >= today)
+        .sort((a, b) => a.data.date.localeCompare(b.data.date));
 
     const ics = generateFeedICS(upcoming);
     return new Response(ics, {

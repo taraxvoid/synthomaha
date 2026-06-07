@@ -1,5 +1,5 @@
 import blobshape from 'blobshape';
-import { uniqueNamesGenerator, adjectives, animals } from 'unique-names-generator';
+import { adjectives, animals, uniqueNamesGenerator } from 'unique-names-generator';
 
 export function randomInt(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -11,9 +11,10 @@ export function uniqueName() {
         separator: '-',
         length: 2
     };
-    return uniqueNamesGenerator(config) + '-' + randomInt(100, 999);
+    return `${uniqueNamesGenerator(config)}-${randomInt(100, 999)}`;
 }
 
+// biome-ignore lint/suspicious/noExplicitAny: blobshape types are incomplete
 export function generateBlob(parameters?: any) {
     const gradientColors = [
         ['#2E3192', '#1BFFFF'],

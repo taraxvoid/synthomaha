@@ -1,12 +1,12 @@
 #!/usr/bin/env bun
+
 // Extracts the <svg> from Logo.astro and renders it to public/images/logo.png
 // Font: scripts/fonts/orbitron-700.ttf (downloaded from Google Fonts, committed to repo)
 
+import { readFileSync, writeFileSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { Resvg } from '@resvg/resvg-js';
-import { readFileSync, writeFileSync } from 'fs';
-import { resolve } from 'path';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

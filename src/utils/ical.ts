@@ -21,14 +21,16 @@ function addTwoHours(time: string): string {
 }
 
 function stamp(): string {
-    return new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+    return `${new Date().toISOString().replace(/[-:]/g, '').split('.')[0]}Z`;
 }
 
 function buildVEvent(data: EventData, slug: string): string {
     const dateStr = data.date.replace(/-/g, '');
     const startTime = formatICSTime(data.time);
     const endTime = data.endTime ? formatICSTime(data.endTime) : addTwoHours(data.time);
-    const desc = [data.description, data.price === '0' ? 'Free admission' : `$${data.price} admission`].join(' | ').replace(/\n/g, '\\n');
+    const desc = [data.description, data.price === '0' ? 'Free admission' : `$${data.price} admission`]
+        .join(' | ')
+        .replace(/\n/g, '\\n');
 
     return [
         'BEGIN:VEVENT',

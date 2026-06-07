@@ -10,7 +10,7 @@ export default async (req: Request) => {
     try {
         const { email } = await req.json();
 
-        if (!email || !email.includes('@')) {
+        if (!email?.includes('@')) {
             return new Response(JSON.stringify({ error: 'Invalid email' }), {
                 status: 400,
                 headers: { 'Content-Type': 'application/json' }
