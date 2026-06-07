@@ -13,7 +13,7 @@ export const GET: APIRoute = async () => {
     return new Response(ics, {
         headers: {
             'Content-Type': 'text/calendar; charset=utf-8',
-            'Content-Disposition': 'attachment; filename="synthomaha-events.ics"'
+            'Content-Disposition': 'inline; filename="synthomaha-events.ics"'
         }
     });
 };

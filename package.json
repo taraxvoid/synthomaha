@@ -14,7 +14,10 @@
         "check": "astro check",
         "check:content": "astro sync",
         "format": "prettier --plugin=prettier-plugin-astro --write .",
-        "lint": "prettier --check --plugin=prettier-plugin-astro ."
+        "lint": "prettier --check --plugin=prettier-plugin-astro .",
+        "test": "bun run test:unit",
+        "test:unit": "bun test test/data.test.js test/build.test.js",
+        "test:ical": "bun test test/ical.test.js"
     },
     "dependencies": {
         "@astrojs/react": "5.0.6",
