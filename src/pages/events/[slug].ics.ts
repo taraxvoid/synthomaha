@@ -1,6 +1,6 @@
-import type { APIRoute, GetStaticPaths } from 'astro';
 import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
+import type { APIRoute, GetStaticPaths } from 'astro';
 import { generateEventICS } from '../../utils/ical';
 
 export const prerender = true;

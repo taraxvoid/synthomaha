@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
 import type { SubmitEvent } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface Musician {
     name: string;
@@ -69,7 +69,7 @@ export default function BookingForm({ musicians }: Props) {
                 setStatus('error');
                 setMessage('Something went wrong. Please try again.');
             }
-        } catch (error) {
+        } catch (_error) {
             setStatus('error');
             setMessage('Failed to send message. Please try again.');
         }
@@ -122,7 +122,9 @@ export default function BookingForm({ musicians }: Props) {
                     onChange={handleChange}
                     onFocus={() => {
                         if (formData.musician.length > 0) {
-                            const filtered = musicians.filter((m) => m.name.toLowerCase().includes(formData.musician.toLowerCase()));
+                            const filtered = musicians.filter((m) =>
+                                m.name.toLowerCase().includes(formData.musician.toLowerCase())
+                            );
                             setFilteredMusicians(filtered);
                             setOpenDropdown(filtered.length > 0);
                         }
@@ -133,6 +135,8 @@ export default function BookingForm({ musicians }: Props) {
                 {openDropdown && filteredMusicians.length > 0 && (
                     <div className="absolute z-10 w-full mt-1 bg-black/80 border border-primary/50 rounded shadow-lg">
                         {filteredMusicians.map((musician) => (
+                            // biome-ignore lint/a11y/useKeyWithClickEvents: dropdown option, keyboard nav handled by parent input
+                            // biome-ignore lint/a11y/noStaticElementInteractions: dropdown option, keyboard nav handled by parent input
                             <div
                                 key={musician.name}
                                 onClick={() => selectMusician(musician.name)}
@@ -186,9 +190,15 @@ export default function BookingForm({ musicians }: Props) {
                 {status === 'loading' ? 'Sending...' : 'Send Booking Request'}
             </button>
 
-            {status === 'success' && <div className="p-3 bg-green-500/20 border border-green-500 rounded text-green-300 text-sm">{message}</div>}
+            {status === 'success' && (
+                <div className="p-3 bg-green-500/20 border border-green-500 rounded text-green-300 text-sm">
+                    {message}
+                </div>
+            )}
 
-            {status === 'error' && <div className="p-3 bg-red-500/20 border border-red-500 rounded text-red-300 text-sm">{message}</div>}
+            {status === 'error' && (
+                <div className="p-3 bg-red-500/20 border border-red-500 rounded text-red-300 text-sm">{message}</div>
+            )}
         </form>
     );
 }

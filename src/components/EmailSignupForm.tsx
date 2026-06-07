@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import type { SubmitEvent } from 'react';
+import { useState } from 'react';
 
 export default function EmailSignupForm() {
     const [email, setEmail] = useState('');
@@ -26,7 +26,7 @@ export default function EmailSignupForm() {
                 setStatus('error');
                 setMessage('Something went wrong. Please try again.');
             }
-        } catch (error) {
+        } catch (_error) {
             setStatus('error');
             setMessage('Failed to subscribe. Please try again.');
         }
@@ -59,9 +59,15 @@ export default function EmailSignupForm() {
                 </div>
             </div>
 
-            {status === 'success' && <div className="p-3 bg-green-500/20 border border-green-500 rounded text-green-300 text-sm">{message}</div>}
+            {status === 'success' && (
+                <div className="p-3 bg-green-500/20 border border-green-500 rounded text-green-300 text-sm">
+                    {message}
+                </div>
+            )}
 
-            {status === 'error' && <div className="p-3 bg-red-500/20 border border-red-500 rounded text-red-300 text-sm">{message}</div>}
+            {status === 'error' && (
+                <div className="p-3 bg-red-500/20 border border-red-500 rounded text-red-300 text-sm">{message}</div>
+            )}
         </form>
     );
 }

@@ -1,6 +1,6 @@
 import { defineCollection } from 'astro:content';
-import { z } from 'zod';
 import { glob } from 'astro/loaders';
+import { z } from 'zod';
 
 const events = defineCollection({
     loader: glob({ pattern: '**/*.yaml', base: './src/content/events' }),
