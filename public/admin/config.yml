@@ -63,6 +63,7 @@ collections:
       folder: src/content/musicians
       create: true
       delete: true
+      identifier_field: name
       slug: '{{slug}}'
       extension: yaml
       format: yaml
