@@ -1,5 +1,5 @@
 import type { SubmitEvent } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 
 interface Musician {
     name: string;
@@ -13,40 +13,22 @@ export default function BookingForm({ musicians }: Props) {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
-        musician: '',
         venue: '',
         additional_info: ''
     });
+    const [selectedMusicians, setSelectedMusicians] = useState<string[]>([]);
     const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
     const [message, setMessage] = useState('');
-    const [openDropdown, setOpenDropdown] = useState(false);
-    const [filteredMusicians, setFilteredMusicians] = useState<Musician[]>([]);
-    const dropdownRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-                setOpenDropdown(false);
-            }
-        };
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
-
-        if (name === 'musician') {
-            const filtered = musicians.filter((m) => m.name.toLowerCase().includes(value.toLowerCase()));
-            setFilteredMusicians(filtered);
-            setOpenDropdown(value.length > 0 && filtered.length > 0);
-        }
     };
 
-    const selectMusician = (musicianName: string) => {
-        setFormData((prev) => ({ ...prev, musician: musicianName }));
-        setOpenDropdown(false);
+    const toggleMusician = (musicianName: string) => {
+        setSelectedMusicians((prev) =>
+            prev.includes(musicianName) ? prev.filter((name) => name !== musicianName) : [...prev, musicianName]
+        );
     };
 
     const handleSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
@@ -57,13 +39,18 @@ export default function BookingForm({ musicians }: Props) {
             const response = await fetch('/', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams({ 'form-name': 'booking', ...formData }).toString()
+                body: new URLSearchParams({
+                    'form-name': 'booking',
+                    ...formData,
+                    musician: selectedMusicians.join(', ')
+                }).toString()
             });
 
             if (response.ok) {
                 setStatus('success');
                 setMessage("Thanks for reaching out! We'll get back to you soon.");
-                setFormData({ name: '', email: '', musician: '', venue: '', additional_info: '' });
+                setFormData({ name: '', email: '', venue: '', additional_info: '' });
+                setSelectedMusicians([]);
                 setTimeout(() => setStatus('idle'), 5000);
             } else {
                 setStatus('error');
@@ -110,43 +97,28 @@ export default function BookingForm({ musicians }: Props) {
                 />
             </div>
 
-            <div ref={dropdownRef} className="relative">
-                <label htmlFor="musician" className="block text-sm font-medium mb-2">
-                    Which Musician?
-                </label>
-                <input
-                    type="text"
-                    id="musician"
-                    name="musician"
-                    value={formData.musician}
-                    onChange={handleChange}
-                    onFocus={() => {
-                        if (formData.musician.length > 0) {
-                            const filtered = musicians.filter((m) =>
-                                m.name.toLowerCase().includes(formData.musician.toLowerCase())
-                            );
-                            setFilteredMusicians(filtered);
-                            setOpenDropdown(filtered.length > 0);
-                        }
-                    }}
-                    placeholder="Musician Name (will autocomplete)"
-                    className="w-full px-4 py-2 bg-black/50 border border-primary/50 rounded text-white placeholder-gray-400 focus:outline-none focus:border-primary"
-                />
-                {openDropdown && filteredMusicians.length > 0 && (
-                    <div className="absolute z-10 w-full mt-1 bg-black/80 border border-primary/50 rounded shadow-lg">
-                        {filteredMusicians.map((musician) => (
-                            // biome-ignore lint/a11y/useKeyWithClickEvents: dropdown option, keyboard nav handled by parent input
-                            // biome-ignore lint/a11y/noStaticElementInteractions: dropdown option, keyboard nav handled by parent input
-                            <div
+            <div>
+                <span className="block text-sm font-medium mb-2">Which Musician(s)?</span>
+                <div className="flex flex-wrap gap-2">
+                    {musicians.map((musician) => {
+                        const isSelected = selectedMusicians.includes(musician.name);
+                        return (
+                            <button
                                 key={musician.name}
-                                onClick={() => selectMusician(musician.name)}
-                                className="px-4 py-2 cursor-pointer hover:bg-primary/20 text-white text-sm"
+                                type="button"
+                                aria-pressed={isSelected}
+                                onClick={() => toggleMusician(musician.name)}
+                                className={`px-3 py-1.5 rounded-full border text-sm transition-colors ${
+                                    isSelected
+                                        ? 'bg-primary text-black border-primary'
+                                        : 'bg-black/50 text-white border-primary/50 hover:border-primary'
+                                }`}
                             >
                                 {musician.name}
-                            </div>
-                        ))}
-                    </div>
-                )}
+                            </button>
+                        );
+                    })}
+                </div>
             </div>
 
             <div>
