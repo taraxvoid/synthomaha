@@ -31,4 +31,6 @@ PRs against `main` will build a preview server on Netlify (details in the netlif
 
 ## Deploy to Production
 
-Merges to `main` will auto-deploy the site on Netlify. Use `netlify deploy --production` to deploy manually.
+Merges to `main` will auto-deploy the site on Netlify.
+
+`netlify deploy --production` to deploy manually.
