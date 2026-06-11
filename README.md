@@ -8,9 +8,9 @@ synth night in Omaha
 
 [Bun](https://bun.com/docs/installation) for package handling
 
-(optional) [volta](https://volta.sh/) for node ver wrangling
+[volta](https://volta.sh/) for node ver wrangling
 
-(optional) [Netlify CLI](https://www.npmjs.com/package/netlify-cli) to manage the Netlify deployment
+[Netlify CLI](https://www.npmjs.com/package/netlify-cli) to manage the Netlify deployment
 
 ## One-time Setup
 
