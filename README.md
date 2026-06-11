@@ -4,13 +4,19 @@ synth night in Omaha
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/48146f69-e891-405d-83a7-c981680f79e9/deploy-status)](https://app.netlify.com/projects/synthomaha/deploys)
 
-## Pre-reqs
+## Dependencies
 
-[Bun](https://bun.com/docs/installation) for package handling
+- A working \*nix shell
+- [Bun](https://bun.sh/) as drop-in Node interpreter replacement, package manager and test runner
+- (optional) [volta](https://volta.sh/) for node ver wrangling
+- (optional) [Netlify CLI](https://docs.netlify.com/cli/get-started/) for managing live deployment
 
-[volta](https://volta.sh/) for node ver wrangling
 
-[Netlify CLI](https://www.npmjs.com/package/netlify-cli) to manage the Netlify deployment
+## Stack
+
+- [Astro](https://astro.build/) — static site generator
+- [Decap CMS](https://decapcms.org/) — content management
+- [Biome](https://biomejs.dev/) - lint
 
 ## One-time Setup
 
