@@ -11,7 +11,7 @@ const events = defineCollection({
         endTime: z.string().optional(),
         location: z.string(),
         description: z.string(),
-        price: z.string(),
+        price: z.string().optional().default('0'),
         image: z.string().optional(),
         revision: z.number().optional().default(0)
     })

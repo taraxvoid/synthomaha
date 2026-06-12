@@ -10,6 +10,7 @@ backend:
     auth_token_endpoint: /sites/f9f431f3-1bdf-43e8-b2d1-1d8eacbf1760/token
     gateway_url: https://gateway.decapbridge.com
 
+publish_mode: editorial_workflow
 logo_url: https://synthomaha.net/images/logo.png
 media_folder: public/images/uploads
 public_folder: /images/uploads
