@@ -14,7 +14,6 @@ export function uniqueName() {
     return `${uniqueNamesGenerator(config)}-${randomInt(100, 999)}`;
 }
 
-// biome-ignore lint/suspicious/noExplicitAny: blobshape types are incomplete
 export function generateBlob(parameters?: any) {
     const gradientColors = [
         ['#2E3192', '#1BFFFF'],

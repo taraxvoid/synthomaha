@@ -8,7 +8,10 @@ const dest = './public';
 const response = await favicons(source, {
     path: '/',
     appName: 'SynthOmaha',
-    appDescription: "Omaha's Electronic Music Community",
+    appShortName: 'SynthOmaha',
+    appDescription: 'Omaha Electronic Music and Synth Group',
+    developerName: 'Tara X/ Void',
+    developerURL: 'https://github.com/taraxvoid',
     background: '#1e3a52',
     theme_color: '#ff8c96',
     icons: {
