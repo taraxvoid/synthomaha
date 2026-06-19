@@ -2,10 +2,7 @@
 import { getCollection } from 'astro:content';
 
 const allEvents = await getCollection('events');
-const todayStr = new Date().toISOString().split('T')[0];
-const upcomingEvents = allEvents
-    .filter((e) => e.data.date >= todayStr)
-    .sort((a, b) => a.data.date.localeCompare(b.data.date));
+const sortedEvents = allEvents.sort((a, b) => a.data.date.localeCompare(b.data.date));
 
 const formatDate = (dateStr: string) => {
     const date = new Date(`${dateStr}T12:00:00`);
@@ -29,19 +26,19 @@ const formatTime = (time: string) => {
 <section class="py-4">
     <h2 class="text-3xl font-bold mb-6 text-primary">Upcoming Events</h2>
 
+    <p class="opacity-60" id="no-events-message" hidden>
+        No upcoming events —{' '}
+        <a href="#signup" class="underline">
+            Subscribe to Email List
+        </a>{' '}
+        to be notified of new events!
+    </p>
+
     {
-        upcomingEvents.length === 0 ? (
-            <p class="opacity-60">
-                No upcoming events —{' '}
-                <a href="#signup" class="underline">
-                    Subscribe to Email List
-                </a>{' '}
-                to be notified of new events!
-            </p>
-        ) : (
-            <div class="space-y-3">
-                {upcomingEvents.map((event) => (
-                    <wa-card>
+        sortedEvents.length > 0 && (
+            <div class="space-y-3" id="events-list">
+                {sortedEvents.map((event) => (
+                    <wa-card data-event-date={event.data.date}>
                         <div class="flex flex-col sm:flex-row sm:items-start gap-4">
                             {event.data.image && (
                                 <img
@@ -77,3 +74,26 @@ const formatTime = (time: string) => {
         )
     }
 </section>
+
+<script>
+    import { isEventPast } from '../utils/eventVisibility';
+
+    const todayStr = new Date().toISOString().split('T')[0];
+    const list = document.getElementById('events-list');
+    const noEventsMessage = document.getElementById('no-events-message');
+
+    let visibleCount = 0;
+    for (const card of list?.querySelectorAll('[data-event-date]') ?? []) {
+        const isPast = isEventPast(card.getAttribute('data-event-date') ?? '', todayStr);
+        card.toggleAttribute('hidden', isPast);
+        if (!isPast) visibleCount++;
+    }
+
+    noEventsMessage?.toggleAttribute('hidden', visibleCount > 0);
+</script>
+
+<style>
+    wa-card[hidden] {
+        display: none !important;
+    }
+</style>
