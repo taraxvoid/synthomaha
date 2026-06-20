@@ -30,7 +30,7 @@
         "astro": "6.4.6",
         "blobshape": "^1.0.0",
         "favicons": "^7.3.0",
-        "marked": "^17.0.6",
+        "marked": "^18.0.5",
         "marked-shiki": "^1.2.1",
         "react": "^19.2.7",
         "react-dom": "^19.2.7",
