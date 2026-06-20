@@ -16,7 +16,7 @@
         "format": "biome check --write .",
         "lint": "biome check .",
         "test": "bun run test:unit",
-        "test:unit": "bun test test/data.test.js test/build.test.js",
+        "test:unit": "bun test test/*.test.js",
         "test:ical": "bun test test/ical.test.js"
     },
     "dependencies": {
