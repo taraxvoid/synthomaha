@@ -15,10 +15,15 @@
         "check:content": "astro sync",
         "format": "biome check --write .",
         "lint": "biome check .",
-        "test": "bun run test:unit",
-        "test:unit": "bun test test/*.test.js",
+        "test": "bun run test:unit && playwright test",
+        "test:unit": "bun test test/data.test.js test/eventVisibility.test.js test/ical.test.js && bun test test/build.test.js",
+        "test:data": "bun test test/data.test.js",
+        "test:build": "bun test test/build.test.js",
         "test:ical": "bun test test/ical.test.js",
-        "test:e2e": "playwright test"
+        "test:fast": "bun run lint && bun run test:data",
+        "test:e2e": "playwright test",
+        "test:e2e:ui": "playwright test --ui",
+        "test:e2e:headed": "playwright test --headed"
     },
     "dependencies": {
         "@astrojs/react": "5.0.6",
