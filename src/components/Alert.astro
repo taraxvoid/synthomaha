@@ -1,9 +1,9 @@
 ---
 interface Props {
-    class?: string;
+    class?: string
 }
 
-const { class: className } = Astro.props;
+const { class: className } = Astro.props
 ---
 
 <div class:list={['flex gap-4 p-4 rounded-sm bg-primary text-primary-content', className]}>

@@ -1,12 +1,12 @@
-import type { SubmitEvent } from 'react';
-import { useState } from 'react';
+import type { SubmitEvent } from 'react'
+import { useState } from 'react'
 
 interface Musician {
-    name: string;
+    name: string
 }
 
 interface Props {
-    musicians: Musician[];
+    musicians: Musician[]
 }
 
 export default function BookingForm({ musicians }: Props) {
@@ -14,59 +14,82 @@ export default function BookingForm({ musicians }: Props) {
         name: '',
         email: '',
         venue: '',
-        additional_info: ''
-    });
-    const [selectedMusicians, setSelectedMusicians] = useState<string[]>([]);
-    const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-    const [message, setMessage] = useState('');
+        additional_info: '',
+    })
+    const [selectedMusicians, setSelectedMusicians] = useState<string[]>([])
+    const [status, setStatus] = useState<
+        'idle' | 'loading' | 'success' | 'error'
+    >('idle')
+    const [message, setMessage] = useState('')
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({ ...prev, [name]: value }));
-    };
+    const handleChange = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    ) => {
+        const { name, value } = e.target
+        setFormData((prev) => ({ ...prev, [name]: value }))
+    }
 
     const toggleMusician = (musicianName: string) => {
         setSelectedMusicians((prev) =>
-            prev.includes(musicianName) ? prev.filter((name) => name !== musicianName) : [...prev, musicianName]
-        );
-    };
+            prev.includes(musicianName)
+                ? prev.filter((name) => name !== musicianName)
+                : [...prev, musicianName],
+        )
+    }
 
     const handleSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        setStatus('loading');
+        e.preventDefault()
+        setStatus('loading')
 
         try {
             const response = await fetch('/', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
                 body: new URLSearchParams({
                     'form-name': 'booking',
                     ...formData,
-                    musician: selectedMusicians.join(', ')
-                }).toString()
-            });
+                    musician: selectedMusicians.join(', '),
+                }).toString(),
+            })
 
             if (response.ok) {
-                setStatus('success');
-                setMessage("Thanks for reaching out! We'll get back to you soon.");
-                setFormData({ name: '', email: '', venue: '', additional_info: '' });
-                setSelectedMusicians([]);
-                setTimeout(() => setStatus('idle'), 5000);
+                setStatus('success')
+                setMessage(
+                    "Thanks for reaching out! We'll get back to you soon.",
+                )
+                setFormData({
+                    name: '',
+                    email: '',
+                    venue: '',
+                    additional_info: '',
+                })
+                setSelectedMusicians([])
+                setTimeout(() => setStatus('idle'), 5000)
             } else {
-                setStatus('error');
-                setMessage('Something went wrong. Please try again.');
+                setStatus('error')
+                setMessage('Something went wrong. Please try again.')
             }
         } catch (_error) {
-            setStatus('error');
-            setMessage('Failed to send message. Please try again.');
+            setStatus('error')
+            setMessage('Failed to send message. Please try again.')
         }
-    };
+    }
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-4 max-w-2xl" name="booking" data-netlify="true">
+        <form
+            onSubmit={handleSubmit}
+            className="space-y-4 max-w-2xl"
+            name="booking"
+            data-netlify="true"
+        >
             <input type="hidden" name="form-name" value="booking" />
             <div>
-                <label htmlFor="name" className="block text-sm font-medium mb-2">
+                <label
+                    htmlFor="name"
+                    className="block text-sm font-medium mb-2"
+                >
                     Your Name
                 </label>
                 <input
@@ -82,7 +105,10 @@ export default function BookingForm({ musicians }: Props) {
             </div>
 
             <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-2">
+                <label
+                    htmlFor="email"
+                    className="block text-sm font-medium mb-2"
+                >
                     Your Email Address
                 </label>
                 <input
@@ -98,10 +124,14 @@ export default function BookingForm({ musicians }: Props) {
             </div>
 
             <div>
-                <span className="block text-sm font-medium mb-2">Which Musician(s)?</span>
+                <span className="block text-sm font-medium mb-2">
+                    Which Musician(s)?
+                </span>
                 <div className="flex flex-wrap gap-2">
                     {musicians.map((musician) => {
-                        const isSelected = selectedMusicians.includes(musician.name);
+                        const isSelected = selectedMusicians.includes(
+                            musician.name,
+                        )
                         return (
                             <button
                                 key={musician.name}
@@ -116,13 +146,16 @@ export default function BookingForm({ musicians }: Props) {
                             >
                                 {musician.name}
                             </button>
-                        );
+                        )
                     })}
                 </div>
             </div>
 
             <div>
-                <label htmlFor="venue" className="block text-sm font-medium mb-2">
+                <label
+                    htmlFor="venue"
+                    className="block text-sm font-medium mb-2"
+                >
                     Which Venue?
                 </label>
                 <textarea
@@ -138,7 +171,10 @@ export default function BookingForm({ musicians }: Props) {
             </div>
 
             <div>
-                <label htmlFor="additional_info" className="block text-sm font-medium mb-2">
+                <label
+                    htmlFor="additional_info"
+                    className="block text-sm font-medium mb-2"
+                >
                     Additional Information
                 </label>
                 <textarea
@@ -169,8 +205,10 @@ export default function BookingForm({ musicians }: Props) {
             )}
 
             {status === 'error' && (
-                <div className="p-3 bg-red-500/20 border border-red-500 rounded text-red-300 text-sm">{message}</div>
+                <div className="p-3 bg-red-500/20 border border-red-500 rounded text-red-300 text-sm">
+                    {message}
+                </div>
             )}
         </form>
-    );
+    )
 }

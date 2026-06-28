@@ -1,13 +1,15 @@
 ---
-import { getCollection } from 'astro:content';
-import BookingForm from '../components/BookingForm';
-import EmailSignupForm from '../components/EmailSignupForm';
-import EventCalendar from '../components/EventCalendar.astro';
-import MusicianProfiles from '../components/MusicianProfiles.astro';
-import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content'
+import BookingForm from '../components/BookingForm'
+import EmailSignupForm from '../components/EmailSignupForm'
+import EventCalendar from '../components/EventCalendar.astro'
+import MusicianProfiles from '../components/MusicianProfiles.astro'
+import Layout from '../layouts/Layout.astro'
 
-const allMusicians = await getCollection('musicians');
-const visibleMusicians = allMusicians.filter((m) => !m.data.hidden).map((m) => ({ name: m.data.name }));
+const allMusicians = await getCollection('musicians')
+const visibleMusicians = allMusicians
+    .filter((m) => !m.data.hidden)
+    .map((m) => ({ name: m.data.name }))
 ---
 
 <Layout title="SynthOmaha - Electronic / Modular / Ambient / Experimental">
