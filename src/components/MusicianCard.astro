@@ -25,14 +25,14 @@ const isLogoFallback = !profileImage;
 ---
 
 <wa-card class="musician-card">
-    <div class="flex gap-3">
+    <div class="flex flex-col sm:flex-row gap-2 sm:gap-3">
         <img
             src={imageUrl}
             alt={name}
-            class:list={['w-8 h-8 rounded-full object-cover border shrink-0 mt-0.5', isLogoFallback ? 'bg-white/5 p-1 border-primary/20' : 'border-primary/30']}
+            class:list={['w-12 h-12 sm:w-8 sm:h-8 rounded-full object-cover border shrink-0', isLogoFallback ? 'bg-white/5 p-1 border-primary/20' : 'border-primary/30']}
             onerror="this.src='/images/logo.png'; this.classList.add('bg-white/5', 'p-1', 'border-primary/20'); this.classList.remove('border-primary/30')"
         />
-        <div>
+        <div class="min-w-0">
             <div class="text-sm font-semibold text-primary">{name}</div>
             {bio && <div class="text-xs opacity-70 mt-0.5 leading-snug">{bio}</div>}
             {
