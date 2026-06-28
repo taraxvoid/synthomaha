@@ -22,6 +22,7 @@
     },
     "dependencies": {
         "@astrojs/react": "5.0.6",
+        "@awesome.me/webawesome": "^3.9.0",
         "@fontsource-variable/inter": "^5.2.8",
         "@fontsource-variable/orbitron": "^5.2.8",
         "@netlify/blobs": "^10.7.9",

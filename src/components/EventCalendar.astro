@@ -56,15 +56,15 @@ const formatTime = (time: string) => {
                                         class="btn shrink-0 no-underline"
                                         style="--btn-py: 0.6rem; --btn-px: 1rem; --btn-font-size: 0.75rem;"
                                     >
-                                        📅 Add To Calendar
+                                        <wa-icon name="calendar" aria-hidden="true"></wa-icon> Add To Calendar
                                     </a>
                                 </div>
                                 <p class="text-lg opacity-75 mb-1">{event.data.description}</p>
                                 <div class="flex flex-wrap gap-x-1 gap-y-1 text-inherit">
-                                    <span>📅 {formatDate(event.data.date)}</span>
-                                    <span>🕗 {formatTime(event.data.time)}</span>
-                                    <span>📍 {event.data.location}</span>
-                                    <span>{event.data.price === '0' ? '🎟 Free' : `🎟 $${event.data.price}`}</span>
+                                    <span><wa-icon name="calendar" aria-hidden="true"></wa-icon> {formatDate(event.data.date)}</span>
+                                    <span><wa-icon name="clock" aria-hidden="true"></wa-icon> {formatTime(event.data.time)}</span>
+                                    <span><wa-icon name="location-dot" aria-hidden="true"></wa-icon> {event.data.location}</span>
+                                    <span><wa-icon name="ticket" aria-hidden="true"></wa-icon> {event.data.price === '0' ? 'Free' : `$${event.data.price}`}</span>
                                 </div>
                             </div>
                         </div>
