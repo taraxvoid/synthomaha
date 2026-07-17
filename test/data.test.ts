@@ -1,7 +1,7 @@
-import { describe, expect, test } from 'bun:test';
 import { readdirSync, readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { describe, expect, test } from 'vitest';
 import { parse as parseYaml } from 'yaml';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -9,6 +9,10 @@ const ROOT = join(__dirname, '..');
 const EVENTS_DIR = join(ROOT, 'src', 'content', 'events');
 const MUSICIANS_DIR = join(ROOT, 'src', 'content', 'musicians');
 
+// ---------------------------------------------------------------------------
+// Event source files
+// ---------------------------------------------------------------------------
+//
 describe('events', () => {
     const files = readdirSync(EVENTS_DIR).filter((f) => f.endsWith('.yaml'));
 
@@ -50,6 +54,9 @@ describe('events', () => {
     }
 });
 
+// ---------------------------------------------------------------------------
+// Musician source files
+// ---------------------------------------------------------------------------
 describe('musicians', () => {
     const files = readdirSync(MUSICIANS_DIR).filter((f) => f.endsWith('.yaml'));
 

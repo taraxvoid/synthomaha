@@ -1,4 +1,4 @@
-import { describe, expect, test } from 'bun:test';
+import { describe, expect, test } from 'vitest';
 
 const { generateFeedICS, generateEventICS } = await import('../src/utils/ical.ts');
 

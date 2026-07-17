@@ -6,6 +6,7 @@
         "dev": "astro dev",
         "start": "astro dev",
         "build": "astro build",
+        "preview": "astro preview",
         "astro": "astro",
         "prepare": "husky",
         "generate:logo": "bun run scripts/generate-logo-png.ts",
@@ -15,10 +16,17 @@
         "check:content": "astro sync",
         "format": "biome check --write .",
         "lint": "biome check .",
-        "test": "bun run test:unit",
-        "test:unit": "bun test test/*.test.js",
-        "test:ical": "bun test test/ical.test.js",
-        "test:e2e": "playwright test"
+        "test": "npm-run-all -l -p check test:unit -s test:e2e",
+        "test:fast": "run-p -l lint test:data",
+        "test:ical": "vitest run test/ical.test.ts",
+        "test:data": "vitest run test/data.test.ts",
+        "test:build": "vitest run test/build.test.ts",
+        "test:unit": "vitest run",
+        "test:e2e": "playwright test --project=mobile-chrome",
+        "test:e2e:desktop": "playwright test --project=desktop-chrome",
+        "test:e2e:all": "playwright test",
+        "test:e2e:ui": "playwright test --ui",
+        "test:e2e:headed": "playwright test --headed"
     },
     "dependencies": {
         "@astrojs/react": "6.0.0",
@@ -48,7 +56,9 @@
         "@types/react": "^19.2.17",
         "@types/react-dom": "^19.2.3",
         "husky": "^9.1.7",
-        "typescript": "^6.0.3"
+        "npm-run-all2": "^9.0.2",
+        "typescript": "^6.0.3",
+        "vitest": "^4.1.10"
     },
     "volta": {
         "node": "24.15.0"

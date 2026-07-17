@@ -1,9 +1,5 @@
 import { expect, test } from '@playwright/test';
 
-// ---------------------------------------------------------------------------
-// Smoke
-// ---------------------------------------------------------------------------
-
 test('home page loads with correct title', async ({ page }) => {
     const response = await page.goto('/');
     expect(response.status()).toBe(200);
