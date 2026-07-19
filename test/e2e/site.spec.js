@@ -20,13 +20,13 @@ test('nav links point to expected sections and those sections exist', async ({
 }) => {
     await page.goto('/')
     const nav = page.locator('nav')
-    await expect(
-        nav.getByRole('link', { name: /Event Calendar/i }),
-    ).toHaveAttribute('href', '#eventcalendar')
-    await expect(nav.getByRole('link', { name: /Subscribe/i })).toHaveAttribute(
+    await expect(nav.getByRole('link', { name: /Events/i })).toHaveAttribute(
         'href',
-        '#signup',
+        '#events',
     )
+    await expect(
+        nav.getByRole('link', { name: /Join the List/i }),
+    ).toHaveAttribute('href', '#signup')
     await expect(nav.getByRole('link', { name: /Musicians/i })).toHaveAttribute(
         'href',
         '#musicians',
@@ -36,7 +36,7 @@ test('nav links point to expected sections and those sections exist', async ({
         '#contact',
     )
 
-    await expect(page.locator('#eventcalendar')).toBeAttached()
+    await expect(page.locator('section#events')).toBeAttached()
     await expect(page.locator('section#signup')).toBeAttached()
     await expect(page.locator('#musicians')).toBeAttached()
     await expect(page.locator('#contact')).toBeAttached()
@@ -63,7 +63,7 @@ test('musician social links have rel=noopener noreferrer', async ({ page }) => {
 test('event cards render with calendar download links', async ({ page }) => {
     await page.clock.setFixedTime(new Date('2026-01-01T12:00:00'))
     await page.goto('/')
-    const cards = page.locator('#eventcalendar wa-card[data-event-date]')
+    const cards = page.locator('#events wa-card[data-event-date]')
     expect(await cards.count()).toBeGreaterThan(0)
     const addToCalendar = cards
         .first()
@@ -88,7 +88,7 @@ test('shows no-events message when all events are in the past', async ({
 }) => {
     await page.clock.setFixedTime(new Date('2030-01-01T12:00:00'))
     await page.goto('/')
-    const cards = page.locator('#eventcalendar wa-card[data-event-date]')
+    const cards = page.locator('#events wa-card[data-event-date]')
     const count = await cards.count()
     for (let i = 0; i < count; i++) {
         await expect(cards.nth(i)).toHaveAttribute('hidden', '')
@@ -102,7 +102,7 @@ test('shows no-events message when all events are in the past', async ({
 test('shows all events when all are in the future', async ({ page }) => {
     await page.clock.setFixedTime(new Date('2020-01-01T12:00:00'))
     await page.goto('/')
-    const cards = page.locator('#eventcalendar wa-card[data-event-date]')
+    const cards = page.locator('#events wa-card[data-event-date]')
     const count = await cards.count()
     for (let i = 0; i < count; i++) {
         await expect(cards.nth(i)).not.toHaveAttribute('hidden', '')
@@ -146,7 +146,7 @@ test('musician cards stack vertically at 375px (image above text)', async ({
     await page.goto('/')
     const card = page.locator('#musicians wa-card').first()
     const img = card.locator('img').first()
-    const name = card.locator('.text-primary').first()
+    const name = card.locator('.text-ink-bright').first()
     const imgBox = await img.boundingBox()
     const nameBox = await name.boundingBox()
     // Image bottom should be at or above the name top (stacked, not side-by-side)
@@ -173,9 +173,7 @@ test('event cards do not overflow at 375px', async ({ page }) => {
     await page.clock.setFixedTime(new Date('2026-01-01T12:00:00'))
     await page.setViewportSize({ width: 375, height: 812 })
     await page.goto('/')
-    const cards = page.locator(
-        '#eventcalendar wa-card[data-event-date]:not([hidden])',
-    )
+    const cards = page.locator('#events wa-card[data-event-date]:not([hidden])')
     const count = await cards.count()
     for (let i = 0; i < count; i++) {
         const overflowing = await cards
