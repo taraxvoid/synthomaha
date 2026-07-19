@@ -122,6 +122,24 @@ export default function BookingForm({ musicians }: Props) {
                     className="field"
                 />
             </div>
+            <div>
+                <label
+                    htmlFor="venue"
+                    className="block text-sm font-medium mb-2"
+                >
+                    Your Venue
+                </label>
+                <textarea
+                    id="venue"
+                    name="venue"
+                    value={formData.venue}
+                    onChange={handleChange}
+                    required
+                    placeholder="Venue Name"
+                    rows={1}
+                    className="field"
+                />
+            </div>
 
             <div>
                 <span className="block text-sm font-medium mb-2">
@@ -134,6 +152,7 @@ export default function BookingForm({ musicians }: Props) {
                         )
                         return (
                             <button
+                                required
                                 key={musician.name}
                                 type="button"
                                 aria-pressed={isSelected}
@@ -153,36 +172,17 @@ export default function BookingForm({ musicians }: Props) {
 
             <div>
                 <label
-                    htmlFor="venue"
-                    className="block text-sm font-medium mb-2"
-                >
-                    Which Venue?
-                </label>
-                <textarea
-                    id="venue"
-                    name="venue"
-                    value={formData.venue}
-                    onChange={handleChange}
-                    required
-                    placeholder="Which Venue?"
-                    rows={1}
-                    className="field"
-                />
-            </div>
-
-            <div>
-                <label
                     htmlFor="additional_info"
                     className="block text-sm font-medium mb-2"
                 >
-                    Additional Information
+                    Venue Info (optional)
                 </label>
                 <textarea
                     id="additional_info"
                     name="additional_info"
                     value={formData.additional_info}
                     onChange={handleChange}
-                    placeholder="Any Gear Provided, Power and Hookups, Sound System and Mixer, PAs, Seating, Likely Audience, Event Type, Cover and Payment"
+                    placeholder="Hookups, System, Audience, Event, $$$"
                     rows={3}
                     className="field resize-none"
                 />
