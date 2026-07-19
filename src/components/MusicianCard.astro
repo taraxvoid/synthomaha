@@ -32,7 +32,7 @@ const isLogoFallback = !profileImage
         <img
             src={imageUrl}
             alt={name}
-            class:list={['w-12 h-12 sm:w-8 sm:h-8 rounded-full object-cover border shrink-0', isLogoFallback ? 'bg-white/5 p-1 border-signal/20' : 'border-signal/30']}
+            class:list={['w-12 h-14 sm:w-10 sm:h-12 rounded-md object-cover border shrink-0', isLogoFallback ? 'bg-white/5 p-1 border-signal/20' : 'border-signal/30']}
             onerror="this.src='/images/logo.png'; this.classList.add('bg-white/5', 'p-1', 'border-signal/20'); this.classList.remove('border-signal/30')"
         />
         <div class="min-w-0">

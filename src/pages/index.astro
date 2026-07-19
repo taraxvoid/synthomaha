@@ -26,74 +26,63 @@ const visibleMusicians = allMusicians
         <textarea name="additional_info"></textarea>
     </form>
 
-    <div class="relative">
+    <!-- About Section -->
+    <section class="py-6 mb-4">
+        <div class="flex items-center gap-3 mb-6">
+            <span class={`jack ${jackColorClass(0)}`} aria-hidden="true"></span>
+            <h2 class="text-3xl font-bold">Electronic Music in the Midwest</h2>
+        </div>
 
-        <!-- About Section -->
-        <section class="py-6 mb-4">
-            <div class="flex items-center gap-3 mb-6">
-                <span class={`jack ${jackColorClass(0)}`} aria-hidden="true"></span>
-                <h2 class="text-3xl font-bold">Electronic Music in the Midwest</h2>
-            </div>
+        <div class="space-y-4 text-inherit">
+            <p>
+                Open Jam on the Last Monday of the month at <strong>Shakedown Street Bar in Benson</strong> @ 8:00 PM Central Time
+            </p>
+        </div>
+    </section>
 
-            <div class="space-y-4 text-inherit">
-                <p>
-                    Open Jam on the Last Monday of the month at <strong>Shakedown Street Bar in Benson</strong> @ 8:00 PM Central Time
-                </p>
-            </div>
-        </section>
+    <!-- Event Calendar -->
+    <section class="mb-4" id="events">
+        <div class="flex items-center gap-3 mb-6">
+            <span class={`jack ${jackColorClass(1)}`} aria-hidden="true"></span>
+            <h2 class="text-3xl font-bold">Upcoming Events</h2>
+        </div>
+        <EventCalendar />
+        <a
+            href="https://calendar.google.com/calendar/r?cid=webcal%3A%2F%2Fsynthomaha.net%2Fevents.ics"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn no-underline mt-4"
+        >
+            <wa-icon name="calendar" aria-hidden="true"></wa-icon> Subscribe to Calendar
+        </a>
+    </section>
 
-        <!-- Event Calendar -->
-        <section class="mb-4" id="events">
-            <div class="flex items-center gap-3 mb-6">
-                <span class={`jack ${jackColorClass(1)}`} aria-hidden="true"></span>
-                <h2 class="text-3xl font-bold">Upcoming Events</h2>
-            </div>
-            <EventCalendar />
-        </section>
+    <!-- Musician Profiles -->
+    <section class="mb-4" id="musicians">
+        <div class="flex items-center gap-3 mb-6">
+            <span class={`jack ${jackColorClass(2)}`} aria-hidden="true"></span>
+            <h2 class="text-3xl font-bold">Musicians</h2>
+        </div>
+        <MusicianProfiles />
+    </section>
 
-        <!-- Musician Profiles -->
-        <section class="mb-4" id="musicians">
-            <div class="flex items-center gap-3 mb-6">
-                <span class={`jack ${jackColorClass(2)}`} aria-hidden="true"></span>
-                <h2 class="text-3xl font-bold">Musicians</h2>
-            </div>
-            <MusicianProfiles />
-        </section>
+    <!-- Subscribe / Follow -->
+    <section class="py-6 mb-4" id="signup">
+        <div class="flex items-center gap-3 mb-4">
+            <span class={`jack ${jackColorClass(3)}`} aria-hidden="true"></span>
+            <h2 class="text-2xl font-bold">Stay Connected</h2>
+        </div>
 
-        <!-- Subscribe / Follow -->
-        <section class="py-6 mb-4" id="signup">
-            <div class="flex items-center gap-3 mb-4">
-                <span class={`jack ${jackColorClass(3)}`} aria-hidden="true"></span>
-                <h2 class="text-2xl font-bold">Stay Connected</h2>
-            </div>
-            <p class="text-inherit mb-6">Get notified of upcoming events and gigs</p>
+        <h3 class="text-lg font-semibold mb-3">Email Updates</h3>
+        <EmailSignupForm client:load />
+    </section>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                <div>
-                    <h3 class="text-lg font-semibold mb-3">Email Updates</h3>
-                    <EmailSignupForm client:load />
-                </div>
-                <div>
-                    <h3 class="text-lg font-semibold mb-3">Subscribe to Calendar</h3>
-                    <a
-                        href="https://calendar.google.com/calendar/r?cid=webcal%3A%2F%2Fsynthomaha.net%2Fevents.ics"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="btn no-underline"
-                    >
-                        <wa-icon name="calendar" aria-hidden="true"></wa-icon> Subscribe to Calendar
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Booking -->
-        <section class="py-6 mb-4" id="contact">
-            <div class="flex items-center gap-3 mb-4">
-                <span class={`jack ${jackColorClass(4)}`} aria-hidden="true"></span>
-                <h2 class="text-2xl font-bold">Booking</h2>
-            </div>
-            <BookingForm client:load musicians={visibleMusicians} />
-        </section>
-    </div></Layout
+    <!-- Booking -->
+    <section class="py-6 mb-4" id="contact">
+        <div class="flex items-center gap-3 mb-4">
+            <span class={`jack ${jackColorClass(4)}`} aria-hidden="true"></span>
+            <h2 class="text-2xl font-bold">Booking</h2>
+        </div>
+        <BookingForm client:load musicians={visibleMusicians} />
+    </section></Layout
 >
