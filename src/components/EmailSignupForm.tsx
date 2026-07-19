@@ -65,12 +65,12 @@ export default function EmailSignupForm() {
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="your@email.com"
                         required
-                        className="flex-1 px-4 py-2 bg-black/50 border border-primary/50 rounded text-white placeholder-gray-400 focus:outline-none focus:border-primary"
+                        className="field flex-1"
                     />
                     <button
                         type="submit"
                         disabled={status === 'loading'}
-                        className="px-6 py-2 bg-primary text-black font-semibold rounded hover:bg-primary/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+                        className="px-6 py-2 bg-signal text-signal-content font-semibold rounded hover:bg-signal/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
                     >
                         {status === 'loading' ? 'Subscribing...' : 'Subscribe'}
                     </button>

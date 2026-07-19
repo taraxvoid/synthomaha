@@ -100,7 +100,7 @@ export default function BookingForm({ musicians }: Props) {
                     onChange={handleChange}
                     required
                     placeholder="Your name"
-                    className="w-full px-4 py-2 bg-black/50 border border-primary/50 rounded text-white placeholder-gray-400 focus:outline-none focus:border-primary"
+                    className="field"
                 />
             </div>
 
@@ -119,7 +119,7 @@ export default function BookingForm({ musicians }: Props) {
                     onChange={handleChange}
                     required
                     placeholder="your@email.com"
-                    className="w-full px-4 py-2 bg-black/50 border border-primary/50 rounded text-white placeholder-gray-400 focus:outline-none focus:border-primary"
+                    className="field"
                 />
             </div>
 
@@ -140,8 +140,8 @@ export default function BookingForm({ musicians }: Props) {
                                 onClick={() => toggleMusician(musician.name)}
                                 className={`px-3 py-1.5 rounded-full border text-sm transition-colors ${
                                     isSelected
-                                        ? 'bg-primary text-black border-primary'
-                                        : 'bg-black/50 text-white border-primary/50 hover:border-primary'
+                                        ? 'bg-signal text-signal-content border-signal'
+                                        : 'bg-panel-raised text-inherit border-signal/40 hover:border-signal'
                                 }`}
                             >
                                 {musician.name}
@@ -166,7 +166,7 @@ export default function BookingForm({ musicians }: Props) {
                     required
                     placeholder="Which Venue?"
                     rows={1}
-                    className="w-full px-4 py-2 bg-black/50 border border-primary/50 rounded text-white placeholder-gray-400 focus:outline-none focus:border-primary"
+                    className="field"
                 />
             </div>
 
@@ -184,7 +184,7 @@ export default function BookingForm({ musicians }: Props) {
                     onChange={handleChange}
                     placeholder="Any Gear Provided, Power and Hookups, Sound System and Mixer, PAs, Seating, Likely Audience, Event Type, Cover and Payment"
                     rows={3}
-                    className="w-full px-4 py-2 bg-black/50 border border-primary/50 rounded text-white placeholder-gray-400 focus:outline-none focus:border-primary resize-none"
+                    className="field resize-none"
                 />
             </div>
 
@@ -193,7 +193,7 @@ export default function BookingForm({ musicians }: Props) {
             <button
                 type="submit"
                 disabled={status === 'loading'}
-                className="px-6 py-2 bg-primary text-black font-semibold rounded hover:bg-primary/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-6 py-2 bg-signal text-signal-content font-semibold rounded hover:bg-signal/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
                 {status === 'loading' ? 'Sending...' : 'Send Booking Request'}
             </button>

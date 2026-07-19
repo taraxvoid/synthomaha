@@ -1,11 +1,12 @@
 ---
 import Logo from '../components/Logo.astro'
+import PatchCable from '../components/PatchCable.astro'
 
 const navItems = [
     { linkText: 'Events', href: '#events' },
     { linkText: 'Musicians', href: '#musicians' },
-    { linkText: 'Signup', href: '#signup' },
     { linkText: 'Booking', href: '#contact' },
+    { linkText: 'Join the List', href: '#signup', isCta: true },
 ]
 ---
 
@@ -15,17 +16,25 @@ const navItems = [
     </a>
     {
         !!navItems?.length && (
-            <ul class="flex flex-wrap gap-x-2 gap-y-2">
+            <ul class="relative flex flex-wrap items-center gap-x-3 gap-y-3">
+                <PatchCable
+                    orientation="horizontal"
+                    class="hidden sm:block absolute inset-x-2 top-1/2 -translate-y-1/2 h-2 -z-10"
+                />
                 {navItems.map((item) => (
-                    <li>
+                    <li class="flex items-center gap-1.5">
+                        <span
+                            class:list={['jack', item.isCta && 'jack--signal']}
+                            aria-hidden="true"
+                        />
                         <a
                             href={item.href}
-                            class="no-underline inline-block px-3 py-1.5 text-sm font-semibold tracking-wide uppercase
-                                   border border-primary/60 rounded
-                                   bg-black/30 text-primary
-                                   shadow-[inset_0_1px_0_rgba(255,255,255,0.08),inset_0_-2px_0_rgba(0,0,0,0.4)]
-                                   hover:bg-primary hover:text-primary-content hover:border-primary
-                                   transition-colors"
+                            class:list={[
+                                'no-underline inline-block px-3 py-1.5 text-sm font-semibold tracking-wide uppercase rounded transition-colors',
+                                item.isCta
+                                    ? 'bg-signal text-signal-content border border-signal hover:bg-signal/85'
+                                    : 'border border-signal/60 bg-panel-raised/60 text-signal shadow-[inset_0_1px_0_rgba(255,255,255,0.08),inset_0_-2px_0_rgba(0,0,0,0.4)] hover:bg-signal hover:text-signal-content hover:border-signal',
+                            ]}
                         >
                             {item.linkText}
                         </a>
