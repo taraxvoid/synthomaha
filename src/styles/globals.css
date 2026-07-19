@@ -78,14 +78,27 @@
     }
 }
 
-/* Web-Awesome card theming — set on host AND part to cover both light/shadow DOM paths */
+/* Web Awesome theming — wa-card consumes these --wa-* tokens internally
+   (see its shadow-DOM stylesheet); setting them here is how you theme it,
+   since the component's own :host/.body/.header/.footer rules outrank any
+   plain wa-card{}/::part() overrides on specificity, and this project never
+   imports Web Awesome's own theme CSS to give these tokens real values. */
 wa-card {
-    display: block;
-    background: var(--color-panel-raised);
-    border: 1px solid rgba(96, 165, 250, 0.25);
-    border-radius: 0.5rem;
-    color: var(--color-ink);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --wa-space-l: 1rem;
+    --wa-panel-border-radius: 0.5rem;
+    --wa-panel-border-width: 1px;
+    --wa-panel-border-style: solid;
+    --wa-color-surface-default: var(--color-panel-raised);
+    --wa-color-surface-border: rgba(96, 165, 250, 0.25);
+    --wa-shadow-s: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --wa-color-text-normal: var(--color-ink);
+    /* Tailwind's preflight resets border-width to 0 globally, which wins
+       over the shadow root's own host border-width even though it only
+       reads the wa-panel-border-width token above -- declare it directly
+       too so the host actually gets a visible border. */
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--wa-color-surface-border);
     transition:
         border-color 0.2s,
         box-shadow 0.2s;
@@ -96,41 +109,18 @@ wa-card:hover {
     box-shadow: 0 4px 16px rgba(96, 165, 250, 0.14);
 }
 
-wa-card::part(base) {
-    background: var(--color-panel-raised);
-    border: 1px solid rgba(96, 165, 250, 0.25);
-    border-radius: 0.5rem;
-    color: var(--color-ink);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    transition:
-        border-color 0.2s,
-        box-shadow 0.2s;
-}
-
-wa-card:hover::part(base) {
-    border-color: var(--color-signal);
-    box-shadow: 0 4px 16px rgba(96, 165, 250, 0.14);
-}
-
-wa-card::part(header) {
-    background: var(--color-panel-raised);
-    padding: 0.875rem 1.25rem;
-    border-bottom: 1px solid rgba(96, 165, 250, 0.15);
-}
-
-wa-card::part(body) {
-    background: var(--color-panel-raised);
-    padding: 1rem 1.25rem;
-}
-
-wa-card::part(footer) {
-    background: var(--color-panel-raised);
-    padding: 0.625rem 1.25rem;
-    border-top: 1px solid rgba(96, 165, 250, 0.15);
-}
-
 wa-card.musician-card::part(body) {
     padding: 0.625rem 0.875rem;
+}
+
+/* wa-card's internal --spacing (derived from --wa-space-l above) inherits
+   into its slotted light-DOM content -- and collides with Tailwind's own
+   --spacing token, the base unit behind every w, h, p, and gap utility,
+   silently blowing up every spacing utility used inside a card (e.g. w-12
+   resolves against 1rem instead of Tailwind's 0.25rem, rendering 4x too
+   big). Restore Tailwind's real base unit for our own slotted content. */
+wa-card > * {
+    --spacing: 0.25rem;
 }
 
 @layer components {
