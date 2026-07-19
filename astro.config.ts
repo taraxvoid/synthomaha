@@ -4,6 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'astro/config'
 
 export default defineConfig({
+    site: 'https://synthomaha.net',
     output: 'static',
     vite: {
         plugins: [tailwindcss()],
