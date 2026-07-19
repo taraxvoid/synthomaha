@@ -1,27 +1,30 @@
 ---
 interface Props {
-    name: string;
-    bio?: string;
-    profileImage?: string;
-    bandcamp?: string;
-    soundcloud?: string;
-    instagram?: string;
-    website?: string;
+    name: string
+    bio?: string
+    profileImage?: string
+    bandcamp?: string
+    soundcloud?: string
+    instagram?: string
+    website?: string
 }
 
-const { name, bio, profileImage, bandcamp, soundcloud, instagram, website } = Astro.props;
+const { name, bio, profileImage, bandcamp, soundcloud, instagram, website } =
+    Astro.props
 
-const instagramUrl = instagram ? `https://instagram.com/${instagram.replace(/^@/, '')}` : null;
+const instagramUrl = instagram
+    ? `https://instagram.com/${instagram.replace(/^@/, '')}`
+    : null
 
 const links = [
     bandcamp && { href: bandcamp, label: 'Bandcamp' },
     soundcloud && { href: soundcloud, label: 'SoundCloud' },
     instagramUrl && { href: instagramUrl, label: 'Instagram' },
-    website && { href: website, label: 'Website' }
-].filter(Boolean) as { href: string; label: string }[];
+    website && { href: website, label: 'Website' },
+].filter(Boolean) as { href: string; label: string }[]
 
-const imageUrl = profileImage || '/images/logo.png';
-const isLogoFallback = !profileImage;
+const imageUrl = profileImage || '/images/logo.png'
+const isLogoFallback = !profileImage
 ---
 
 <wa-card class="musician-card">

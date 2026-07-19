@@ -1,42 +1,60 @@
-import type { SubmitEvent } from 'react';
-import { useState } from 'react';
+import type { SubmitEvent } from 'react'
+import { useState } from 'react'
 
 export default function EmailSignupForm() {
-    const [email, setEmail] = useState('');
-    const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-    const [message, setMessage] = useState('');
+    const [email, setEmail] = useState('')
+    const [status, setStatus] = useState<
+        'idle' | 'loading' | 'success' | 'error'
+    >('idle')
+    const [message, setMessage] = useState('')
 
     const handleSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        setStatus('loading');
+        e.preventDefault()
+        setStatus('loading')
 
         try {
             const response = await fetch('/', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams({ 'form-name': 'signup', email }).toString()
-            });
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    'form-name': 'signup',
+                    email,
+                }).toString(),
+            })
 
             if (response.ok) {
-                setStatus('success');
-                setMessage('Thanks for signing up! Check your email for updates.');
-                setEmail('');
-                setTimeout(() => setStatus('idle'), 5000);
+                setStatus('success')
+                setMessage(
+                    'Thanks for signing up! Check your email for updates.',
+                )
+                setEmail('')
+                setTimeout(() => setStatus('idle'), 5000)
             } else {
-                setStatus('error');
-                setMessage('Something went wrong. Please try again.');
+                setStatus('error')
+                setMessage('Something went wrong. Please try again.')
             }
         } catch (_error) {
-            setStatus('error');
-            setMessage('Failed to subscribe. Please try again.');
+            setStatus('error')
+            setMessage('Failed to subscribe. Please try again.')
         }
-    };
+    }
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-4" id="signup" name="signup" data-netlify="true">
+        <form
+            onSubmit={handleSubmit}
+            className="space-y-4"
+            id="signup"
+            name="signup"
+            data-netlify="true"
+        >
             <input type="hidden" name="form-name" value="signup" />
             <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-2">
+                <label
+                    htmlFor="email"
+                    className="block text-sm font-medium mb-2"
+                >
                     Email Address
                 </label>
                 <div className="flex flex-col sm:flex-row gap-2">
@@ -66,8 +84,10 @@ export default function EmailSignupForm() {
             )}
 
             {status === 'error' && (
-                <div className="p-3 bg-red-500/20 border border-red-500 rounded text-red-300 text-sm">{message}</div>
+                <div className="p-3 bg-red-500/20 border border-red-500 rounded text-red-300 text-sm">
+                    {message}
+                </div>
             )}
         </form>
-    );
+    )
 }

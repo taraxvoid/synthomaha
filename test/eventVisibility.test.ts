@@ -1,17 +1,17 @@
-import { describe, expect, test } from 'vitest';
+import { describe, expect, test } from 'vitest'
 
-const { isEventPast } = await import('../src/utils/eventVisibility.ts');
+const { isEventPast } = await import('../src/utils/eventVisibility.ts')
 
 describe('isEventPast', () => {
     test('returns true when the event date is before today', () => {
-        expect(isEventPast('2026-06-09', '2026-06-19')).toBe(true);
-    });
+        expect(isEventPast('2026-06-09', '2026-06-19')).toBe(true)
+    })
 
     test('returns false when the event date is after today', () => {
-        expect(isEventPast('2026-08-04', '2026-06-19')).toBe(false);
-    });
+        expect(isEventPast('2026-08-04', '2026-06-19')).toBe(false)
+    })
 
     test('returns false when the event date is today', () => {
-        expect(isEventPast('2026-06-19', '2026-06-19')).toBe(false);
-    });
-});
+        expect(isEventPast('2026-06-19', '2026-06-19')).toBe(false)
+    })
+})

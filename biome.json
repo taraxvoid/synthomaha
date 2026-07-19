@@ -8,18 +8,24 @@
         "indentStyle": "space",
         "indentWidth": 4,
         "lineEnding": "lf",
-        "lineWidth": 120,
+        "lineWidth": 80,
         "attributePosition": "auto",
         "bracketSameLine": false,
         "bracketSpacing": true,
         "expand": "auto",
         "useEditorconfig": true,
-        "includes": ["**", "!**/bun.lock", "!**/deno.lock", "!**/.husky/", "!public/admin/**"]
+        "includes": [
+            "**",
+            "!**/bun.lock",
+            "!**/deno.lock",
+            "!**/.husky/",
+            "!public/admin/**"
+        ]
     },
     "linter": {
         "enabled": true,
-        "rules": { "preset": "none" },
-        "includes": ["**", "!.astro/**", "!public/admin/**"]
+        "rules": { "preset": "recommended" },
+        "includes": ["**", "!.astro/**", "!public/admin/**", "!public/**/*.svg"]
     },
     "overrides": [
         {
@@ -38,8 +44,8 @@
         "formatter": {
             "jsxQuoteStyle": "double",
             "quoteProperties": "asNeeded",
-            "trailingCommas": "none",
-            "semicolons": "always",
+            "trailingCommas": "all",
+            "semicolons": "asNeeded",
             "arrowParentheses": "always",
             "bracketSameLine": false,
             "quoteStyle": "single",

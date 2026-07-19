@@ -1,36 +1,41 @@
 export interface EventData {
-    title: string;
-    date: string;
-    time: string;
-    endTime?: string;
-    location: string;
-    description: string;
-    price: string;
-    revision?: number;
+    title: string
+    date: string
+    time: string
+    endTime?: string
+    location: string
+    description: string
+    price: string
+    revision?: number
 }
 
 function formatICSTime(time: string): string {
-    const [h, m] = time.split(':');
-    return `${h.padStart(2, '0')}${m.padStart(2, '0')}00`;
+    const [h, m] = time.split(':')
+    return `${h.padStart(2, '0')}${m.padStart(2, '0')}00`
 }
 
 function addTwoHours(time: string): string {
-    const [h, m] = time.split(':').map(Number);
-    const newH = (h + 2) % 24;
-    return `${String(newH).padStart(2, '0')}${String(m).padStart(2, '0')}00`;
+    const [h, m] = time.split(':').map(Number)
+    const newH = (h + 2) % 24
+    return `${String(newH).padStart(2, '0')}${String(m).padStart(2, '0')}00`
 }
 
 function stamp(): string {
-    return `${new Date().toISOString().replace(/[-:]/g, '').split('.')[0]}Z`;
+    return `${new Date().toISOString().replace(/[-:]/g, '').split('.')[0]}Z`
 }
 
 function buildVEvent(data: EventData, slug: string): string {
-    const dateStr = data.date.replace(/-/g, '');
-    const startTime = formatICSTime(data.time);
-    const endTime = data.endTime ? formatICSTime(data.endTime) : addTwoHours(data.time);
-    const desc = [data.description, data.price === '0' ? 'Free admission' : `$${data.price} admission`]
+    const dateStr = data.date.replace(/-/g, '')
+    const startTime = formatICSTime(data.time)
+    const endTime = data.endTime
+        ? formatICSTime(data.endTime)
+        : addTwoHours(data.time)
+    const desc = [
+        data.description,
+        data.price === '0' ? 'Free admission' : `$${data.price} admission`,
+    ]
         .join(' | ')
-        .replace(/\n/g, '\\n');
+        .replace(/\n/g, '\\n')
 
     return [
         'BEGIN:VEVENT',
@@ -44,8 +49,8 @@ function buildVEvent(data: EventData, slug: string): string {
         'URL:https://synthomaha.net/',
         'STATUS:CONFIRMED',
         `SEQUENCE:${data.revision ?? 0}`,
-        'END:VEVENT'
-    ].join('\r\n');
+        'END:VEVENT',
+    ].join('\r\n')
 }
 
 export function generateEventICS(data: EventData, slug: string): string {
@@ -58,8 +63,8 @@ export function generateEventICS(data: EventData, slug: string): string {
         `X-WR-CALNAME:${data.title}`,
         'X-WR-TIMEZONE:America/Chicago',
         buildVEvent(data, slug),
-        'END:VCALENDAR'
-    ].join('\r\n');
+        'END:VCALENDAR',
+    ].join('\r\n')
 }
 
 // Recurring monthly jam — last Monday of every month at 8 PM
@@ -76,12 +81,17 @@ function buildRecurringJamVEvent(): string {
         'LOCATION:Shakedown Street in Benson',
         'STATUS:CONFIRMED',
         'SEQUENCE:0',
-        'END:VEVENT'
-    ].join('\r\n');
+        'END:VEVENT',
+    ].join('\r\n')
 }
 
-export function generateFeedICS(events: Array<{ data: EventData; id: string }>): string {
-    const vevents = [buildRecurringJamVEvent(), ...events.map(({ data, id }) => buildVEvent(data, id))].join('\r\n');
+export function generateFeedICS(
+    events: Array<{ data: EventData; id: string }>,
+): string {
+    const vevents = [
+        buildRecurringJamVEvent(),
+        ...events.map(({ data, id }) => buildVEvent(data, id)),
+    ].join('\r\n')
     return [
         'BEGIN:VCALENDAR',
         'VERSION:2.0',
@@ -91,6 +101,6 @@ export function generateFeedICS(events: Array<{ data: EventData; id: string }>):
         'X-WR-CALNAME:SynthOmaha Events',
         'X-WR-TIMEZONE:America/Chicago',
         vevents,
-        'END:VCALENDAR'
-    ].join('\r\n');
+        'END:VCALENDAR',
+    ].join('\r\n')
 }
