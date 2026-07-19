@@ -11,13 +11,14 @@
     --color-panel: #1c1a17;
     --color-panel-raised: #28241f;
     --color-ink: #b8b2a8;
+    --color-ink-bright: #f3ede0;
 
-    /* Signal — the one accent every real action is patched into */
-    --color-signal: #c8a84b;
+    /* Signal — the logo's own blue, the one accent every real action is patched into */
+    --color-signal: #60a5fa;
     --color-signal-content: #1a1816;
 
-    /* Jack colors — the logo's own patch-cable palette, reused as a small
-       coding system (cable dividers, tag dots), never as a page-wide accent */
+    /* Jack colors — the logo's own patch-cable palette, cycled across the
+       jack sockets in the header nav and the section spine */
     --color-jack-pink: #ec4899;
     --color-jack-purple: #9333ea;
     --color-jack-red: #ef4444;
@@ -49,6 +50,12 @@
         letter-spacing: 0.01em;
     }
 
+    h1,
+    h2,
+    h3 {
+        color: var(--color-ink-bright);
+    }
+
     h1 {
         @apply text-4xl font-bold tracking-tight sm:text-5xl;
     }
@@ -75,7 +82,7 @@
 wa-card {
     display: block;
     background: var(--color-panel-raised);
-    border: 1px solid rgba(200, 168, 75, 0.25);
+    border: 1px solid rgba(96, 165, 250, 0.25);
     border-radius: 0.5rem;
     color: var(--color-ink);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
@@ -86,12 +93,12 @@ wa-card {
 
 wa-card:hover {
     border-color: var(--color-signal);
-    box-shadow: 0 4px 16px rgba(200, 168, 75, 0.14);
+    box-shadow: 0 4px 16px rgba(96, 165, 250, 0.14);
 }
 
 wa-card::part(base) {
     background: var(--color-panel-raised);
-    border: 1px solid rgba(200, 168, 75, 0.25);
+    border: 1px solid rgba(96, 165, 250, 0.25);
     border-radius: 0.5rem;
     color: var(--color-ink);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
@@ -102,13 +109,13 @@ wa-card::part(base) {
 
 wa-card:hover::part(base) {
     border-color: var(--color-signal);
-    box-shadow: 0 4px 16px rgba(200, 168, 75, 0.14);
+    box-shadow: 0 4px 16px rgba(96, 165, 250, 0.14);
 }
 
 wa-card::part(header) {
     background: var(--color-panel-raised);
     padding: 0.875rem 1.25rem;
-    border-bottom: 1px solid rgba(200, 168, 75, 0.15);
+    border-bottom: 1px solid rgba(96, 165, 250, 0.15);
 }
 
 wa-card::part(body) {
@@ -119,7 +126,7 @@ wa-card::part(body) {
 wa-card::part(footer) {
     background: var(--color-panel-raised);
     padding: 0.625rem 1.25rem;
-    border-top: 1px solid rgba(200, 168, 75, 0.15);
+    border-top: 1px solid rgba(96, 165, 250, 0.15);
 }
 
 wa-card.musician-card::part(body) {
@@ -185,15 +192,27 @@ wa-card.musician-card::part(body) {
         background: var(--color-panel);
     }
 
-    .jack--signal {
-        background: var(--color-signal);
+    .jack--pink {
+        background: var(--color-jack-pink);
+    }
+
+    .jack--purple {
+        background: var(--color-jack-purple);
+    }
+
+    .jack--red {
+        background: var(--color-jack-red);
+    }
+
+    .jack--green {
+        background: var(--color-jack-green);
     }
 
     /* Jack-style form field: a socket you patch input into, not a generic dark input */
     .field {
         @apply w-full px-4 py-2 rounded text-inherit placeholder-gray-500 transition-colors;
         background: var(--color-panel-raised);
-        border: 1px solid rgba(200, 168, 75, 0.35);
+        border: 1px solid rgba(96, 165, 250, 0.35);
 
         &:focus {
             @apply outline-none;

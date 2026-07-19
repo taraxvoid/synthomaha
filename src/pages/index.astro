@@ -6,6 +6,7 @@ import EventCalendar from '../components/EventCalendar.astro'
 import MusicianProfiles from '../components/MusicianProfiles.astro'
 import PatchCable from '../components/PatchCable.astro'
 import Layout from '../layouts/Layout.astro'
+import { jackColorClass } from '../utils/jackColors'
 
 const allMusicians = await getCollection('musicians')
 const visibleMusicians = allMusicians
@@ -27,16 +28,15 @@ const visibleMusicians = allMusicians
     </form>
 
     <!-- Patch bay spine — one cable connecting every section, plugged in at each heading -->
-    <div class="relative pl-8 sm:pl-10">
-        <PatchCable
-            orientation="vertical"
-            class="absolute left-[0.6rem] top-2 bottom-2 w-2 -z-10 sm:left-[0.85rem]"
-        />
+    <div class="relative">
+        <PatchCable class="absolute left-0 top-2 bottom-2 w-3 -z-10" />
 
         <!-- About Section -->
-        <section class="relative py-6 mb-4">
-            <span class="jack jack--signal absolute -left-8 top-1.5 sm:-left-10" aria-hidden="true"></span>
-            <h2 class="text-3xl font-bold mb-6 text-signal">Synth Omaha - Electronic Music in the Midwest</h2>
+        <section class="py-6 mb-4">
+            <div class="flex items-center gap-3 mb-6">
+                <span class={`jack ${jackColorClass(0)}`} aria-hidden="true"></span>
+                <h2 class="text-3xl font-bold">Synth Omaha - Electronic Music in the Midwest</h2>
+            </div>
 
             <div class="space-y-4 text-inherit">
                 <p>
@@ -46,30 +46,38 @@ const visibleMusicians = allMusicians
         </section>
 
         <!-- Event Calendar -->
-        <section class="relative mb-4" id="events">
-            <span class="jack absolute -left-8 top-1.5 sm:-left-10" aria-hidden="true"></span>
+        <section class="mb-4" id="events">
+            <div class="flex items-center gap-3 mb-6">
+                <span class={`jack ${jackColorClass(1)}`} aria-hidden="true"></span>
+                <h2 class="text-3xl font-bold">Upcoming Events</h2>
+            </div>
             <EventCalendar />
         </section>
 
         <!-- Musician Profiles -->
-        <section class="relative mb-4" id="musicians">
-            <span class="jack absolute -left-8 top-1.5 sm:-left-10" aria-hidden="true"></span>
+        <section class="mb-4" id="musicians">
+            <div class="flex items-center gap-3 mb-6">
+                <span class={`jack ${jackColorClass(2)}`} aria-hidden="true"></span>
+                <h2 class="text-3xl font-bold">Musicians</h2>
+            </div>
             <MusicianProfiles />
         </section>
 
         <!-- Subscribe / Follow -->
-        <section class="relative py-6 mb-4" id="signup">
-            <span class="jack jack--signal absolute -left-8 top-1.5 sm:-left-10" aria-hidden="true"></span>
-            <h2 class="text-2xl font-bold mb-4 text-signal">Stay Connected</h2>
+        <section class="py-6 mb-4" id="signup">
+            <div class="flex items-center gap-3 mb-4">
+                <span class={`jack ${jackColorClass(3)}`} aria-hidden="true"></span>
+                <h2 class="text-2xl font-bold">Stay Connected</h2>
+            </div>
             <p class="text-inherit mb-6">Get notified of upcoming events and gigs</p>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 <div>
-                    <h3 class="text-lg font-semibold mb-3 text-signal">Email Updates</h3>
+                    <h3 class="text-lg font-semibold mb-3">Email Updates</h3>
                     <EmailSignupForm client:load />
                 </div>
                 <div>
-                    <h3 class="text-lg font-semibold mb-3 text-signal">Calendar</h3>
+                    <h3 class="text-lg font-semibold mb-3">Calendar</h3>
                     <p class="mb-4 text-sm">Add our events directly to your calendar app</p>
                     <a
                         href="https://calendar.google.com/calendar/r?cid=webcal%3A%2F%2Fsynthomaha.net%2Fevents.ics"
@@ -84,9 +92,11 @@ const visibleMusicians = allMusicians
         </section>
 
         <!-- Booking -->
-        <section class="relative py-6 mb-4" id="contact">
-            <span class="jack absolute -left-8 top-1.5 sm:-left-10" aria-hidden="true"></span>
-            <h2 class="text-2xl font-bold mb-4 text-signal">Booking</h2>
+        <section class="py-6 mb-4" id="contact">
+            <div class="flex items-center gap-3 mb-4">
+                <span class={`jack ${jackColorClass(4)}`} aria-hidden="true"></span>
+                <h2 class="text-2xl font-bold">Booking</h2>
+            </div>
             <BookingForm client:load musicians={visibleMusicians} />
         </section>
     </div></Layout

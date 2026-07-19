@@ -1,6 +1,6 @@
 ---
 import Logo from '../components/Logo.astro'
-import PatchCable from '../components/PatchCable.astro'
+import { jackColorClass } from '../utils/jackColors'
 
 const navItems = [
     { linkText: 'Events', href: '#events' },
@@ -16,15 +16,11 @@ const navItems = [
     </a>
     {
         !!navItems?.length && (
-            <ul class="relative flex flex-wrap items-center gap-x-3 gap-y-3">
-                <PatchCable
-                    orientation="horizontal"
-                    class="hidden sm:block absolute inset-x-2 top-1/2 -translate-y-1/2 h-2 -z-10"
-                />
-                {navItems.map((item) => (
+            <ul class="flex flex-wrap items-center gap-x-3 gap-y-3">
+                {navItems.map((item, index) => (
                     <li class="flex items-center gap-1.5">
                         <span
-                            class:list={['jack', item.isCta && 'jack--signal']}
+                            class:list={['jack', jackColorClass(index)]}
                             aria-hidden="true"
                         />
                         <a

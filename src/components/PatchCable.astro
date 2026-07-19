@@ -1,52 +1,26 @@
 ---
 interface Props {
-    orientation?: 'vertical' | 'horizontal'
-    color?: string
     class?: string
 }
 
-const {
-    orientation = 'vertical',
-    color = 'var(--color-signal)',
-    class: className,
-} = Astro.props
+const { class: className } = Astro.props
 ---
 
-{
-    orientation === 'vertical' ? (
-        <svg
-            class:list={['patch-cable', className]}
-            viewBox="0 0 24 200"
-            preserveAspectRatio="none"
-            aria-hidden="true"
-        >
-            <path
-                d="M12,0 C2,26 22,52 12,78 C2,104 22,130 12,156 C4,172 18,186 12,200"
-                fill="none"
-                stroke={color}
-                stroke-width="2.5"
-                stroke-linecap="round"
-                opacity="0.6"
-            />
-        </svg>
-    ) : (
-        <svg
-            class:list={['patch-cable', className]}
-            viewBox="0 0 200 24"
-            preserveAspectRatio="none"
-            aria-hidden="true"
-        >
-            <path
-                d="M0,12 C26,2 52,22 78,12 C104,2 130,22 156,12 C172,4 186,18 200,12"
-                fill="none"
-                stroke={color}
-                stroke-width="2.5"
-                stroke-linecap="round"
-                opacity="0.6"
-            />
-        </svg>
-    )
-}
+<svg
+    class:list={['patch-cable', className]}
+    viewBox="0 0 24 200"
+    preserveAspectRatio="none"
+    aria-hidden="true"
+>
+    <path
+        d="M12,0 C2,26 22,52 12,78 C2,104 22,130 12,156 C4,172 18,186 12,200"
+        fill="none"
+        stroke="#8c8880"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        opacity="0.5"
+    />
+</svg>
 
 <style>
     .patch-cable {
