@@ -1,10 +1,20 @@
 ---
-import { getCollection } from 'astro:content'
+import { getCollection } from 'astro:content';
+import { getNextOccurrence } from '../utils/recurrence';
 
-const allEvents = await getCollection('events')
-const sortedEvents = allEvents.sort((a, b) =>
-    a.data.date.localeCompare(b.data.date),
-)
+const allEvents = await getCollection('events');
+const displayEvents = allEvents.map((event) => {
+    if (!event.data.recurrence) {
+        return { event, displayDate: event.data.date, displayTime: event.data.time };
+    }
+    const next = getNextOccurrence(event.data.date, event.data.time, event.data.recurrence);
+    return {
+        event,
+        displayDate: next?.date ?? event.data.date,
+        displayTime: next?.time ?? event.data.time
+    };
+});
+const sortedEvents = displayEvents.sort((a, b) => a.displayDate.localeCompare(b.displayDate));
 
 const formatDate = (dateStr: string) => {
     const date = new Date(`${dateStr}T12:00:00`)
@@ -33,8 +43,8 @@ const formatTime = (time: string) => {
     {
         sortedEvents.length > 0 && (
             <div class="space-y-3" id="events-list">
-                {sortedEvents.map((event) => (
-                    <wa-card data-event-date={event.data.date}>
+                {sortedEvents.map(({ event, displayDate, displayTime }) => (
+                    <wa-card data-event-date={displayDate}>
                         <div class="flex flex-col sm:flex-row sm:items-start gap-4">
                             {event.data.image && (
                                 <img

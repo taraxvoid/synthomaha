@@ -47,6 +47,7 @@
         "marked-shiki": "^1.2.1",
         "react": "^19.2.7",
         "react-dom": "^19.2.7",
+        "rrule": "^2.8.1",
         "tailwindcss": "^4.3.2",
         "unique-names-generator": "^4.7.1"
     },

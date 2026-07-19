@@ -7,6 +7,7 @@ export interface EventData {
     description: string
     price: string
     revision?: number
+    recurrence?: string
 }
 
 function formatICSTime(time: string): string {
@@ -67,31 +68,61 @@ export function generateEventICS(data: EventData, slug: string): string {
     ].join('\r\n')
 }
 
-// Recurring monthly jam — last Monday of every month at 8 PM
-function buildRecurringJamVEvent(): string {
+function buildRecurringVEvent(data: EventData, slug: string): string {
+    const dateStr = data.date.replace(/-/g, '')
+    const startTime = formatICSTime(data.time)
+    const desc = [
+        data.description,
+        data.price === '0' ? 'Free admission' : `$${data.price} admission`,
+    ]
+        .join(' | ')
+        .replace(/\n/g, '\\n')
+
     return [
         'BEGIN:VEVENT',
-        'UID:monthly-jam-recurring@synthomaha.net',
+        `UID:${slug}@synthomaha.net`,
         `DTSTAMP:${stamp()}`,
-        'DTSTART;TZID=America/Chicago:20250127T200000',
-        'RRULE:FREQ=MONTHLY;BYDAY=-1MO',
+        `DTSTART;TZID=America/Chicago:${dateStr}T${startTime}`,
+        `RRULE:${data.recurrence}`,
         'DURATION:PT2H',
-        'SUMMARY:Monthly Jam - SynthOmaha',
-        'DESCRIPTION:Last Monday of every month — twiddle your knobs and tangle wires with like-minded folks. Free admission.',
-        'LOCATION:Shakedown Street in Benson',
+        `SUMMARY:${data.title}`,
+        `DESCRIPTION:${desc}`,
+        `LOCATION:${data.location}`,
+        'URL:https://synthomaha.net/',
         'STATUS:CONFIRMED',
-        'SEQUENCE:0',
-        'END:VEVENT',
+        `SEQUENCE:${data.revision ?? 0}`,
+    ;
+    ;('END:VEVENT')
+    ].join('\r\n')
+}
+
+export function generateRecurringEventICS(
+    data: EventData,
+    slug: string,
+): string {
+    return [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//SynthOmaha//SynthOmaha Events//EN',
+        'CALSCALE:GREGORIAN',
+        'METHOD:PUBLISH',
+        `X-WR-CALNAME:${data.title}`,
+        'X-WR-TIMEZONE:America/Chicago',
+        buildRecurringVEvent(data, slug),
+        'END:VCALENDAR',
     ].join('\r\n')
 }
 
 export function generateFeedICS(
     events: Array<{ data: EventData; id: string }>,
 ): string {
-    const vevents = [
-        buildRecurringJamVEvent(),
-        ...events.map(({ data, id }) => buildVEvent(data, id)),
-    ].join('\r\n')
+    const vevents = events
+        .map(({ data, id }) =>
+            data.recurrence
+                ? buildRecurringVEvent(data, id)
+                : buildVEvent(data, id),
+        )
+        .join('\r\n')
     return [
         'BEGIN:VCALENDAR',
         'VERSION:2.0',
