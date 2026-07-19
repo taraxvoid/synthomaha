@@ -9,7 +9,7 @@ export const GET: APIRoute = async () => {
     const allEvents = await getCollection('events')
     const upcoming = allEvents
         .filter((e) => e.data.recurrence || e.data.date >= today)
-        .sort((a, b) => a.data.date.localeCompare(b.data.date));
+        .sort((a, b) => a.data.date.localeCompare(b.data.date))
 
     const ics = generateFeedICS(upcoming)
     return new Response(ics, {

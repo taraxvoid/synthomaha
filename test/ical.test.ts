@@ -1,8 +1,7 @@
 import { describe, expect, test } from 'vitest'
 
-const { generateFeedICS, generateEventICS } = await import(
-    '../src/utils/ical.ts'
-)
+const { generateFeedICS, generateEventICS, generateRecurringEventICS } =
+    await import('../src/utils/ical.ts')
 
 const baseEvent = {
     title: 'Test Show',
@@ -12,6 +11,16 @@ const baseEvent = {
     description: 'A great show',
     price: '10',
     revision: 0,
+}
+
+const recurringEvent = {
+    title: 'Monthly Jam - SynthOmaha',
+    date: '2025-01-27',
+    time: '20:00',
+    location: 'Shakedown Street in Benson',
+    description: 'Last Monday of every month.',
+    price: '0',
+    recurrence: 'FREQ=MONTHLY;BYDAY=-1MO',
 }
 
 describe('generateFeedICS', () => {
@@ -24,11 +33,19 @@ describe('generateFeedICS', () => {
         expect(ics).toContain('X-WR-TIMEZONE:America/Chicago')
     })
 
-    test('always includes the recurring monthly jam', () => {
+    test('does not inject a recurring jam on its own', () => {
         const ics = generateFeedICS([])
+        expect(ics).not.toContain('RRULE')
+    })
+
+    test('emits an RRULE VEVENT for entries with a recurrence field', () => {
+        const ics = generateFeedICS([
+            { data: recurringEvent, id: 'monthly-jam-recurring' },
+        ])
         expect(ics).toContain('UID:monthly-jam-recurring@synthomaha.net')
         expect(ics).toContain('RRULE:FREQ=MONTHLY;BYDAY=-1MO')
         expect(ics).toContain('SUMMARY:Monthly Jam - SynthOmaha')
+        expect(ics).toContain('DURATION:PT2H')
     })
 
     test('includes upcoming events as VEVENTs', () => {
@@ -90,5 +107,41 @@ describe('generateEventICS', () => {
     test('revision appears as SEQUENCE', () => {
         const ics = generateEventICS({ ...baseEvent, revision: 3 }, 'e')
         expect(ics).toContain('SEQUENCE:3')
+    })
+})
+
+describe('generateRecurringEventICS', () => {
+    test('X-WR-CALNAME uses event title', () => {
+        const ics = generateRecurringEventICS(
+            recurringEvent,
+            'monthly-jam-recurring',
+        )
+        expect(ics).toContain('X-WR-CALNAME:Monthly Jam - SynthOmaha')
+    })
+
+    test('UID is slug-based', () => {
+        const ics = generateRecurringEventICS(
+            recurringEvent,
+            'monthly-jam-recurring',
+        )
+        expect(ics).toContain('UID:monthly-jam-recurring@synthomaha.net')
+    })
+
+    test('DTSTART uses the anchor date, not a computed occurrence', () => {
+        const ics = generateRecurringEventICS(
+            recurringEvent,
+            'monthly-jam-recurring',
+        )
+        expect(ics).toContain('DTSTART;TZID=America/Chicago:20250127T200000')
+    })
+
+    test('includes the RRULE and a DURATION instead of DTEND', () => {
+        const ics = generateRecurringEventICS(
+            recurringEvent,
+            'monthly-jam-recurring',
+        )
+        expect(ics).toContain('RRULE:FREQ=MONTHLY;BYDAY=-1MO')
+        expect(ics).toContain('DURATION:PT2H')
+        expect(ics).not.toContain('DTEND')
     })
 })

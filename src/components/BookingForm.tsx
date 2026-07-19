@@ -152,7 +152,6 @@ export default function BookingForm({ musicians }: Props) {
                         )
                         return (
                             <button
-                                required
                                 key={musician.name}
                                 type="button"
                                 aria-pressed={isSelected}

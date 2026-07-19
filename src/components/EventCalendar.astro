@@ -1,20 +1,30 @@
 ---
-import { getCollection } from 'astro:content';
-import { getNextOccurrence } from '../utils/recurrence';
+import { getCollection } from 'astro:content'
+import { getNextOccurrence } from '../utils/recurrence'
 
-const allEvents = await getCollection('events');
+const allEvents = await getCollection('events')
 const displayEvents = allEvents.map((event) => {
     if (!event.data.recurrence) {
-        return { event, displayDate: event.data.date, displayTime: event.data.time };
+        return {
+            event,
+            displayDate: event.data.date,
+            displayTime: event.data.time,
+        }
     }
-    const next = getNextOccurrence(event.data.date, event.data.time, event.data.recurrence);
+    const next = getNextOccurrence(
+        event.data.date,
+        event.data.time,
+        event.data.recurrence,
+    )
     return {
         event,
         displayDate: next?.date ?? event.data.date,
-        displayTime: next?.time ?? event.data.time
-    };
-});
-const sortedEvents = displayEvents.sort((a, b) => a.displayDate.localeCompare(b.displayDate));
+        displayTime: next?.time ?? event.data.time,
+    }
+})
+const sortedEvents = displayEvents.sort((a, b) =>
+    a.displayDate.localeCompare(b.displayDate),
+)
 
 const formatDate = (dateStr: string) => {
     const date = new Date(`${dateStr}T12:00:00`)
@@ -67,8 +77,8 @@ const formatTime = (time: string) => {
                                 </div>
                                 <p class="text-lg opacity-75 mb-1">{event.data.description}</p>
                                 <div class="flex flex-wrap gap-x-1 gap-y-1 text-inherit">
-                                    <span><wa-icon name="calendar" aria-hidden="true"></wa-icon> {formatDate(event.data.date)}</span>
-                                    <span><wa-icon name="clock" aria-hidden="true"></wa-icon> {formatTime(event.data.time)}</span>
+                                    <span><wa-icon name="calendar" aria-hidden="true"></wa-icon> {formatDate(displayDate)}</span>
+                                    <span><wa-icon name="clock" aria-hidden="true"></wa-icon> {formatTime(displayTime)}</span>
                                     <span><wa-icon name="location-dot" aria-hidden="true"></wa-icon> {event.data.location}</span>
                                     <span><wa-icon name="ticket" aria-hidden="true"></wa-icon> {event.data.price === '0' ? 'Free' : `$${event.data.price}`}</span>
                                 </div>

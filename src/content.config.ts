@@ -17,9 +17,9 @@ const events = defineCollection({
         price: z.string().optional().default('0'),
         image: z.string().optional(),
         revision: z.number().optional().default(0),
-        recurrence: z.string().optional()
-    })
-});
+        recurrence: z.string().optional(),
+    }),
+})
 
 const musicians = defineCollection({
     loader: glob({ pattern: '**/*.yaml', base: './src/content/musicians' }),

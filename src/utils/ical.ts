@@ -91,8 +91,7 @@ function buildRecurringVEvent(data: EventData, slug: string): string {
         'URL:https://synthomaha.net/',
         'STATUS:CONFIRMED',
         `SEQUENCE:${data.revision ?? 0}`,
-    ;
-    ;('END:VEVENT')
+        'END:VEVENT',
     ].join('\r\n')
 }
 
