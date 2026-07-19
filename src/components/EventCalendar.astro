@@ -1,8 +1,20 @@
 ---
 import { getCollection } from 'astro:content';
+import { getNextOccurrence } from '../utils/recurrence';
 
 const allEvents = await getCollection('events');
-const sortedEvents = allEvents.sort((a, b) => a.data.date.localeCompare(b.data.date));
+const displayEvents = allEvents.map((event) => {
+    if (!event.data.recurrence) {
+        return { event, displayDate: event.data.date, displayTime: event.data.time };
+    }
+    const next = getNextOccurrence(event.data.date, event.data.time, event.data.recurrence);
+    return {
+        event,
+        displayDate: next?.date ?? event.data.date,
+        displayTime: next?.time ?? event.data.time
+    };
+});
+const sortedEvents = displayEvents.sort((a, b) => a.displayDate.localeCompare(b.displayDate));
 
 const formatDate = (dateStr: string) => {
     const date = new Date(`${dateStr}T12:00:00`);
@@ -37,8 +49,8 @@ const formatTime = (time: string) => {
     {
         sortedEvents.length > 0 && (
             <div class="space-y-3" id="events-list">
-                {sortedEvents.map((event) => (
-                    <wa-card data-event-date={event.data.date}>
+                {sortedEvents.map(({ event, displayDate, displayTime }) => (
+                    <wa-card data-event-date={displayDate}>
                         <div class="flex flex-col sm:flex-row sm:items-start gap-4">
                             {event.data.image && (
                                 <img
@@ -61,8 +73,8 @@ const formatTime = (time: string) => {
                                 </div>
                                 <p class="text-lg opacity-75 mb-1">{event.data.description}</p>
                                 <div class="flex flex-wrap gap-x-1 gap-y-1 text-inherit">
-                                    <span>📅 {formatDate(event.data.date)}</span>
-                                    <span>🕗 {formatTime(event.data.time)}</span>
+                                    <span>📅 {formatDate(displayDate)}</span>
+                                    <span>🕗 {formatTime(displayTime)}</span>
                                     <span>📍 {event.data.location}</span>
                                     <span>{event.data.price === '0' ? '🎟 Free' : `🎟 $${event.data.price}`}</span>
                                 </div>

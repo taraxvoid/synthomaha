@@ -13,7 +13,8 @@ const events = defineCollection({
         description: z.string(),
         price: z.string().optional().default('0'),
         image: z.string().optional(),
-        revision: z.number().optional().default(0)
+        revision: z.number().optional().default(0),
+        recurrence: z.string().optional()
     })
 });
 

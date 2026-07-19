@@ -41,6 +41,12 @@ describe('astro build', () => {
         expect(ics).toContain('Monthly Jam - SynthOmaha');
     });
 
+    test('index.html shows the next jam occurrence, not the original anchor date', () => {
+        const html = readFileSync(join(ROOT, 'dist', 'index.html'), 'utf8');
+        expect(html).toContain('Monthly Jam - SynthOmaha');
+        expect(html).not.toContain('Jan 27, 2025');
+    });
+
     test('index.html contains calendar subscribe link and autodiscovery', () => {
         const html = readFileSync(join(ROOT, 'dist', 'index.html'), 'utf8');
         expect(html).toContain('calendar.google.com');

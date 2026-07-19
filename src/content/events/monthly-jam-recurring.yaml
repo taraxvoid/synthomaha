@@ -1,0 +1,7 @@
+title: Monthly Jam - SynthOmaha
+date: 2025-01-27
+time: "20:00"
+location: Shakedown Street in Benson
+description: Last Monday of every month — twiddle your knobs and tangle wires with like-minded folks.
+price: "0"
+recurrence: "FREQ=MONTHLY;BYDAY=-1MO"
