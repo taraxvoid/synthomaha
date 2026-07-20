@@ -19,6 +19,7 @@
         "lint": "biome check .",
         "test": "bun run build && npm-run-all -l -p check test:unit -s test:e2e:only",
         "test:unit": "vitest run",
+        "test:e2e:only": "playwright test --project=mobile-chrome",
         "test:fast": "run-p -l lint test:data",
         "test:ical": "vitest run test/ical.test.ts",
         "test:data": "vitest run test/data.test.ts",
