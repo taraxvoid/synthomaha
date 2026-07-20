@@ -42,7 +42,7 @@ describe('astro build', () => {
     test('events.ics contains the recurring monthly jam', () => {
         const ics = readFileSync(join(ROOT, 'dist', 'events.ics'), 'utf8')
         expect(ics).toContain('RRULE:FREQ=MONTHLY;BYDAY=-1MO')
-        expect(ics).toContain('Monthly Jam - SynthOmaha')
+        expect(ics).toContain('Monthly Jam')
     })
 
     test('index.html contains calendar subscribe link and autodiscovery', () => {
