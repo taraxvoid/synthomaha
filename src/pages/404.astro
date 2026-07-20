@@ -1,0 +1,26 @@
+---
+import Layout from '../layouts/Layout.astro'
+import { jackColorClass } from '../utils/jackColors'
+---
+
+<Layout title="Page Not Found - SynthOmaha">
+    <section class="py-6 mb-4">
+        <div class="flex items-center gap-3 mb-6">
+            <span class={`jack ${jackColorClass(2)}`} aria-hidden="true"></span>
+            <h1 class="text-3xl font-bold">Page Not Found</h1>
+        </div>
+
+        <div class="space-y-4 text-inherit">
+            <p>We couldn't find that page. It may have moved, been renamed, or never existed.</p>
+        </div>
+
+        <div class="flex flex-wrap gap-3 mt-6">
+            <a href="/" class="btn no-underline">
+                <wa-icon name="house" aria-hidden="true"></wa-icon> Back to Home
+            </a>
+            <a href="/events/" class="btn no-underline">
+                <wa-icon name="calendar" aria-hidden="true"></wa-icon> Upcoming Events
+            </a>
+        </div>
+    </section>
+</Layout>
