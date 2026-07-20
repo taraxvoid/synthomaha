@@ -5,12 +5,12 @@ export default defineConfig({
     timeout: 30_000,
     fullyParallel: true,
     use: {
-        baseURL: 'http://localhost:4242',
+        baseURL: 'http://localhost:4343',
         serviceWorkers: 'block',
     },
     webServer: {
-        command: 'bun run preview --port 4242',
-        url: 'http://localhost:4242',
+        command: 'bun run preview --port 4343',
+        url: 'http://localhost:4343',
         reuseExistingServer: !process.env.CI,
         timeout: 30_000,
     },
