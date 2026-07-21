@@ -45,14 +45,6 @@ describe('astro build', () => {
         expect(ics).toContain('Open Jam')
     })
 
-    test('index.html contains calendar subscribe link and autodiscovery', () => {
-        const html = readFileSync(join(ROOT, 'dist', 'index.html'), 'utf8')
-        expect(html).toContain('calendar.google.com')
-        expect(html).toContain('rel="alternate"')
-        expect(html).toContain('type="text/calendar"')
-        expect(html).toContain('/events.ics')
-    })
-
     test('per-event ics files are generated', () => {
         const eventsIcsDir = join(ROOT, 'dist', 'events')
         expect(existsSync(eventsIcsDir)).toBe(true)

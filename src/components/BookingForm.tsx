@@ -240,8 +240,6 @@ export default function BookingForm({ musicians }: Props) {
                 </div>
             </div>
 
-            <p className="text-xs opacity-60">* required</p>
-
             <br />
 
             <button
