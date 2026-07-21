@@ -13,7 +13,9 @@ export default function BookingForm({ musicians }: Props) {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
+        phone: '',
         venue: '',
+        event_date: '',
         additional_info: '',
     })
     const [selectedMusicians, setSelectedMusicians] = useState<string[]>([])
@@ -62,7 +64,9 @@ export default function BookingForm({ musicians }: Props) {
                 setFormData({
                     name: '',
                     email: '',
+                    phone: '',
                     venue: '',
+                    event_date: '',
                     additional_info: '',
                 })
                 setSelectedMusicians([])
@@ -80,67 +84,11 @@ export default function BookingForm({ musicians }: Props) {
     return (
         <form
             onSubmit={handleSubmit}
-            className="space-y-4 max-w-2xl"
+            className="space-y-4 max-w-md"
             name="booking"
             data-netlify="true"
         >
             <input type="hidden" name="form-name" value="booking" />
-            <div>
-                <label
-                    htmlFor="name"
-                    className="block text-sm font-medium mb-2"
-                >
-                    Your Name
-                </label>
-                <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    placeholder="Your name"
-                    className="field"
-                />
-            </div>
-
-            <div>
-                <label
-                    htmlFor="email"
-                    className="block text-sm font-medium mb-2"
-                >
-                    Your Email Address
-                </label>
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    placeholder="your@email.com"
-                    className="field"
-                />
-            </div>
-            <div>
-                <label
-                    htmlFor="venue"
-                    className="block text-sm font-medium mb-2"
-                >
-                    Your Venue
-                </label>
-                <textarea
-                    id="venue"
-                    name="venue"
-                    value={formData.venue}
-                    onChange={handleChange}
-                    required
-                    placeholder="Venue Name"
-                    rows={1}
-                    className="field"
-                />
-            </div>
-
             <div>
                 <span className="block text-sm font-medium mb-2">
                     Which Musician(s)?
@@ -168,6 +116,107 @@ export default function BookingForm({ musicians }: Props) {
                     })}
                 </div>
             </div>
+            <div>
+                <label
+                    htmlFor="name"
+                    className="block text-sm font-medium mb-2"
+                >
+                    Your Name
+                    <span className="text-red-500 ml-0.5" aria-hidden="true">
+                        *
+                    </span>
+                </label>
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    placeholder="Your name"
+                    className="field"
+                />
+            </div>
+
+            <div>
+                <label
+                    htmlFor="email"
+                    className="block text-sm font-medium mb-2"
+                >
+                    Your Email Address
+                    <span className="text-red-500 ml-0.5" aria-hidden="true">
+                        *
+                    </span>
+                </label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    placeholder="your@email.com"
+                    className="field"
+                />
+            </div>
+
+            <div>
+                <label
+                    htmlFor="phone"
+                    className="block text-sm font-medium mb-2"
+                >
+                    Phone Number (optional)
+                </label>
+                <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    pattern="[\d\s\-\(\)\+]{7,20}"
+                    placeholder="(555) 123-4567"
+                    className="field"
+                />
+            </div>
+
+            <div>
+                <label
+                    htmlFor="venue"
+                    className="block text-sm font-medium mb-2"
+                >
+                    Your Venue
+                    <span className="text-red-500 ml-0.5" aria-hidden="true">
+                        *
+                    </span>
+                </label>
+                <textarea
+                    id="venue"
+                    name="venue"
+                    value={formData.venue}
+                    onChange={handleChange}
+                    required
+                    placeholder="Venue Name"
+                    rows={1}
+                    className="field"
+                />
+            </div>
+
+            <div>
+                <label
+                    htmlFor="event_date"
+                    className="block text-sm font-medium mb-2"
+                >
+                    Preferred Date (optional)
+                </label>
+                <input
+                    type="date"
+                    id="event_date"
+                    name="event_date"
+                    value={formData.event_date}
+                    onChange={handleChange}
+                    className="field"
+                />
+            </div>
 
             <div>
                 <label
@@ -183,11 +232,13 @@ export default function BookingForm({ musicians }: Props) {
                     onChange={handleChange}
                     placeholder="Hookups, System, Audience, Event, $$$"
                     rows={3}
+                    maxLength={280}
                     className="field resize-none"
                 />
+                <div className="text-xs text-right opacity-60 mt-1">
+                    {formData.additional_info.length}/280
+                </div>
             </div>
-
-            <br />
 
             <button
                 type="submit"
