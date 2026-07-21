@@ -24,10 +24,9 @@ test('nav links point to expected sections and those sections exist', async ({
         'href',
         '#events',
     )
-    await expect(nav.getByRole('link', { name: /Join Us/i })).toHaveAttribute(
-        'href',
-        '#signup',
-    )
+    await expect(
+        nav.getByRole('link', { name: /Join The Club/i }),
+    ).toHaveAttribute('href', '#signup')
     await expect(nav.getByRole('link', { name: /Musicians/i })).toHaveAttribute(
         'href',
         '#musicians',

@@ -66,7 +66,7 @@ export default function EmailSignupForm() {
                         id="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        placeholder="you@synthesist.biz"
+                        placeholder="your@patches-are.cool"
                         required
                         className="field flex-1 max-w-xs"
                     />

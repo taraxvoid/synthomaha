@@ -240,8 +240,6 @@ export default function BookingForm({ musicians }: Props) {
                 </div>
             </div>
 
-            <br />
-
             <button
                 type="submit"
                 disabled={status === 'loading'}
