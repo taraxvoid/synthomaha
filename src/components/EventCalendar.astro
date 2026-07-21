@@ -65,23 +65,21 @@ const formatTime = (time: string) => {
                                 />
                             )}
                             <div class="grow min-w-0">
-                                <div class="flex flex-wrap items-start justify-between gap-1 mb-1">
-                                    <h3 class="text-lg font-semibold leading-tight">{event.data.title}</h3>
-                                    <a
-                                        href={`/events/${event.id}.ics`}
-                                        class="btn shrink-0 no-underline"
-                                        style="--btn-py: 0.6rem; --btn-px: 1rem; --btn-font-size: 0.75rem;"
-                                    >
-                                        <wa-icon name="calendar" aria-hidden="true"></wa-icon> Add To Calendar
-                                    </a>
-                                </div>
+                                <h3 class="text-lg font-semibold leading-tight mb-1">{event.data.title}</h3>
                                 <p class="text-lg opacity-75 mb-1">{event.data.description}</p>
-                                <div class="flex flex-wrap gap-x-1 gap-y-1 text-inherit">
+                                <div class="flex flex-wrap gap-x-1 gap-y-1 text-inherit mb-3">
                                     <span><wa-icon name="calendar" aria-hidden="true"></wa-icon> {formatDate(displayDate)}</span>
                                     <span><wa-icon name="clock" aria-hidden="true"></wa-icon> {formatTime(displayTime)}</span>
                                     <span><wa-icon name="location-dot" aria-hidden="true"></wa-icon> {event.data.location}</span>
                                     <span><wa-icon name="ticket" aria-hidden="true"></wa-icon> {event.data.price === '0' ? 'Free' : `$${event.data.price}`}</span>
                                 </div>
+                                <a
+                                    href={`/events/${event.id}.ics`}
+                                    class="btn no-underline"
+                                    style="--btn-py: 0.5rem; --btn-px: 0.85rem; --btn-font-size: 0.7rem;"
+                                >
+                                    <wa-icon name="calendar" aria-hidden="true"></wa-icon> Add To Calendar
+                                </a>
                             </div>
                         </div>
                     </wa-card>
