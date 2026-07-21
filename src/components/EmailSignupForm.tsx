@@ -56,6 +56,9 @@ export default function EmailSignupForm() {
                     className="block text-sm font-medium mb-2"
                 >
                     Email Address
+                    <span className="text-red-500 ml-0.5" aria-hidden="true">
+                        *
+                    </span>
                 </label>
                 <div className="flex flex-col sm:flex-row gap-2">
                     <input
@@ -63,7 +66,7 @@ export default function EmailSignupForm() {
                         id="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        placeholder="your@email.com"
+                        placeholder="you@synthesist.biz"
                         required
                         className="field flex-1"
                     />
@@ -72,10 +75,14 @@ export default function EmailSignupForm() {
                         disabled={status === 'loading'}
                         className="px-6 py-2 bg-signal text-signal-content font-semibold rounded hover:bg-signal/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
                     >
-                        {status === 'loading' ? 'Subscribing...' : 'Subscribe'}
+                        {status === 'loading'
+                            ? 'Subscribing...'
+                            : 'Subscribe to List'}
                     </button>
                 </div>
             </div>
+
+            <p className="text-xs opacity-60">* required</p>
 
             {status === 'success' && (
                 <div className="p-3 bg-green-500/20 border border-green-500 rounded text-green-300 text-sm">
