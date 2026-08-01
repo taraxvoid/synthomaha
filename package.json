@@ -6,7 +6,7 @@
         "dev": "astro dev",
         "start": "astro dev",
         "stop": "astro dev stop",
-        "build": "astro build",
+        "build": "bun scripts/build.mjs",
         "preview": "astro preview",
         "astro": "astro",
         "prepare": "husky",

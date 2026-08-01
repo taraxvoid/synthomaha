@@ -22,6 +22,15 @@ bun run test:e2e       # Playwright e2e tests
 bun run generate       # regenerate logo PNG + favicons
 ```
 
+### Build performance
+
+`bun run build` uses a custom build script (`scripts/build.mjs`) that skips
+Astro's content sync step when the content store is already up-to-date. It
+detects content changes automatically by comparing `src/content/` file mtimes
+against a `.last-sync` timestamp — no gotchas, changes are picked up automatically.
+The sync runs only when needed (first build, after content changes, or when
+the cache is cleared).
+
 ## Architecture
 
 Static site built with **Astro** + **React** + **Tailwind CSS v4**, deployed to Netlify. Single layout at `src/layouts/Layout.astro`.
