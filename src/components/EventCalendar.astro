@@ -43,6 +43,9 @@ const formatTime = (time: string) => {
     const displayHour = hour > 12 ? hour - 12 : hour === 0 ? 12 : hour
     return `${displayHour}:${minutes} ${ampm}`
 }
+
+const mapsUrl = (location: string) =>
+    `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location)}`
 ---
 
 <Fragment>
@@ -52,7 +55,7 @@ const formatTime = (time: string) => {
 
     {
         sortedEvents.length > 0 && (
-            <div class="space-y-3" id="events-list">
+            <div class="space-y-3 sm:w-[calc((100%-0.75rem)/2)]" id="events-list">
                 {sortedEvents.map(({ event, displayDate, displayTime }) => (
                     <wa-card data-event-date={displayDate}>
                         <div class="flex flex-col sm:flex-row sm:items-start gap-4">
@@ -60,18 +63,28 @@ const formatTime = (time: string) => {
                                 <img
                                     src={event.data.image}
                                     alt={event.data.title}
-                                    class="w-full sm:w-16 rounded object-cover shrink-0"
-                                    style="max-height: 8rem;"
+                                    class="w-full h-48 sm:w-40 sm:h-40 rounded object-cover shrink-0"
                                 />
                             )}
                             <div class="grow min-w-0">
-                                <h3 class="text-lg font-semibold leading-tight mb-1">{event.data.title}</h3>
-                                <p class="text-lg opacity-75 mb-1">{event.data.description}</p>
-                                <div class="flex flex-wrap gap-x-1 gap-y-1 text-inherit mb-3">
-                                    <span><wa-icon name="calendar" aria-hidden="true"></wa-icon> {formatDate(displayDate)}</span>
-                                    <span><wa-icon name="clock" aria-hidden="true"></wa-icon> {formatTime(displayTime)}</span>
-                                    <span><wa-icon name="location-dot" aria-hidden="true"></wa-icon> {event.data.location}</span>
-                                    <span><wa-icon name="ticket" aria-hidden="true"></wa-icon> {event.data.price === '0' ? 'Free' : `$${event.data.price}`}</span>
+                                <h3 class="text-xl font-semibold leading-tight mb-1">{event.data.title}</h3>
+                                <p class="text-base opacity-75 mb-3">{event.data.description}</p>
+                                <div class="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-inherit mb-3">
+                                    <span class="inline-flex items-center gap-1">
+                                        <wa-icon name="calendar" aria-hidden="true"></wa-icon>
+                                        {formatDate(displayDate)} &middot; {formatTime(displayTime)}
+                                    </span>
+                                    <span class="opacity-50" aria-hidden="true">&bull;</span>
+                                    <a
+                                        href={mapsUrl(event.data.location)}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="underline hover:opacity-80"
+                                    >
+                                        {event.data.location}
+                                    </a>
+                                    <span class="opacity-50" aria-hidden="true">&bull;</span>
+                                    <span>{event.data.price === '0' ? 'Free' : `$${event.data.price}`}</span>
                                 </div>
                                 <a
                                     href={`/events/${event.id}.ics`}

@@ -20,7 +20,7 @@
     /* Jack colors — the logo's own patch-cable palette, cycled across the
        jack sockets in the header nav and the section spine */
     --color-jack-pink: #ec4899;
-    --color-jack-purple: #9333ea;
+    --color-jack-purple: #a855f7;
     --color-jack-red: #ef4444;
     --color-jack-green: #22c55e;
 }
@@ -167,8 +167,9 @@ wa-card > * {
     .jack {
         position: relative;
         display: inline-block;
-        width: 0.65rem;
-        height: 0.65rem;
+        flex-shrink: 0;
+        width: 0.95rem;
+        height: 0.95rem;
         border-radius: 9999px;
         background: #8c8880;
         box-shadow: 0 0 0 3px var(--color-panel);
