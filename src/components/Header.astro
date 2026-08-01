@@ -16,7 +16,7 @@ const navItems = [
     </a>
     {
         !!navItems?.length && (
-            <ul class="flex flex-wrap items-center gap-x-3 gap-y-3">
+            <ul class="grid grid-cols-2 gap-x-3 gap-y-3 sm:flex sm:flex-wrap sm:items-center">
                 {navItems.map((item, index) => (
                     <li class="flex items-center gap-1.5">
                         <span
@@ -26,7 +26,7 @@ const navItems = [
                         <a
                             href={item.href}
                             class:list={[
-                                'no-underline inline-block px-4 py-2.5 text-base font-semibold tracking-wide uppercase rounded transition-colors',
+                                'no-underline inline-block w-full text-center px-4 py-2.5 text-base font-semibold tracking-wide uppercase rounded transition-colors sm:w-auto',
                                 item.isCta
                                     ? 'bg-signal text-signal-content border border-signal hover:bg-signal/85'
                                     : 'border border-signal/60 bg-panel-raised/60 text-signal shadow-[inset_0_1px_0_rgba(255,255,255,0.08),inset_0_-2px_0_rgba(0,0,0,0.4)] hover:bg-signal hover:text-signal-content hover:border-signal',
