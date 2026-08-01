@@ -1,26 +1,38 @@
 ---
 import { getCollection } from 'astro:content'
-import { getNextOccurrence } from '../utils/recurrence'
+import { getNextOccurrences } from '../utils/recurrence'
 
 const allEvents = await getCollection('events')
-const displayEvents = allEvents.map((event) => {
+const displayEvents = allEvents.flatMap((event) => {
     if (!event.data.recurrence) {
-        return {
-            event,
-            displayDate: event.data.date,
-            displayTime: event.data.time,
-        }
+        return [
+            {
+                event,
+                displayDate: event.data.date,
+                displayTime: event.data.time,
+            },
+        ]
     }
-    const next = getNextOccurrence(
+    const upcoming = getNextOccurrences(
         event.data.date,
         event.data.time,
         event.data.recurrence,
+        2,
     )
-    return {
-        event,
-        displayDate: next?.date ?? event.data.date,
-        displayTime: next?.time ?? event.data.time,
+    if (upcoming.length === 0) {
+        return [
+            {
+                event,
+                displayDate: event.data.date,
+                displayTime: event.data.time,
+            },
+        ]
     }
+    return upcoming.map((occurrence) => ({
+        event,
+        displayDate: occurrence.date,
+        displayTime: occurrence.time,
+    }))
 })
 const sortedEvents = displayEvents.sort((a, b) =>
     a.displayDate.localeCompare(b.displayDate),
@@ -55,7 +67,7 @@ const mapsUrl = (location: string) =>
 
     {
         sortedEvents.length > 0 && (
-            <div class="space-y-3 sm:w-[calc((100%-0.75rem)/2)]" id="events-list">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="events-list">
                 {sortedEvents.map(({ event, displayDate, displayTime }) => (
                     <wa-card data-event-date={displayDate}>
                         <div class="flex flex-col sm:flex-row sm:items-start gap-4">

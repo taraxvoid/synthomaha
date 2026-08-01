@@ -71,6 +71,36 @@ test('event cards render with calendar download links', async ({ page }) => {
     await expect(addToCalendar).toHaveAttribute('href', /\/events\/.+\.ics$/)
 })
 
+test('recurring event shows its next two upcoming occurrences', async ({
+    page,
+}) => {
+    await page.clock.setFixedTime(new Date('2026-01-01T12:00:00'))
+    await page.goto('/')
+    const dates = await page
+        .locator('#events wa-card[data-event-date]')
+        .evaluateAll((cards) =>
+            cards.map((c) => c.getAttribute('data-event-date')),
+        )
+    expect(new Set(dates).size).toBe(dates.length)
+    expect(dates.length).toBeGreaterThanOrEqual(2)
+})
+
+test('event cards lay out in two columns on wide viewports', async ({
+    page,
+}) => {
+    await page.clock.setFixedTime(new Date('2026-01-01T12:00:00'))
+    await page.setViewportSize({ width: 1280, height: 900 })
+    await page.goto('/')
+    const cards = page.locator('#events wa-card[data-event-date]:not([hidden])')
+    const count = await cards.count()
+    expect(count).toBeGreaterThanOrEqual(2)
+    const firstBox = await cards.nth(0).boundingBox()
+    const secondBox = await cards.nth(1).boundingBox()
+    // Two cards side by side share the same row (similar y) rather than stacking.
+    expect(Math.abs(firstBox.y - secondBox.y)).toBeLessThan(4)
+    expect(secondBox.x).toBeGreaterThan(firstBox.x)
+})
+
 // ---------------------------------------------------------------------------
 // Event visibility (clock-driven)
 // ---------------------------------------------------------------------------

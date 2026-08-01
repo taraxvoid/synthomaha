@@ -25,14 +25,24 @@ function fromUTCDate(date: Date): Occurrence {
     }
 }
 
-export function getNextOccurrence(
+export function getNextOccurrences(
     anchorDate: string,
     anchorTime: string,
     rruleString: string,
+    count: number,
     after: Date = new Date(),
-): Occurrence | null {
+): Occurrence[] {
     const dtstart = toUTCDate(anchorDate, anchorTime)
     const rule = new RRule({ ...RRule.parseString(rruleString), dtstart })
-    const next = rule.after(after, true)
-    return next ? fromUTCDate(next) : null
+    const occurrences: Occurrence[] = []
+    let cursor = after
+    let inclusive = true
+    for (let i = 0; i < count; i++) {
+        const next = rule.after(cursor, inclusive)
+        if (!next) break
+        occurrences.push(fromUTCDate(next))
+        cursor = next
+        inclusive = false
+    }
+    return occurrences
 }
