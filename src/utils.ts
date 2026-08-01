@@ -18,8 +18,18 @@ export function uniqueName() {
     return `${uniqueNamesGenerator(config)}-${randomInt(100, 999)}`
 }
 
-export function generateBlob(parameters?: any) {
-    const gradientColors = [
+/**
+ * Overrides accepted by `generateBlob`. Mirrors the parameters understood by
+ * `blobshape` (so the merged value stays type-safe when forwarded) and adds the
+ * `name` / `colors` fields that `generateBlob` tracks for its return value.
+ */
+type BlobParameters = NonNullable<Parameters<typeof blobshape>[0]> & {
+    name?: string
+    colors?: [string, string]
+}
+
+export function generateBlob(parameters?: BlobParameters) {
+    const gradientColors: [string, string][] = [
         ['#2E3192', '#1BFFFF'],
         ['#93A5CF', '#E4EfE9'],
         ['#BFF098', '#6FD6FF'],
