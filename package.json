@@ -13,6 +13,7 @@
         "generate:logo": "bun run scripts/generate-logo-png.ts",
         "generate:favicons": "bun run scripts/generate-favicons.mjs",
         "generate": "bun run generate:logo && bun run generate:favicons",
+        "compress:images": "bun scripts/compress-images.ts",
         "check": "astro check",
         "check:content": "astro sync",
         "format": "biome check --write .",
