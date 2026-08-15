@@ -75,6 +75,15 @@ function discoverImageSpecs(): Map<string, Spec> {
 /** Compresses oversized images in the uploads directory.
  * Returns the number of images that were compressed. */
 export async function compressImages(): Promise<number> {
+    // Bun.Image (and BunFile.image() shorthand) was introduced in Bun v1.3.14.
+    // Guard against older runtimes so a missing API never crashes the build.
+    if (typeof Bun.Image === 'undefined') {
+        console.log(
+            '  ⚠  Bun.Image API not available (requires Bun ≥1.3.14), skipping image compression',
+        )
+        return 0
+    }
+
     const specs = discoverImageSpecs()
     let compressed = 0
     let skipped = 0
