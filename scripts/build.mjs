@@ -81,7 +81,17 @@ async function maybeCompressImages() {
 
     console.log('Compressing changed images...')
     const { compressImages } = await import('../scripts/compress-images.ts')
-    await compressImages()
+    let result
+    try {
+        result = await compressImages()
+    } catch (err) {
+        console.error('Image compression failed:', err)
+        return
+    }
+    // `null` means compression was skipped entirely (e.g. Bun.Image
+    // unavailable on this runtime) — don't mark the cache as up-to-date in
+    // that case, or the images would never get retried after a Bun upgrade.
+    if (result === null) return
     writeFileSync(lastCompressPath, String(Date.now()), 'utf-8')
 }
 

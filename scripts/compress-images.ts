@@ -24,9 +24,13 @@ interface Spec {
     quality: number
 }
 
-// Display context determines the target size:
-// - profileImage: 48×56px display → 120px wide at Q80 (2.5x for retina)
-// - image (events): 160×160/375×192px display → 480px wide at Q75 (1.3x mobile)
+// Display context determines the target size. These are NOT derived
+// automatically — if the display size in the corresponding component
+// changes, update the matching entry here too:
+// - profileImage: 48×56px display (src/components/MusicianCard.astro,
+//   `w-12 h-14` / `width={48} height={56}`) → 120px wide at Q80 (2.5x retina)
+// - image (events): 160×160/375×192px display (src/components/EventCalendar.astro,
+//   `w-full h-48 sm:w-40 sm:h-40` / `width={160} height={160}`) → 480px wide at Q75 (1.3x mobile)
 const SPECS: Record<string, Spec> = {
     profile: { width: 120, quality: 80 },
     event: { width: 480, quality: 75 },
@@ -72,61 +76,87 @@ function discoverImageSpecs(): Map<string, Spec> {
     return specs
 }
 
+/** Whether a filename should be re-encoded as PNG rather than JPEG, so the
+ * output bytes always match the file's existing extension (no format/
+ * extension mismatch after compression). */
+function isPng(file: string): boolean {
+    return file.toLowerCase().endsWith('.png')
+}
+
 /** Compresses oversized images in the uploads directory.
- * Returns the number of images that were compressed. */
-export async function compressImages(): Promise<number> {
+ * Returns the number of images that were compressed, or `null` if
+ * compression was skipped entirely (e.g. Bun.Image unavailable) — callers
+ * should treat `null` as "nothing was checked" rather than "checked, found
+ * nothing to do", so a stale cache marker isn't written. */
+export async function compressImages(): Promise<number | null> {
     // Bun.Image (and BunFile.image() shorthand) was introduced in Bun v1.3.14.
     // Guard against older runtimes so a missing API never crashes the build.
     if (typeof Bun.Image === 'undefined') {
         console.log(
             '  Bun.Image API not available (requires Bun ≥1.3.14), skipping image compression',
         )
-        return 0
+        return null
     }
 
     const specs = discoverImageSpecs()
     let compressed = 0
     let skipped = 0
+    let failed = 0
 
     for (const [file, spec] of specs) {
         const filepath = `${uploadsDir}/${file}`
-        const input = Bun.file(filepath)
 
-        if (!(await input.exists())) {
-            console.log(`  ${file} — not found in uploads, skipping`)
-            skipped++
-            continue
-        }
+        try {
+            const input = Bun.file(filepath)
 
-        const original = input.size
-        const img = input.image()
-        const { width: origW } = await img.metadata()
+            if (!(await input.exists())) {
+                console.log(`  ${file} — not found in uploads, skipping`)
+                skipped++
+                continue
+            }
 
-        if (origW <= spec.width) {
+            const original = input.size
+            const img = input.image()
+            const { width: origW } = await img.metadata()
+
+            if (origW <= spec.width) {
+                console.log(
+                    `  ${file}: ${origW}px — already ≤ target (${spec.width}px), skipping`,
+                )
+                continue
+            }
+
+            // Resize keeping aspect ratio (width only), then re-encode in the
+            // format matching the file's existing extension so the output
+            // bytes never mismatch the extension.
+            const resized = img.resize(spec.width)
+            const encoded = isPng(file)
+                ? resized.png()
+                : resized.jpeg({ quality: spec.quality, progressive: true })
+            await encoded.write(filepath)
+
+            const newsize = Bun.file(filepath).size
+            const reduction = ((1 - newsize / original) * 100).toFixed(0)
             console.log(
-                `  ${file}: ${origW}px — already ≤ target (${spec.width}px), skipping`,
+                `  ${file}: ${(original / 1024).toFixed(0)}K → ${(newsize / 1024).toFixed(0)}K (${reduction}% smaller)`,
             )
-            continue
+            compressed++
+        } catch (err) {
+            // A single corrupt/unsupported image shouldn't abort the whole
+            // build — log it and keep processing the rest.
+            console.error(`  ${file} — failed to compress, skipping:`, err)
+            failed++
         }
-
-        // Resize keeping aspect ratio (width only), then re-encode progressive JPEG
-        await img
-            .resize(spec.width)
-            .jpeg({ quality: spec.quality, progressive: true })
-            .write(filepath)
-
-        const newsize = Bun.file(filepath).size
-        const reduction = ((1 - newsize / original) * 100).toFixed(0)
-        console.log(
-            `  ${file}: ${(original / 1024).toFixed(0)}K → ${(newsize / 1024).toFixed(0)}K (${reduction}% smaller)`,
-        )
-        compressed++
     }
 
     if (skipped > 0) {
         console.log(
             `  (${skipped} image(s) referenced in content but not found in uploads)`,
         )
+    }
+
+    if (failed > 0) {
+        console.log(`  (${failed} image(s) failed to compress, left as-is)`)
     }
 
     if (compressed > 0) {

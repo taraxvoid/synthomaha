@@ -68,7 +68,7 @@ const mapsUrl = (location: string) =>
     {
         sortedEvents.length > 0 && (
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="events-list">
-                {sortedEvents.map(({ event, displayDate, displayTime }) => (
+                {sortedEvents.map(({ event, displayDate, displayTime }, index) => (
                     <wa-card data-event-date={displayDate}>
                         <div class="flex flex-col sm:flex-row sm:items-start gap-4">
                             {event.data.image && (
@@ -77,7 +77,8 @@ const mapsUrl = (location: string) =>
                                     alt={event.data.title}
                                     width={160}
                                     height={160}
-                                    loading="lazy"
+                                    loading={index === 0 ? 'eager' : 'lazy'}
+                                    fetchpriority={index === 0 ? 'high' : 'auto'}
                                     decoding="async"
                                     class="w-full h-48 sm:w-40 sm:h-40 rounded object-cover shrink-0"
                                 />
