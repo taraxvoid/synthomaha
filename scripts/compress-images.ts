@@ -79,7 +79,7 @@ export async function compressImages(): Promise<number> {
     // Guard against older runtimes so a missing API never crashes the build.
     if (typeof Bun.Image === 'undefined') {
         console.log(
-            '  ⚠  Bun.Image API not available (requires Bun ≥1.3.14), skipping image compression',
+            '  Bun.Image API not available (requires Bun ≥1.3.14), skipping image compression',
         )
         return 0
     }
@@ -93,7 +93,7 @@ export async function compressImages(): Promise<number> {
         const input = Bun.file(filepath)
 
         if (!(await input.exists())) {
-            console.log(`  ⚠  ${file} — not found in uploads, skipping`)
+            console.log(`  ${file} — not found in uploads, skipping`)
             skipped++
             continue
         }
@@ -104,7 +104,7 @@ export async function compressImages(): Promise<number> {
 
         if (origW <= spec.width) {
             console.log(
-                `  ⏭  ${file}: ${origW}px — already ≤ target (${spec.width}px), skipping`,
+                `  ${file}: ${origW}px — already ≤ target (${spec.width}px), skipping`,
             )
             continue
         }
@@ -118,7 +118,7 @@ export async function compressImages(): Promise<number> {
         const newsize = Bun.file(filepath).size
         const reduction = ((1 - newsize / original) * 100).toFixed(0)
         console.log(
-            `  ✅ ${file}: ${(original / 1024).toFixed(0)}K → ${(newsize / 1024).toFixed(0)}K (${reduction}% smaller)`,
+            `  ${file}: ${(original / 1024).toFixed(0)}K → ${(newsize / 1024).toFixed(0)}K (${reduction}% smaller)`,
         )
         compressed++
     }
