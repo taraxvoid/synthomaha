@@ -15,6 +15,9 @@
  *   - `src/content.config.ts` (collection schemas — a schema change would
  *     invalidate the cached data store format)
  *
+ * Image compression is also cached: `scripts/compress-images.ts` runs only
+ * when files in `public/images/uploads/` have changed since the last build.
+ *
  * Trade-offs:
  *   - Skipping sync means content schema validation (Zod) doesn't run during
  *     build. Run `bun run check` to validate types, or `bun run check:content`
@@ -58,6 +61,41 @@ function getNewestMtime(dir) {
 const lastSyncTime = existsSync(lastSyncPath)
     ? Number(readFileSync(lastSyncPath, 'utf-8'))
     : 0
+
+const uploadsDir = join(root, 'public/images/uploads')
+const lastCompressPath = join(astroDir, '.last-compress')
+
+/** Compress oversized images in public/images/uploads/ if any have changed
+ * since the last build. Uses Bun.Image (no sharp dependency). */
+async function maybeCompressImages() {
+    const lastCompress = existsSync(lastCompressPath)
+        ? Number(readFileSync(lastCompressPath, 'utf-8'))
+        : 0
+    const uploadsMtime = getNewestMtime(uploadsDir)
+    const needsCompress = uploadsMtime > lastCompress
+
+    if (!needsCompress) {
+        console.log('Image cache up-to-date, skipping compression')
+        return
+    }
+
+    console.log('Compressing changed images...')
+    const { compressImages } = await import('../scripts/compress-images.ts')
+    let result
+    try {
+        result = await compressImages()
+    } catch (err) {
+        console.error('Image compression failed:', err)
+        return
+    }
+    // `null` means compression was skipped entirely (e.g. Bun.Image
+    // unavailable on this runtime) — don't mark the cache as up-to-date in
+    // that case, or the images would never get retried after a Bun upgrade.
+    if (result === null) return
+    writeFileSync(lastCompressPath, String(Date.now()), 'utf-8')
+}
+
+await maybeCompressImages()
 
 // Check if any content or config file is newer than the last successful sync
 const contentMtime = getNewestMtime(contentDir)
