@@ -1,3 +1,5 @@
 #!/bin/sh
+git diff --cached --quiet && exit 0
+
 bun run format && git diff --cached --name-only --diff-filter=d | xargs -r git add
 bun run test:unit
