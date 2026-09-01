@@ -13,6 +13,10 @@ export default defineConfig({
         url: 'http://localhost:4343',
         reuseExistingServer: !process.env.CI,
         timeout: 30_000,
+        // Astro auto-backgrounds `astro preview` when it detects an agentic
+        // environment (e.g. Claude Code), which makes Playwright think the
+        // server process exited early. Force foreground mode.
+        env: { ASTRO_PREVIEW_BACKGROUND: 'false' },
     },
     projects: [
         {
