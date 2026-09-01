@@ -27,6 +27,7 @@
  */
 import {
     existsSync,
+    mkdirSync,
     readdirSync,
     readFileSync,
     statSync,
@@ -92,6 +93,7 @@ async function maybeCompressImages() {
     // unavailable on this runtime) — don't mark the cache as up-to-date in
     // that case, or the images would never get retried after a Bun upgrade.
     if (result === null) return
+    mkdirSync(astroDir, { recursive: true })
     writeFileSync(lastCompressPath, String(Date.now()), 'utf-8')
 }
 
