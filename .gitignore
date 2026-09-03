@@ -46,6 +46,3 @@ npm-debug.log*
 
 # TypeScript
 *.tsbuildinfo
-
-# lychee link-checker result cache (see .lychee.toml)
-.lycheecache

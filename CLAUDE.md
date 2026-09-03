@@ -11,6 +11,7 @@ bun run preview        # preview built dist/ locally
 
 bun run lint           # check formatting/linting (Biome)
 bun run format         # auto-fix formatting (Biome)
+bun run lint:actions   # validate .github/workflows/ (actionlint)
 
 bun run check          # Astro + TypeScript type checking
 bun run check:content  # sync Astro content types
@@ -74,6 +75,23 @@ Server-side logic lives in `netlify/functions/`. Form handling and any edge func
 
 - `test/*.test.js` — unit tests (bun:test)
 - `test/e2e/` — Playwright e2e tests
+
+### CI
+
+Workflows live in `.github/workflows/`, all keyed on `main`:
+
+- `pr-checks.yml` ("Ensure PR mergable") — the PR gate: actionlint, advisory
+  `bun audit`, lint, build, `astro check`, unit tests, mobile-chrome e2e.
+- `e2e.yml` — full Playwright matrix (mobile + desktop) on push to `main`.
+- `license-check.yml` — blocks the GPL/AGPL/SSPL family from production deps.
+
+PRs run mobile-chrome only to keep the gate fast; the full matrix runs after
+merge. Draft PRs are skipped.
+
+**This repo requires SHA-pinned actions.** Every `uses:` must name a full
+commit SHA with the version as a trailing comment — a tag (`@v4`) makes the
+workflow fail at startup in 0s with no logs and no annotation. Run
+`bun run lint:actions` after editing any workflow.
 
 Default to using Bun instead of Node.js.
 
