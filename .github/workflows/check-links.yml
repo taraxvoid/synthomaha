@@ -74,10 +74,29 @@ jobs:
           name: link-report
           path: lychee-report.md
 
+      # Marker lets the next run find and replace this comment instead of
+      # stacking a new one on every push to the PR.
+      - name: Tag report for comment de-duplication
+        if: failure() && github.event_name == 'pull_request'
+        run: |
+          printf '%s\n\n' '<!-- lychee-link-report -->' | cat - lychee-report.md > report.tmp
+          mv report.tmp lychee-report.md
+
+      - name: Find previous link-check comment
+        if: failure() && github.event_name == 'pull_request'
+        id: prev-comment
+        uses: peter-evans/find-comment@v3
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: "github-actions[bot]"
+          body-includes: "<!-- lychee-link-report -->"
+
       - name: Comment on PR
         if: failure() && github.event_name == 'pull_request'
         uses: peter-evans/create-or-update-comment@v5
         with:
           issue-number: ${{ github.event.pull_request.number }}
-          bodyPath: lychee-report.md
-          update-previous: true
+          # Empty on the first failure => creates; set thereafter => replaces.
+          comment-id: ${{ steps.prev-comment.outputs.comment-id }}
+          body-path: lychee-report.md
+          edit-mode: replace
