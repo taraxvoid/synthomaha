@@ -37,7 +37,7 @@ const isLogoFallback = !profileImage
             loading="lazy"
             decoding="async"
             class:list={['w-12 h-14 sm:w-10 sm:h-12 rounded-md object-cover border shrink-0', isLogoFallback ? 'bg-white/5 p-1 border-signal/20' : 'border-signal/30']}
-            onerror="this.src='/images/logo.png'; this.classList.add('bg-white/5', 'p-1', 'border-signal/20'); this.classList.remove('border-signal/30')"
+            onerror="this.setAttribute('src','/images/logo.png'); this.classList.add('bg-white/5', 'p-1', 'border-signal/20'); this.classList.remove('border-signal/30')"
         />
         <div class="min-w-0">
             <div class="text-sm font-semibold text-ink-bright">{name}</div>
