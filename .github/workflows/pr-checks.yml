@@ -20,7 +20,9 @@ jobs:
   pr-checks:
     if: "!github.event.pull_request.draft"
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    # 20 min was tight for install + `playwright install --with-deps` + lint +
+    # build + check + unit + e2e on a cold cache; matches e2e.yml's headroom.
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
