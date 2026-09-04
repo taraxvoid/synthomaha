@@ -1,9 +1,5 @@
 name: Ensure PR mergable
 
-# NOTE: this repo has `sha_pinning_required` enabled, so every `uses:` must
-# name a full commit SHA. A version tag (`@v4`) makes the whole workflow fail
-# at startup in 0s with no logs and no annotation. Keep the `# vN` trailing
-# comment so the intended version stays readable.
 on:
   pull_request:
     branches: [main]
@@ -21,7 +17,7 @@ jobs:
     if: "!github.event.pull_request.draft"
     runs-on: ubuntu-latest
     # 20 min was tight for install + `playwright install --with-deps` + lint +
-    # build + check + unit + e2e on a cold cache; matches e2e.yml's headroom.
+    # build + check + unit + e2e on a cold cache
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
