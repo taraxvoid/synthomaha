@@ -81,9 +81,11 @@ Server-side logic lives in `netlify/functions/`. Form handling and any edge func
 Workflows live in `.github/workflows/`, all keyed on `main`:
 
 - `pr-checks.yml` ("Ensure PR mergable") — the PR gate: actionlint, advisory
-  `bun audit`, lint, build, `astro check`, unit tests, mobile-chrome e2e.
+  `bun audit`, lint, build, `astro check`, unit tests, mobile-chrome e2e, and
+  (only when `bun.lock` changed, via `dorny/paths-filter`) `check:licenses` —
+  blocks the GPL/AGPL/SSPL family from production deps. Not a separate
+  workflow — folded into this job so it doesn't need its own CI run.
 - `e2e.yml` — full Playwright matrix (mobile + desktop) on push to `main`.
-- `license-check.yml` — blocks the GPL/AGPL/SSPL family from production deps.
 
 PRs run mobile-chrome only to keep the gate fast; the full matrix runs after
 merge. Draft PRs are skipped.
