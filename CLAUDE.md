@@ -82,12 +82,10 @@ Workflows live in `.github/workflows/`, all keyed on `main`:
 
 - `pr-checks.yml` ("Ensure PR mergable") — the PR gate: actionlint, advisory
   `bun audit`, lint, build, `astro check`, unit tests, mobile-chrome e2e, and
-  (only when `bun.lock` changed, checked via an inline `git diff` against
-  `github.event.pull_request.base.sha` — the repo's Actions allowlist only
-  permits GitHub-owned/verified actions, ruling out `dorny/paths-filter`)
-  `check:licenses` — blocks the GPL/AGPL/SSPL family from production deps.
-  Not a separate workflow — folded into this job so it doesn't need its own
-  CI run.
+  (only when `bun.lock` changed, checked via `dorny/paths-filter`, SHA-pinned
+  per this repo's `sha_pinning_required` policy) `check:licenses` — blocks the
+  GPL/AGPL/SSPL family from production deps. Not a separate workflow — folded
+  into this job so it doesn't need its own CI run.
 - `e2e.yml` — full Playwright matrix (mobile + desktop) on push to `main`.
 
 PRs run mobile-chrome only to keep the gate fast; the full matrix runs after

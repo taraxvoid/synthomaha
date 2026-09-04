@@ -62,23 +62,16 @@ jobs:
       # Mobile-chrome only on PRs; the full project matrix runs on push to main.
       - run: bun run test:e2e:only
 
-      # This repo's Actions allowlist only permits GitHub-owned/verified
-      # actions (dorny/paths-filter isn't verified and starts the whole
-      # workflow with a silent startup_failure), so the bun.lock-changed
-      # check is done inline instead of via that action.
       - name: Check for bun.lock changes
-        if: github.event_name == 'pull_request'
+        uses: dorny/paths-filter@0e4a8c6effa4802afeda77dc8d303f8176d7dfad # v3.0.4
         id: lockfile
-        run: |
-          git fetch --no-tags --depth=1 origin "${{ github.event.pull_request.base.sha }}"
-          if git diff --name-only "${{ github.event.pull_request.base.sha }}" HEAD -- bun.lock | grep -qx 'bun.lock'; then
-            echo "changed=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-          fi
+        with:
+          filters: |
+            lockfile:
+              - 'bun.lock'
 
       - name: Check dependency licenses (block GPL family)
-        if: steps.lockfile.outputs.changed == 'true'
+        if: steps.lockfile.outputs.lockfile == 'true'
         run: bun run check:licenses
 
       - name: Upload e2e failure artifacts
