@@ -3,6 +3,7 @@ import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { describe, expect, test } from 'vitest'
 import { parse as parseYaml } from 'yaml'
+import { TIME_RE } from '../src/utils/times'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = join(__dirname, '..')
@@ -18,6 +19,24 @@ describe('events', () => {
 
     test('there is at least one event file', () => {
         expect(files.length).toBeGreaterThan(0)
+    })
+
+    describe('TIME_RE format', () => {
+        const valid = ['00:00', '09:00', '18:00', '23:59', '20:30']
+        const invalid = [
+            '24:00', // end-of-day sentinel is NOT 24:00
+            '23:60', // invalid minute
+            '9:00', // bare hours
+            '6pm', // 12h
+            '18:00:00', // includes seconds
+            '',
+        ]
+        test.each(valid)('accepts %s', (t) => {
+            expect(t).toMatch(TIME_RE)
+        })
+        test.each(invalid)('rejects %s', (t) => {
+            expect(t).not.toMatch(TIME_RE)
+        })
     })
 
     for (const file of files) {
@@ -40,14 +59,13 @@ describe('events', () => {
                 expect(dateStr).toMatch(/^\d{4}-\d{2}-\d{2}$/)
             })
 
-            test('time is HH:MM', () => {
-                const t = String(data.time)
-                expect(t).toMatch(/^\d{1,2}:\d{2}$/)
+            test('time is strict 24h HH:MM (00:00–23:59)', () => {
+                expect(String(data.time)).toMatch(TIME_RE)
             })
 
-            test('endTime is HH:MM if present', () => {
-                if (data.endTime === undefined) return
-                expect(String(data.endTime)).toMatch(/^\d{1,2}:\d{2}$/)
+            test('endTime, if present, is strict 24h HH:MM', () => {
+                if (data.endTime == null) return
+                expect(String(data.endTime)).toMatch(TIME_RE)
             })
 
             test('price is a numeric string', () => {
