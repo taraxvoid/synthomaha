@@ -24,7 +24,7 @@ describe('events', () => {
     describe('TIME_RE format', () => {
         const valid = ['00:00', '09:00', '18:00', '23:59', '20:30']
         const invalid = [
-            '24:00', // end-of-day sentinel is NOT 24:00
+            '24:00', // end-of-day sentinel is 23:59
             '23:60', // invalid minute
             '9:00', // bare hours
             '6pm', // 12h
