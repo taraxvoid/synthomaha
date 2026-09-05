@@ -2,7 +2,7 @@ name: Ensure PR mergable
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, next, live]
   workflow_dispatch:
 
 concurrency:
@@ -16,8 +16,7 @@ jobs:
   pr-checks:
     if: "!github.event.pull_request.draft"
     runs-on: ubuntu-latest
-    # 20 min was tight for install + `playwright install --with-deps` + lint +
-    # build + check + unit + e2e on a cold cache
+    
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -32,8 +31,7 @@ jobs:
           key: ${{ runner.os }}-bun-${{ hashFiles('bun.lock') }}
           restore-keys: ${{ runner.os }}-bun-
 
-      # Playwright browser binaries (Chromium). Cache hit => no ~2min download.
-      - name: Cache Playwright browsers
+      - name: Cache Playwright browser binaries
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ~/.cache/ms-playwright
@@ -42,20 +40,17 @@ jobs:
 
       - run: bun install --frozen-lockfile
       - run: bunx playwright install --with-deps chromium
-      # Validate workflow files before running the expensive checks.
       - run: bun run lint:actions
-      # Advisory only: reports high/critical vulns without blocking the gate.
-      # Flip continue-on-error to false once transitive deps are clean.
+      
       - name: Audit dependencies
         run: bun audit --audit-level high
         continue-on-error: true
+        
       - run: bun run lint
-      # Build first: test/build.test.ts asserts against dist/, and the e2e
-      # preview server serves it. Everything downstream reuses this build.
       - run: bun run build
-      - run: bun run check            # astro check (type-check)
+      - run: bun run check
       - run: bun run test:unit
-      # Mobile-chrome only on PRs; the full project matrix runs on push to main.
+      
       - run: bun run test:e2e:only
 
       - name: Check for bun.lock changes
