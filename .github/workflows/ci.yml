@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main, next, live]
+  pull_request:
+    branches: [main, next, live]
+
+jobs:
+  validate:
+    name: Validate
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' || github.event.pull_request.draft == false
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Lint
+        run: bun run lint
+
+      - name: Type check
+        run: bun run check
+
+      - name: Unit tests
+        run: bun run test:unit
+
+      - name: Build
+        run: bun run build
+
+      - name: Check for bun.lock changes
+        uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d
+        id: lockfile
+        with:
+          filters: |
+            lockfile:
+              - 'bun.lock'
+
+      - name: Check dependency licenses (block GPL family)
+        if: steps.lockfile.outputs.lockfile == 'true'
+        run: bun run check:licenses
