@@ -8,6 +8,6 @@ bun run format && git diff --cached --name-only --diff-filter=d | xargs -r git a
 # script builds first and runs it there.
 bun run test:unit -- --exclude 'test/build.test.ts'
 
-if git diff --cached --name-only | grep -qE '(^|/)(package\.json|bun\.lock)$'; then
+if git diff --cached --name-only | grep -qE '(^|/)(package\.json|bun\.lock|check-licenses\.ts)$'; then
   bun run check:licenses
 fi
