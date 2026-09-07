@@ -72,10 +72,9 @@ jobs:
         run: bun run check:licenses
 
       - name: Install Playwright browsers
-        if: github.event.pull_request.base.ref == 'main'
         run: bunx playwright install --with-deps chromium
+      
       - name: Fast e2e (mobile-chrome)
-        if: github.event.pull_request.base.ref == 'main'
         run: bun run test:e2e:isolated
 
       - name: Upload failure reports
