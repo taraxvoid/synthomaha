@@ -1,8 +1,6 @@
 name: CI
 
 on:
-  push:
-    branches: [main, next, live]
   pull_request:
     branches: [main, next, live]
     types: [opened, synchronize, reopened, ready_for_review]
@@ -71,7 +69,7 @@ jobs:
 
       - run: bunx playwright install --with-deps chromium
       - name: Fast e2e (mobile-chrome)
-        if: github.event_name == 'pull_request' && github.event.pull_request.base.ref == 'main'
+        if: github.event.pull_request.base.ref == 'main'
         run: bun run test:e2e:isolated
 
       - name: Upload failure reports
