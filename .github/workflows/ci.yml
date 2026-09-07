@@ -67,7 +67,9 @@ jobs:
         if: steps.changes.outputs.lockfile == 'true' || steps.changes.outputs.checker_script == 'true'
         run: bun run check:licenses
 
-      - run: bunx playwright install --with-deps chromium
+      - name: Install Playwright browsers
+        if: github.event.pull_request.base.ref == 'main'
+        run: bunx playwright install --with-deps chromium
       - name: Fast e2e (mobile-chrome)
         if: github.event.pull_request.base.ref == 'main'
         run: bun run test:e2e:isolated
