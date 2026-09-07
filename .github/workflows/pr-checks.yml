@@ -51,7 +51,7 @@ jobs:
       - run: bun run check
       - run: bun run test:unit
       
-      - run: bun run test:e2e:only
+      - run: bun run test:e2e:isolated
 
       - name: Check for bun.lock changes
         uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d # v4.0.3
