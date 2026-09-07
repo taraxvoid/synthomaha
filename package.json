@@ -19,7 +19,7 @@
         "format": "biome check --write .",
         "lint": "biome check .",
         "lint:actions": "bun run scripts/lint-actions.js",
-        "test": "bun run build && npm-run-all -l -p check test:unit -s test:e2e:isolated",
+        "test": "bun run build && npm-run-all -l -p check test:unit -s test:e2e:smoke",
         "test:unit": "vitest run",
         "test:e2e:isolated": "playwright test --project=mobile-chrome",
         "test:fast": "run-p -l lint test:data",
@@ -27,13 +27,15 @@
         "test:data": "vitest run test/data.test.ts",
         "test:build": "vitest run test/build.test.ts",
         "test:e2e": "bun run build && playwright test --project=mobile-chrome",
+        "test:e2e:smoke": "playwright test --project=mobile-chrome site.spec",
         "test:e2e:desktop": "bun run build && playwright test --project=desktop-chrome",
         "test:e2e:all": "bun run build && playwright test",
         "test:e2e:ui": "playwright test --ui",
         "postinstall": "bunx @biomejs/biome migrate --write",
         "test:e2e:headed": "playwright test --headed",
         "audit": "bun audit --audit-level high",
-        "check:licenses": "bun scripts/check-licenses.ts"
+        "check:licenses": "bun scripts/check-licenses.ts",
+        "test:e2e:lighthouse": "bun run build && bun scripts/run-lhci.ts"
     },
     "dependencies": {
         "@astrojs/react": "6.0.0",
@@ -58,10 +60,13 @@
     },
     "devDependencies": {
         "@astrojs/check": "^0.9.10",
+        "@axe-core/playwright": "^4.12.1",
         "@biomejs/biome": "^2.5.8",
+        "@lhci/cli": "^0.15.1",
         "@lizenz/checker": "^0.0.2",
-        "@playwright/test": "^1.62.1",
-        "@types/blobshape": "^1.0.3",
+        "@playwright/test": "^1.62.0",
+        "@socketsecurity/bun-security-scanner": "^1.1.2",
+        "@types/bun": "^1.4.0",
         "@types/node": "^24.13.3",
         "@types/react": "^19.2.18",
         "@types/react-dom": "^19.2.4",
@@ -69,7 +74,8 @@
         "husky": "^9.1.7",
         "npm-run-all2": "^9.0.3",
         "typescript": "^6.0.3",
-        "vitest": "^4.1.10"
+        "vitest": "^4.1.10",
+        "yaml": "^2.9.0"
     },
     "volta": {
         "node": "24.15.0"
