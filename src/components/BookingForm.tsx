@@ -235,7 +235,7 @@ export default function BookingForm({ musicians }: Props) {
                     maxLength={280}
                     className="field resize-none"
                 />
-                <div className="text-xs text-right opacity-60 mt-1">
+                <div className="text-xs text-right opacity-80 mt-1">
                     {formData.additional_info.length}/280
                 </div>
             </div>
