@@ -39,7 +39,17 @@ const warnings = []
 for (const file of files) {
     const path = join(WORKFLOWS_DIR, file)
     const input = readFileSync(path, 'utf8')
-    const results = lint(input, path)
+    let results
+    try {
+        results = lint(input, path)
+    } catch (err) {
+        // The actionlint WASM module throws a RuntimeError (a C++ exception)
+        // on unrecoverable YAML/parsing errors such as malformed indentation.
+        errors.push(
+            `  ✗ ${path} — actionlint could not parse this file (${err.message || err}). Check indentation and YAML syntax.`,
+        )
+        continue
+    }
     for (const r of results) {
         const line = `  ${r.kind === 'warning' ? '⚠' : '✗'} ${path}:${r.line}:${r.column} — ${r.message} (${r.kind})`
         // actionlint's "warning" kind covers shellcheck-style style nits that
