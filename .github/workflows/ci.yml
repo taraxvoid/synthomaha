@@ -1,16 +1,15 @@
 name: CI
 
 on:
-  push:
-    branches: [main, next, live]
   pull_request:
     branches: [main, next, live]
+    types: [opened, synchronize, reopened, ready_for_review]
 
 jobs:
   validate:
     name: Validate
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' || github.event.pull_request.draft == false
+
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
