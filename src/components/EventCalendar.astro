@@ -17,7 +17,7 @@ const displayEvents = allEvents.flatMap((event) => {
         event.data.date,
         event.data.time,
         event.data.recurrence,
-        2,
+        1,
     )
     if (upcoming.length === 0) {
         return [
@@ -46,6 +46,11 @@ const formatDate = (dateStr: string) => {
         day: 'numeric',
         year: 'numeric',
     })
+}
+
+const formatMonthTag = (dateStr: string) => {
+    const date = new Date(`${dateStr}T12:00:00`)
+    return date.toLocaleDateString('en-US', { month: 'short' })
 }
 
 const formatTime = (time: string) => {
@@ -84,7 +89,7 @@ const mapsUrl = (location: string) =>
                                 />
                             )}
                             <div class="grow min-w-0">
-                                <h3 class="text-xl font-semibold leading-tight mb-1">{event.data.title}</h3>
+                                <h3 class="text-xl font-semibold leading-tight mb-1">{`{${formatMonthTag(displayDate)}} ${event.data.title}`}</h3>
                                 <p class="text-base opacity-75 mb-3">{event.data.description}</p>
                                 <div class="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-inherit mb-3">
                                     <span class="inline-flex items-center gap-1">
