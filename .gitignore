@@ -13,10 +13,12 @@ node_modules/
 .env.fish
 !.env.example
 
-# Editor
+# Editor / bots
 .poolside/
+.kilo/
 .claude/
-.cursor
+.delta/
+.cursor/
 .vscode/
 .idea
 .superpowers

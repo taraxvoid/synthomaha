@@ -31,4 +31,4 @@ if [ -n "$remote_name" ] && [ -n "$remote_branch" ]; then
   fi
 fi
 
-bun run test
+bun run test:push

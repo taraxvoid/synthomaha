@@ -1,6 +1,7 @@
 import { defineCollection } from 'astro:content'
 import { glob } from 'astro/loaders'
 import { z } from 'zod'
+import { TIME_ERROR, TIME_RE } from './utils/times'
 
 const events = defineCollection({
     loader: glob({ pattern: '**/*.yaml', base: './src/content/events' }),
@@ -10,8 +11,18 @@ const events = defineCollection({
             z.string(),
             z.date().transform((d) => d.toISOString().slice(0, 10)),
         ]),
-        time: z.string(), // HH:MM 24h
-        endTime: z.string().optional(),
+        time: z
+            .string()
+            .transform((v) => v.trim())
+            .refine((v) => TIME_RE.test(v), TIME_ERROR),
+        endTime: z
+            .string()
+            .optional()
+            .transform((v) => {
+                if (v === undefined || v === '') return undefined
+                return v.trim()
+            })
+            .refine((v) => v === undefined || TIME_RE.test(v), TIME_ERROR),
         location: z.string(),
         description: z.string(),
         price: z.string().optional().default('0'),

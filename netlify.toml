@@ -3,6 +3,11 @@
   functions = "netlify/functions"
   publish = "dist"
 
+[build.environment]
+  # compress-images.ts uses Bun.Image (BunFile.image()), introduced in v1.3.14.
+  # Netlify's default Bun is older, so pin it to avoid TypeError at build time.
+  BUN_VERSION = "1.3.14"
+
 # Form handling configuration
 [form]
   enabled = true
