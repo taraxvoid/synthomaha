@@ -6,6 +6,7 @@ export default defineConfig({
             '**/node_modules/**',
             '**/.git/**',
             '**/.claude/**',
+            '**/.delta/**',
             '**/e2e/**',
         ],
     },
