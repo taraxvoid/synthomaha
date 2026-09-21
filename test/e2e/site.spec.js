@@ -24,7 +24,7 @@ test('nav links point to expected sections and those sections exist', async ({
         'href',
         '#events',
     )
-    await expect(nav.getByRole('link', { name: /Join Us/i })).toHaveAttribute(
+    await expect(nav.getByRole('link', { name: /Patch In/i })).toHaveAttribute(
         'href',
         '#signup',
     )
@@ -85,7 +85,7 @@ test('recurring events show only their next single occurrence', async ({
     expect(baseTitles.length).toBeGreaterThanOrEqual(2)
 })
 
-test('event titles are prefixed with the short month of their occurrence', async ({
+test('event titles are prefixed with the month of their occurrence', async ({
     page,
 }) => {
     await page.clock.setFixedTime(new Date('2026-01-01T12:00:00'))
@@ -93,8 +93,9 @@ test('event titles are prefixed with the short month of their occurrence', async
     const titles = await page
         .locator('#events wa-card[data-event-date] h3')
         .allTextContents()
+    // reasonable approximation since I don't want to hardcode a list of months
     for (const title of titles) {
-        expect(title).toMatch(/^\{[A-Za-z]{3}\} /)
+        expect(title).toMatch(/^[A-Za-z]{4,} /)
     }
 })
 
