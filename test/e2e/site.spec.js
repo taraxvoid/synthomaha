@@ -24,7 +24,7 @@ test('nav links point to expected sections and those sections exist', async ({
         'href',
         '#events',
     )
-    await expect(nav.getByRole('link', { name: /Join Us/i })).toHaveAttribute(
+    await expect(nav.getByRole('link', { name: /Patch In/i })).toHaveAttribute(
         'href',
         '#signup',
     )
@@ -72,18 +72,31 @@ test('event cards render with calendar download links', async ({ page }) => {
     await expect(addToCalendar).toHaveAttribute('href', /\/events\/.+\.ics$/)
 })
 
-test('recurring event shows its next two upcoming occurrences', async ({
+test('recurring events show only their next single occurrence', async ({
     page,
 }) => {
     await page.clock.setFixedTime(new Date('2026-01-01T12:00:00'))
     await page.goto('/')
-    const dates = await page
-        .locator('#events wa-card[data-event-date]')
-        .evaluateAll((cards) =>
-            cards.map((c) => c.getAttribute('data-event-date')),
-        )
-    expect(new Set(dates).size).toBe(dates.length)
-    expect(dates.length).toBeGreaterThanOrEqual(2)
+    const titles = await page
+        .locator('#events wa-card[data-event-date] h3')
+        .allTextContents()
+    const baseTitles = titles.map((t) => t.replace(/^\{[A-Za-z]+\}\s*/, ''))
+    expect(new Set(baseTitles).size).toBe(baseTitles.length)
+    expect(baseTitles.length).toBeGreaterThanOrEqual(2)
+})
+
+test('event titles are prefixed with the month of their occurrence', async ({
+    page,
+}) => {
+    await page.clock.setFixedTime(new Date('2026-01-01T12:00:00'))
+    await page.goto('/')
+    const titles = await page
+        .locator('#events wa-card[data-event-date] h3')
+        .allTextContents()
+    // reasonable approximation since I don't want to hardcode a list of months
+    for (const title of titles) {
+        expect(title).toMatch(/^[A-Za-z]{4,} /)
+    }
 })
 
 test('event cards lay out in two columns on wide viewports', async ({
