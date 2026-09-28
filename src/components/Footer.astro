@@ -2,15 +2,23 @@
 const year = new Date().getFullYear()
 ---
 
-<footer class="pt-8 pb-8 sm:pt-12 sm:pb-10">
-    <div class="space-y-4 text-sm opacity-80">
-        <div>
-            <p class="text-ink-bright font-semibold mb-2">SynthOmaha - Electronic / Modular / Ambient / Experimental Music </p>
-        </div>
-        <p class="pt-4 border-t border-signal/60">© {year} SynthOmaha. All rights reserved.</p>
-        <p>
-            Built with <wa-icon name="heart" style="font-size: 0.9rem; color: var(--color-signal); display: inline;" aria-hidden="true"></wa-icon> by
-            <a href="https://rvnflt.com/synthomaha" target="_blank" rel="noopener noreferrer"> RavenFlight (RVNFLT)</a>
+<footer class="pt-2 pb-6 sm:pt-4 sm:pb-10">
+    <div class="relative p-5 sm:p-6 border-t border-signal/20">
+        <span class="pointer-events-none absolute left-0 top-0 h-3 w-3 border-l-2 border-t-2 border-signal/70" aria-hidden="true"></span>
+        <span class="pointer-events-none absolute right-0 top-0 h-3 w-3 border-r-2 border-t-2 border-signal/70" aria-hidden="true"></span>
+        <span class="pointer-events-none absolute left-0 bottom-0 h-3 w-3 border-l-2 border-b-2 border-signal/70" aria-hidden="true"></span>
+        <span class="pointer-events-none absolute right-0 bottom-0 h-3 w-3 border-r-2 border-b-2 border-signal/70" aria-hidden="true"></span>
+
+        <p class="text-ink-bright font-semibold text-base sm:text-xl tracking-wide">
+            SynthOmaha - Electronic / Modular / Ambient / Experimental Music
         </p>
+
+        <div class="mt-4 pt-4 border-t border-signal/60 flex flex-col gap-2 text-sm opacity-80 sm:flex-row sm:items-center sm:justify-between">
+            <p>© {year} SynthOmaha. All rights reserved.</p>
+            <p>
+                Built with <wa-icon name="heart" style="font-size: 0.9rem; color: var(--color-signal); display: inline;" aria-hidden="true"></wa-icon> by
+                <a href="https://rvnflt.com/synthomaha" target="_blank" rel="noopener noreferrer"> RavenFlight (RVNFLT)</a>
+            </p>
+        </div>
     </div>
 </footer>
