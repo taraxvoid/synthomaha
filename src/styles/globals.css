@@ -211,3 +211,31 @@ wa-card > * {
         }
     }
 }
+
+@layer components {
+    /* Section divider — a shallow sawtooth (slow ramp, sharp drop) so it reads
+       apart from the straight nav/footer rules. The mask lets it take the
+       signal token instead of a hardcoded stroke color. */
+    .saw-divider {
+        position: relative;
+    }
+
+    .saw-divider::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 6px;
+        background-color: color-mix(
+            in srgb,
+            var(--color-signal) 40%,
+            transparent
+        );
+        -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='6' viewBox='0 0 14 6'%3E%3Cpath d='M0 5.5 L13.5 0.5 L13.5 5.5' fill='none' stroke='black' stroke-width='1'/%3E%3C/svg%3E");
+        mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='6' viewBox='0 0 14 6'%3E%3Cpath d='M0 5.5 L13.5 0.5 L13.5 5.5' fill='none' stroke='black' stroke-width='1'/%3E%3C/svg%3E");
+        -webkit-mask-repeat: repeat-x;
+        mask-repeat: repeat-x;
+        pointer-events: none;
+    }
+}
