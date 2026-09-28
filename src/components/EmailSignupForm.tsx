@@ -55,6 +55,7 @@ export default function EmailSignupForm() {
                     <input
                         type="email"
                         id="email"
+                        aria-label="Email address"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="your@synths-rule.biz"
