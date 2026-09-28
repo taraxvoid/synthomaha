@@ -3,6 +3,12 @@ git diff --cached --quiet && exit 0
 
 bun run format && git diff --cached --name-only --diff-filter=d | xargs -r git add
 
+# compress uploads here (not only in the build) so the compressed bytes land
+# in this commit; otherwise the first build, at pre-push, rewrites the file
+# and leaves a dirty tree after the uncompressed one was committed.
+bun run compress:images
+git diff --cached --name-only --diff-filter=d -- public/images/uploads | xargs -r git add
+
 bun run lint:actions || exit 1
 bun run check || exit 1
 
