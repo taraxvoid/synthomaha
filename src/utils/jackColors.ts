@@ -1,8 +1,7 @@
 const JACK_COLOR_CLASSES = [
     'jack--pink',
-    'jack--purple',
-    'jack--red',
     'jack--green',
+    'jack--purple',
 ] as const
 
 export function jackColorClass(index: number): string {

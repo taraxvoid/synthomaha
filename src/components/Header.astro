@@ -3,15 +3,15 @@ import Logo from '../components/Logo.astro'
 import { jackColorClass } from '../utils/jackColors'
 
 const navItems = [
+    { linkText: 'Patch In', href: '#signup', isCta: true },
     { linkText: 'Events', href: '#events' },
     { linkText: 'Musicians', href: '#musicians' },
-    { linkText: 'Booking', href: '#contact' },
-    { linkText: 'Patch In', href: '#signup', isCta: true },
 ]
 ---
 
-<nav class="flex flex-wrap items-center gap-4 pt-6 pb-4 sm:pt-12 sm:pb-6 border-b border-signal/20">
-    <a href="/" class="relative inline-flex mt-2 sm:mt-3 p-3">
+<nav class="flex flex-wrap items-center justify-start gap-3 pt-4 pb-4 sm:pt-2 sm:pb-4 border-b border-signal/20">
+    {/* Mobile: ml-[1.325rem] = .jack width (0.95rem) + gap-1.5 (0.375rem), so the logo brackets line up with the button edges. Update if .jack size changes in globals.css. */}
+    <a href="/" class="relative inline-flex mt-2 ml-[1.325rem] sm:ml-0 sm:mt-3 p-1.5">
         <span class="pointer-events-none absolute left-0 top-0 h-3 w-3 border-l-2 border-t-2 border-signal/70" aria-hidden="true" />
         <span class="pointer-events-none absolute right-0 top-0 h-3 w-3 border-r-2 border-t-2 border-signal/70" aria-hidden="true" />
         <span class="pointer-events-none absolute left-0 bottom-0 h-3 w-3 border-l-2 border-b-2 border-signal/70" aria-hidden="true" />
@@ -30,10 +30,10 @@ const navItems = [
                         <a
                             href={item.href}
                             class:list={[
-                                'no-underline inline-block w-full text-center px-4 py-2.5 text-base font-semibold tracking-wide uppercase rounded transition-colors sm:w-auto',
+                                'no-underline inline-block w-full text-center px-2 py-1.5 text-base  tracking-wide uppercase rounded transition-colors sm:w-auto',
                                 item.isCta
                                     ? 'bg-signal text-signal-content border border-signal hover:bg-signal/85'
-                                    : 'border border-signal/60 bg-panel-raised/60 text-signal shadow-[inset_0_1px_0_rgba(255,255,255,0.08),inset_0_-2px_0_rgba(0,0,0,0.4)] hover:bg-signal hover:text-signal-content hover:border-signal',
+                                    : 'border border-signal/60 bg-panel-raised/60 text-signal shadow-[inset_0_1px_0_rgba(255,255,255,0.08),inset_0_-2px_0_rgba(0,0,0,0.4)] hover:bg-signal hover:text-signal-content hover:border-signal font-semibold',
                             ]}
                         >
                             {item.linkText}

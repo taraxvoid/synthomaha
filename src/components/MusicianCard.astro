@@ -40,11 +40,11 @@ const isLogoFallback = !profileImage
             onerror="this.setAttribute('src','/images/logo.png'); this.classList.add('bg-white/5', 'p-1', 'border-signal/20'); this.classList.remove('border-signal/30')"
         />
         <div class="min-w-0">
-            <div class="text-sm font-semibold text-ink-bright">{name}</div>
-            {bio && <div class="text-xs opacity-80 mt-0.5 leading-snug">{bio}</div>}
+            <div class="text-medium font-semibold text-ink-bright">{name}</div>
+            {bio && <div class="text-s opacity-80 mt-1 leading-snug">{bio}</div>}
             {
                 links.length > 0 && (
-                    <div class="flex flex-wrap gap-x-3 gap-y-0.5 mt-1.5 text-xs">
+                    <div class="flex flex-wrap gap-x-3 gap-y-0.5 mt-1.5 text-s">
                         {links.map((link) => (
                             <a href={link.href} target="_blank" rel="noopener noreferrer" class="text-signal">
                                 {link.label}
