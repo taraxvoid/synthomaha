@@ -80,12 +80,10 @@ const mapsUrl = (location: string) =>
                                 <img
                                     src={event.data.image}
                                     alt={event.data.title}
-                                    width={160}
-                                    height={160}
                                     loading={index === 0 ? 'eager' : 'lazy'}
                                     fetchpriority={index === 0 ? 'high' : 'auto'}
                                     decoding="async"
-                                    class="w-full h-48 sm:w-40 sm:h-40 rounded object-cover shrink-0"
+                                    class="w-full max-h-96 sm:w-40 h-auto rounded object-contain shrink-0"
                                 />
                             )}
                             <div class="grow min-w-0">
