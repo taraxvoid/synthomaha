@@ -6,7 +6,7 @@
   Logo: "SynthOmaha" — "SYNTH" text followed by O (patch bay oval) then "MAHA"
   O is a blue ellipse (very visible) with 8 gray patch jacks
   scattered at irregular positions on the oval perimeter. 4 cables (pink, purple,
-  red, green) each connect a top-area jack to a lower-area jack, hanging downward
+  green) each connect a top-area jack to a lower-area jack, hanging downward
   like real synth patch cables. Cables cross for organic/messy look.
   Oval center (21,22), rx=18, ry=17.
 
@@ -17,8 +17,7 @@
   Cable pairs (all go top→bottom):
     Pink   — J1(24,5)  → J5(8,35)   sweeps left on way down
     Purple — J0(10,8)  → J4(34,34)  sweeps right on way down (crosses pink)
-    Red    — J2(36,11) → J6(3,22)   upper-right to left, long sag
-    Green  — J7(6,13)  → J3(39,22)  upper-left to right, long sag (crosses red)
+    Green  — J6(3,22)  → J3(39,22)  mid-left to right, smiley,mild sag
 -->
 <svg width="252" height="50" viewBox="0 0 252 50" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="SynthOmaha">
     <!-- "SYNTH" text -->
@@ -37,17 +36,14 @@
         <!-- O oval — same blue as text, very visible -->
         <ellipse cx="21" cy="22" rx="18" ry="17" stroke="#60a5fa" stroke-width="2" fill="none"></ellipse>
 
-        <!-- Pink: J1(24,5) → J5(8,35) — top sweeping left -->
+        <!-- Pink: J1(24,5) → J6(3,22) ) — top sweeping left -->
         <path d="M 24,5 C 28,20 12,28 8,35" stroke="#ec4899" stroke-width="2.2" stroke-linecap="round" fill="none"></path>
 
         <!-- Purple: J0(10,8) → J4(34,34) — upper-left sweeping right (crosses pink) -->
         <path d="M 10,8 C 8,20 30,28 34,34" stroke="#9333ea" stroke-width="2.2" stroke-linecap="round" fill="none"></path>
 
-        <!-- Red: J2(36,11) → J6(3,22) — upper-right to left, deep sag -->
-        <path d="M 36,11 C 36,26 4,32 3,22" stroke="#ef4444" stroke-width="2.2" stroke-linecap="round" fill="none"></path>
-
-        <!-- Green: J7(6,13) → J3(39,22) — upper-left to right, deep sag (crosses red) -->
-        <path d="M 6,13 C 8,30 36,32 39,22" stroke="#22c55e" stroke-width="2.2" stroke-linecap="round" fill="none"></path>
+        <!-- Green: J6(3,22) → J3(39,22) — upper-left to right, deep sag -->
+        <path d="M 3,22 C 8,30 36,32 39,22" stroke="#22c55e" stroke-width="2.2" stroke-linecap="round" fill="none"></path>
 
         <!-- Jack sockets -->
         <circle cx="10" cy="8" r="2.2" fill="#8c8880"></circle>

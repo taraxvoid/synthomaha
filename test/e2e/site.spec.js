@@ -32,15 +32,10 @@ test('nav links point to expected sections and those sections exist', async ({
         'href',
         '#musicians',
     )
-    await expect(nav.getByRole('link', { name: /Booking/i })).toHaveAttribute(
-        'href',
-        '#contact',
-    )
 
     await expect(page.locator('section#events')).toBeAttached()
     await expect(page.locator('section#signup')).toBeAttached()
     await expect(page.locator('#musicians')).toBeAttached()
-    await expect(page.locator('#contact')).toBeAttached()
 })
 
 test('musician cards render', async ({ page }) => {

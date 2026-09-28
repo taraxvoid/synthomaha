@@ -21,7 +21,6 @@
        jack sockets in the header nav and the section spine */
     --color-jack-pink: #ec4899;
     --color-jack-purple: #a855f7;
-    --color-jack-red: #ef4444;
     --color-jack-green: #22c55e;
 }
 
@@ -189,10 +188,6 @@ wa-card > * {
 
     .jack--purple {
         background: var(--color-jack-purple);
-    }
-
-    .jack--red {
-        background: var(--color-jack-red);
     }
 
     .jack--green {
