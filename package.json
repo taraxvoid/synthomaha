@@ -10,7 +10,7 @@
         "build": "bun scripts/build.mjs",
         "preview": "astro preview",
         "astro": "astro",
-        "prepare": "husky",
+        "prepare": "lefthook install || echo 'lefthook not installed (run mise install); git hooks skipped'",
         "generate:logo": "bun run scripts/generate-logo-png.ts",
         "generate:favicons": "bun run scripts/generate-favicons.mjs",
         "generate": "bun run generate:logo && bun run generate:favicons",
@@ -24,6 +24,7 @@
         "test": "bun run build && npm-run-all -l -p check test:unit -s test:e2e:full",
         "test:push": "bun run build && npm-run-all -l -p check test:unit -s test:e2e:smoke",
         "test:unit": "vitest run",
+        "test:unit:precommit": "bun run test:unit -- --exclude 'test/build.test.ts'",
         "test:e2e:full": "playwright test --project=mobile-chrome",
         "test:e2e:smoke": "playwright test --project=mobile-chrome site.spec",
         "test:fast": "run-p -l lint test:data",
@@ -36,9 +37,9 @@
         "test:e2e:ui": "playwright test --ui",
         "test:e2e:headed": "playwright test --headed",
         "test:e2e:a11y": "bun run build && playwright test test/e2e/a11y.spec.js --project=mobile-chrome",
-        "test:e2e:lighthouse": "bun run build && bunx --package @taraxvoid/voidflow@0.9.0 unlighthouse-runner --dir dist",
+        "test:e2e:lighthouse": "bun run build && bunx --package @taraxvoid/voidflow@0.10.0 unlighthouse-runner --dir dist",
         "audit": "bun audit --audit-level high --production",
-        "check:licenses": "bun scripts/check-licenses.ts"
+        "check:licenses": "bunx --package @taraxvoid/voidflow@0.10.0 check-licenses"
     },
     "engines": {
         "bun": ">=1.4.0"
@@ -70,13 +71,12 @@
         "@biomejs/biome": "^2.5.14",
         "@lizenz/checker": "^0.0.2",
         "@playwright/test": "^1.63.0",
-        "@taraxvoid/voidflow": "0.9.0",
+        "@taraxvoid/voidflow": "0.10.0",
         "@types/blobshape": "^1.0.3",
         "@types/node": "^24.19.0",
         "@types/react": "^19.3.0",
         "@types/react-dom": "^19.3.0",
         "github-actionlint": "^1.7.12",
-        "husky": "^9.1.7",
         "npm-run-all2": "^9.0.3",
         "typescript": "^6.0.3",
         "vitest": "^4.1.11"
