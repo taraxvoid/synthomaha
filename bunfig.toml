@@ -1,5 +1,9 @@
 [install]
 minimumReleaseAge = 259200 # 3 days
 
+[install.security]
+scanner = "@socketsecurity/bun-security-scanner"
+
 # Packages that bypass the gate
-minimumReleaseAgeExcludes = ["@types/bun", "bun-types","typescript"]
+minimumReleaseAgeExcludes = ["@types/bun", "bun-types", "typescript", "astro", "@astrojs/cloudflare", "@astrojs/sitemap", "@astrojs/check", "@astrojs/react", "@astrojs/compiler-rs", "@astrojs/markdown-satteri", "@astrojs/compiler-binding", "@playwright/test", "playwright", "playwright-core"]
+
