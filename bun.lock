@@ -31,7 +31,7 @@
         "@biomejs/biome": "^2.5.14",
         "@lizenz/checker": "^0.0.2",
         "@playwright/test": "^1.63.0",
-        "@taraxvoid/voidflow": "0.10.0",
+        "@taraxvoid/voidflow": "0.11.1",
         "@types/blobshape": "^1.0.3",
         "@types/node": "^24.19.0",
         "@types/react": "^19.3.0",
@@ -538,7 +538,7 @@
 
     "@tailwindcss/vite": ["@tailwindcss/vite@4.3.3", "", { "dependencies": { "@tailwindcss/node": "4.3.3", "@tailwindcss/oxide": "4.3.3", "tailwindcss": "4.3.3" }, "peerDependencies": { "vite": "^5.2.0 || ^6 || ^7 || ^8" } }, "sha512-yYU8cogLeSh/ms2jh8Fj7jaba/EWa7Ja6GoUqYZaraEuCI5YS6ms6ObZgjjedm+jm6XZjdNRWBpPP6Z86oOxcw=="],
 
-    "@taraxvoid/voidflow": ["@taraxvoid/voidflow@0.10.0", "", { "peerDependencies": { "@playwright/test": ">=1.40" }, "bin": { "check-licenses": "scripts/check-licenses.ts", "unlighthouse-runner": "scripts/unlighthouse/run.ts" } }, "sha512-3yfWzwrk/HKtRj7t9HblUPZggDqNTrU92rC5JJWTYektkYZbb/tSRqSsP/QVXhZj0VKBUY7lzgGbh2tjUigfVA=="],
+    "@taraxvoid/voidflow": ["@taraxvoid/voidflow@0.11.1", "", { "peerDependencies": { "@playwright/test": ">=1.40" }, "bin": { "check-licenses": "scripts/check-licenses.ts", "unlighthouse-runner": "scripts/unlighthouse/run.ts" } }, "sha512-nSXqaRfz5Gi7Rk+l+kPIuAgT7B/obJtwktWYS+fsEBV7PHS1FVIIe1LM/6aE06jyyjFro/YUr7EaGg+rCykoaA=="],
 
     "@tufjs/canonical-json": ["@tufjs/canonical-json@2.0.0", "", {}, "sha512-yVtV8zsdo8qFHe+/3kw81dSLyF7D576A5cCFCi4X7B39tWT7SekaEFUnvnWJHz+9qO7qJTah1JbrDjWKqFtdWA=="],
 
