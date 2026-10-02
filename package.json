@@ -20,7 +20,6 @@
         "format": "biome check --write .",
         "lint": "biome check .",
         "lint:migrate": "biome migrate --write",
-        "lint:migrate:check": "biome migrate | { ! grep -q \"needs migration\"; }",
         "lint:actions": "github-actionlint",
         "test": "bun run build && npm-run-all -l -p check test:unit -s test:e2e:full",
         "test:push": "bun run build && npm-run-all -l -p check test:unit -s test:e2e:smoke",
