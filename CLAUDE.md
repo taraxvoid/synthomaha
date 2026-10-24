@@ -11,17 +11,30 @@ bun run preview        # preview built dist/ locally
 
 bun run lint           # check formatting/linting (Biome)
 bun run format         # auto-fix formatting (Biome)
-bun run lint:actions   # validate .github/workflows/ (actionlint)
+bun run lint:actions   # validate .github/workflows/ (github-actionlint)
 
 bun run check          # Astro + TypeScript type checking
 bun run check:content  # sync Astro content types
 
-bun run test           # unit tests
-bun run test:unit      # unit tests only (bun:test)
-bun run test:e2e       # Playwright e2e tests
+bun run test           # everything: build, check, unit, e2e (mobile-chrome)
+bun run test:push      # pre-push gate: build, check, unit, e2e smoke (site.spec)
+bun run test:fast      # lint + data validation, no build
+bun run test:unit      # vitest run (all of test/*.test.ts)
+bun run test:data      # content validation only
+bun run test:e2e       # build + Playwright (mobile-chrome)
+bun run test:e2e:all   # build + Playwright (mobile + desktop)
 
 bun run generate       # regenerate logo PNG + favicons
+bun run compress:images  # compress public/images/uploads
 ```
+
+Tests are **vitest** via `bun run <script>`; bare `bun test` invokes Bun's own
+runner and won't run the suite.
+
+Git hooks are lefthook, shared from voidflow's `lefthook/site.yml` (format,
+actionlint, check, `test:unit:precommit` on commit; `test:push` on push).
+This repo adds a pre-commit `compress-images` step for
+`public/images/uploads/**` that re-stages the compressed files.
 
 ### Build performance
 
@@ -73,34 +86,16 @@ Server-side logic lives in `netlify/functions/`. Form handling and any edge func
 
 ### Tests
 
-- `test/*.test.js` — unit tests (bun:test)
+- `test/*.test.ts` — unit tests (vitest); `build.test.ts` needs a built `dist/`
 - `test/e2e/` — Playwright e2e tests
 
 ### CI
 
-Workflows live in `.github/workflows/`, all keyed on `main`:
-
-- `pr-checks.yml` ("Ensure PR mergable") — the PR gate: actionlint, advisory
-  `bun audit`, lint, build, `astro check`, unit tests, mobile-chrome e2e, and
-  (only when `bun.lock` changed, checked via `dorny/paths-filter`, SHA-pinned
-  per this repo's `sha_pinning_required` policy) `check:licenses` — blocks the
-  GPL/AGPL/SSPL family from production deps. Not a separate workflow — folded
-  into this job so it doesn't need its own CI run.
-- `e2e.yml` — full Playwright matrix (mobile + desktop) on push to `main`.
-
-PRs run mobile-chrome only to keep the gate fast; the full matrix runs after
-merge. Draft PRs are skipped.
+`.github/workflows/ci.yml` is the only workflow: on PRs and pushes to `main`
+it calls voidflow's shared `site-ci.yml` (`single-environment: true`). Draft
+PRs are skipped.
 
 **This repo requires SHA-pinned actions.** Every `uses:` must name a full
 commit SHA with the version as a trailing comment — a tag (`@v4`) makes the
 workflow fail at startup in 0s with no logs and no annotation. Run
 `bun run lint:actions` after editing any workflow.
-
-Default to using Bun instead of Node.js.
-
-- Use `bun <file>` instead of `node <file>` or `ts-node <file>`
-- Use `bun test` instead of `jest` or `vitest`
-- Use `bun install` instead of `npm install`
-- Use `bun run <script>` instead of `npm run <script>`
-- Use `bunx <package>` instead of `npx <package>`
-- Bun automatically loads .env, so don't use dotenv.
