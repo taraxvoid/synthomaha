@@ -166,7 +166,7 @@ test('events.ics returns a valid calendar', async ({ request }) => {
 })
 
 // ---------------------------------------------------------------------------
-// Mobile rendering — 375px viewport
+// Mobile rendering - 375px viewport
 // ---------------------------------------------------------------------------
 
 test('no horizontal scroll on home page at 375px', async ({ page }) => {

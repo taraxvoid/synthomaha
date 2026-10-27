@@ -59,7 +59,7 @@ describe('events', () => {
                 expect(dateStr).toMatch(/^\d{4}-\d{2}-\d{2}$/)
             })
 
-            test('time is strict 24h HH:MM (00:00–23:59)', () => {
+            test('time is strict 24h HH:MM (00:00-23:59)', () => {
                 expect(String(data.time)).toMatch(TIME_RE)
             })
 
