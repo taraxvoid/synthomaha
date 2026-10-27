@@ -73,7 +73,7 @@ test('recurring events show only their next single occurrence', async ({
     await page.clock.setFixedTime(new Date('2026-01-01T12:00:00'))
     await page.goto('/')
     const titles = await page
-        .locator('#events wa-card[data-event-date] h3')
+        .locator('#events wa-card[data-event-date]:not([hidden]) h3')
         .allTextContents()
     const baseTitles = titles.map((t) => t.replace(/^\{[A-Za-z]+\}\s*/, ''))
     expect(new Set(baseTitles).size).toBe(baseTitles.length)
@@ -141,7 +141,10 @@ test('shows no-events message when all events are in the past', async ({
 test('shows all events when all are in the future', async ({ page }) => {
     await page.clock.setFixedTime(new Date('2020-01-01T12:00:00'))
     await page.goto('/')
-    const cards = page.locator('#events wa-card[data-event-date]')
+    // Later occurrences of a recurring event stay hidden behind its next one
+    const cards = page.locator(
+        '#events wa-card[data-event-date]:not([data-event-series])',
+    )
     const count = await cards.count()
     for (let i = 0; i < count; i++) {
         await expect(cards.nth(i)).not.toHaveAttribute('hidden', '')
@@ -150,6 +153,29 @@ test('shows all events when all are in the future', async ({ page }) => {
         'hidden',
         '',
     )
+})
+
+test('recurring event rolls to its next occurrence after the built one passes', async ({
+    page,
+}) => {
+    await page.goto('/')
+    const series = await page
+        .locator('#events wa-card[data-event-series]')
+        .first()
+        .getAttribute('data-event-series')
+    const occurrences = page.locator(
+        `#events wa-card[data-event-series="${series}"]`,
+    )
+    const firstDate = await occurrences.first().getAttribute('data-event-date')
+    const secondDate = await occurrences.nth(1).getAttribute('data-event-date')
+    await page.clock.setFixedTime(new Date(`${secondDate}T12:00:00`))
+    await page.goto('/')
+    await expect(
+        occurrences.and(page.locator(`[data-event-date="${firstDate}"]`)),
+    ).toHaveAttribute('hidden', '')
+    await expect(
+        occurrences.and(page.locator(`[data-event-date="${secondDate}"]`)),
+    ).not.toHaveAttribute('hidden', '')
 })
 
 // ---------------------------------------------------------------------------
