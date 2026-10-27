@@ -4,7 +4,7 @@
 // Bun's native image pipeline (no external deps like sharp).
 //
 // Discovers which images need compression by scanning src/content/ YAML files
-// for `image:` and `profileImage:` references — so new CMS uploads are handled
+// for `image:` and `profileImage:` references - so new CMS uploads are handled
 // automatically without touching this script.
 //
 // Usage: bun run compress:images
@@ -25,7 +25,7 @@ interface Spec {
 }
 
 // Display context determines the target size. These are NOT derived
-// automatically — if the display size in the corresponding component
+// automatically - if the display size in the corresponding component
 // changes, update the matching entry here too:
 // - profileImage: 48×56px display (src/components/MusicianCard.astro,
 //   `w-12 h-14` / `width={48} height={56}`) → 120px wide at Q80 (2.5x retina)
@@ -85,7 +85,7 @@ function isPng(file: string): boolean {
 
 /** Compresses oversized images in the uploads directory.
  * Returns the number of images that were compressed, or `null` if
- * compression was skipped entirely (e.g. Bun.Image unavailable) — callers
+ * compression was skipped entirely (e.g. Bun.Image unavailable) - callers
  * should treat `null` as "nothing was checked" rather than "checked, found
  * nothing to do", so a stale cache marker isn't written. */
 export async function compressImages(): Promise<number | null> {
@@ -110,7 +110,7 @@ export async function compressImages(): Promise<number | null> {
             const input = Bun.file(filepath)
 
             if (!(await input.exists())) {
-                console.log(`  ${file} — not found in uploads, skipping`)
+                console.log(`  ${file} - not found in uploads, skipping`)
                 skipped++
                 continue
             }
@@ -121,7 +121,7 @@ export async function compressImages(): Promise<number | null> {
 
             if (origW <= spec.width) {
                 console.log(
-                    `  ${file}: ${origW}px — already ≤ target (${spec.width}px), skipping`,
+                    `  ${file}: ${origW}px - already ≤ target (${spec.width}px), skipping`,
                 )
                 continue
             }
@@ -143,8 +143,8 @@ export async function compressImages(): Promise<number | null> {
             compressed++
         } catch (err) {
             // A single corrupt/unsupported image shouldn't abort the whole
-            // build — log it and keep processing the rest.
-            console.error(`  ${file} — failed to compress, skipping:`, err)
+            // build - log it and keep processing the rest.
+            console.error(`  ${file} - failed to compress, skipping:`, err)
             failed++
         }
     }
@@ -166,7 +166,7 @@ export async function compressImages(): Promise<number | null> {
     return compressed
 }
 
-// CLI entry point — only run when invoked directly, not when imported
+// CLI entry point - only run when invoked directly, not when imported
 // by scripts/build.mjs
 if (import.meta.main) {
     compressImages().catch((err) => {

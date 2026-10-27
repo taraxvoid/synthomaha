@@ -14,8 +14,8 @@ synth night in Omaha
 
 ## Stack
 
-- [Astro](https://astro.build/) — static site generator
-- [Decap CMS](https://decapcms.org/) — content management
+- [Astro](https://astro.build/) - static site generator
+- [Decap CMS](https://decapcms.org/) - content management
 - [Biome](https://biomejs.dev/) - lint
 
 ## One-time Setup

@@ -1,6 +1,6 @@
 # Code Review Guide
 
-A checklist for reviewing changes to **synthomaha.net** — an Astro + React + Tailwind CSS static site.
+A checklist for reviewing changes to **synthomaha.net** - an Astro + React + Tailwind CSS static site.
 
 ## Quick Checks
 
@@ -39,7 +39,7 @@ Enforced by Biome (`./biome.json`). Run `bun run format` to auto-fix.
 - [ ] New content collection fields get sensible defaults so existing entries don't break.
 - [ ] Run `bun run check:content` (Astro sync) after schema changes so `dist/` and types stay in sync.
 - [ ] `.astro` components: prefer Astro for static content; use React (`<... />`) only when interactivity is needed (forms, stateful widgets).
-- [ ] `client:load` / `client:idle` / `client:visible` directives are intentional and documented — don't hydrate unnecessarily.
+- [ ] `client:load` / `client:idle` / `client:visible` directives are intentional and documented - don't hydrate unnecessarily.
 
 ## React Components (`BookingForm.tsx`, `EmailSignupForm.tsx`)
 
@@ -75,7 +75,7 @@ Enforced by Biome (`./biome.json`). Run `bun run format` to auto-fix.
 
 ## Security
 
-- [ ] No secrets, tokens, or credentials committed — check the diff for hardcoded values.
+- [ ] No secrets, tokens, or credentials committed - check the diff for hardcoded values.
 - [ ] No `eval()` or `innerHTML`.
 - [ ] `Markdown.astro` renders content via Astro's `set:html={html}` after `marked` + `marked-shiki` processing. Ensure `content` sources (e.g. content collections) are trusted/sanitized since `set:html` bypasses escaping.
 - [ ] Form endpoints validate on the server via Netlify (the static `netlify` attributes are not a security boundary).
@@ -84,10 +84,10 @@ Enforced by Biome (`./biome.json`). Run `bun run format` to auto-fix.
 
 Unit tests cover new logic in `src/utils/` and any content-driven behavior. Key test files:
 
-- `test/recurrence.test.ts` — `rrule` date logic.
-- `test/ical.test.ts` — iCal feed generation and validation.
-- `test/data.test.ts` — content consistency (orphaned entries, broken references).
-- `test/build.test.ts` — `dist/` output snapshot checks.
+- `test/recurrence.test.ts` - `rrule` date logic.
+- `test/ical.test.ts` - iCal feed generation and validation.
+- `test/data.test.ts` - content consistency (orphaned entries, broken references).
+- `test/build.test.ts` - `dist/` output snapshot checks.
 - [ ] E2e tests cover any new user-facing flow (booking, signup, calendar subscribe).
 
 ## Deployment
