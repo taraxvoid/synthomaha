@@ -2,6 +2,10 @@
 import { getCollection } from 'astro:content'
 import { getNextOccurrences } from '../utils/recurrence'
 
+// Render several upcoming occurrences per recurring event; the client script
+// shows only the next one, so a stale build still lists the right date.
+const RECURRING_OCCURRENCES = 6
+
 const allEvents = await getCollection('events')
 const displayEvents = allEvents.flatMap((event) => {
     if (!event.data.recurrence) {
@@ -17,7 +21,7 @@ const displayEvents = allEvents.flatMap((event) => {
         event.data.date,
         event.data.time,
         event.data.recurrence,
-        1,
+        RECURRING_OCCURRENCES,
     )
     if (upcoming.length === 0) {
         return [
@@ -74,7 +78,10 @@ const mapsUrl = (location: string) =>
         sortedEvents.length > 0 && (
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="events-list">
                 {sortedEvents.map(({ event, displayDate, displayTime }, index) => (
-                    <wa-card data-event-date={displayDate}>
+                    <wa-card
+                        data-event-date={displayDate}
+                        data-event-series={event.data.recurrence ? event.id : undefined}
+                    >
                         <div class="flex flex-col gap-4">
                             {event.data.image && (
                                 <img
@@ -123,20 +130,23 @@ const mapsUrl = (location: string) =>
 </Fragment>
 
 <script>
-    import { isEventPast } from '../utils/eventVisibility';
+    import { visibleEvents } from '../utils/eventVisibility';
 
     const todayStr = new Date().toISOString().split('T')[0];
     const list = document.getElementById('events-list');
     const noEventsMessage = document.getElementById('no-events-message');
 
-    let visibleCount = 0;
-    for (const card of list?.querySelectorAll('[data-event-date]') ?? []) {
-        const isPast = isEventPast(card.getAttribute('data-event-date') ?? '', todayStr);
-        card.toggleAttribute('hidden', isPast);
-        if (!isPast) visibleCount++;
-    }
+    const cards = [...(list?.querySelectorAll('[data-event-date]') ?? [])];
+    const visible = visibleEvents(
+        cards.map((card) => ({
+            date: card.getAttribute('data-event-date') ?? '',
+            series: card.getAttribute('data-event-series') ?? undefined,
+        })),
+        todayStr,
+    );
+    cards.forEach((card, i) => card.toggleAttribute('hidden', !visible[i]));
 
-    noEventsMessage?.toggleAttribute('hidden', visibleCount > 0);
+    noEventsMessage?.toggleAttribute('hidden', visible.includes(true));
 </script>
 
 <style>
