@@ -8,11 +8,11 @@
  * This script skips that sync step when the content store is already
  * up-to-date, cutting build time by ~50% on repeat builds. Content changes
  * are detected automatically by comparing file mtimes against a `.last-sync`
- * timestamp — no manual sync needed.
+ * timestamp - no manual sync needed.
  *
  * Files that trigger a re-sync:
  *   - Everything under `src/content/` (YAML data, images, etc.)
- *   - `src/content.config.ts` (collection schemas — a schema change would
+ *   - `src/content.config.ts` (collection schemas - a schema change would
  *     invalidate the cached data store format)
  *
  * Image compression is also cached: `scripts/compress-images.ts` runs only
@@ -90,7 +90,7 @@ async function maybeCompressImages() {
         return
     }
     // `null` means compression was skipped entirely (e.g. Bun.Image
-    // unavailable on this runtime) — don't mark the cache as up-to-date in
+    // unavailable on this runtime) - don't mark the cache as up-to-date in
     // that case, or the images would never get retried after a Bun upgrade.
     if (result === null) return
     mkdirSync(astroDir, { recursive: true })
@@ -117,6 +117,6 @@ if (needsSync) {
     writeFileSync(lastSyncPath, String(Date.now()), 'utf-8')
 }
 
-// Build with sync disabled — reuses the cached content store
+// Build with sync disabled - reuses the cached content store
 const { build } = await import('astro')
 await build({}, { sync: false })
