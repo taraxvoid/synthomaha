@@ -10,7 +10,7 @@ export interface Occurrence {
 // rrule always computes in UTC regardless of the runtime timezone. We treat the
 // anchor date/time as a plain UTC wall-clock value (not a real America/Chicago
 // -> UTC conversion) since BYDAY-style rules operate on calendar fields, not
-// elapsed time — this keeps the anchor and the output using the same convention.
+// elapsed time - this keeps the anchor and the output using the same convention.
 function toUTCDate(dateStr: string, time: string): Date {
     const [year, month, day] = dateStr.split('-').map(Number)
     const [hour, minute] = time.split(':').map(Number)

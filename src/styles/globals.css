@@ -7,17 +7,17 @@
         "Noto Color Emoji";
     --font-display: "Orbitron Variable", ui-sans-serif, sans-serif;
 
-    /* Panel — the rack surface the whole page sits on */
+    /* Panel - the rack surface the whole page sits on */
     --color-panel: #1c1a17;
     --color-panel-raised: #28241f;
     --color-ink: #b8b2a8;
     --color-ink-bright: #f3ede0;
 
-    /* Signal — the logo's own blue, the one accent every real action is patched into */
+    /* Signal - the logo's own blue, the one accent every real action is patched into */
     --color-signal: #60a5fa;
     --color-signal-content: #1a1816;
 
-    /* Jack colors — the logo's own patch-cable palette, cycled across the
+    /* Jack colors - the logo's own patch-cable palette, cycled across the
        jack sockets in the header nav and the section spine */
     --color-jack-pink: #ec4899;
     --color-jack-purple: #a855f7;
@@ -30,7 +30,7 @@
         color: var(--color-ink);
     }
 
-    /* Rack-panel grain — generated noise */
+    /* Rack-panel grain - generated noise */
     body::before {
         content: "";
         position: fixed;
@@ -77,7 +77,7 @@
     }
 }
 
-/* Web Awesome theming — wa-card consumes these --wa-* tokens internally
+/* Web Awesome theming - wa-card consumes these --wa-* tokens internally
    (see its shadow-DOM stylesheet); setting them here is how you theme it,
    since the component's own :host/.body/.header/.footer rules outrank any
    plain wa-card{}/::part() overrides on specificity, and this project never
@@ -162,7 +162,7 @@ wa-card > * {
         --btn-py: 1.125rem;
     }
 
-    /* A patch-bay jack socket — a metal grommet with a dark hole, echoing the logo */
+    /* A patch-bay jack socket - a metal grommet with a dark hole, echoing the logo */
     .jack {
         position: relative;
         display: inline-block;
@@ -208,7 +208,7 @@ wa-card > * {
 }
 
 @layer components {
-    /* Section divider — a shallow sawtooth (slow ramp, sharp drop) so it reads
+    /* Section divider - a shallow sawtooth (slow ramp, sharp drop) so it reads
        apart from the straight nav/footer rules. The mask lets it take the
        signal token instead of a hardcoded stroke color. */
     .saw-divider {

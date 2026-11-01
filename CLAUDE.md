@@ -41,7 +41,7 @@ This repo adds a pre-commit `compress-images` step for
 `bun run build` uses a custom build script (`scripts/build.mjs`) that skips
 Astro's content sync step when the content store is already up-to-date. It
 detects content changes automatically by comparing `src/content/` file mtimes
-against a `.last-sync` timestamp — no gotchas, changes are picked up automatically.
+against a `.last-sync` timestamp - no gotchas, changes are picked up automatically.
 The sync runs only when needed (first build, after content changes, or when
 the cache is cleared).
 
@@ -51,30 +51,30 @@ Static site built with **Astro** + **React** + **Tailwind CSS v4**, deployed to 
 
 ### Pages
 
-- `/` — home: about section, events calendar, musician profiles, booking form, email signup
-- `/events/` — event listings (static generation from content collection)
-- `/events.ics` — iCal feed for calendar subscriptions
+- `/` - home: about section, events calendar, musician profiles, booking form, email signup
+- `/events/` - event listings (static generation from content collection)
+- `/events.ics` - iCal feed for calendar subscriptions
 
 ### Content model
 
 Content lives in `src/content/` as YAML:
 
-- `events/` — event entries with date, title, venue, performers, etc.
-- `musicians/` — musician profiles with name, bio, social links, profile image
+- `events/` - event entries with date, title, venue, performers, etc.
+- `musicians/` - musician profiles with name, bio, social links, profile image
 
 Zod schemas live in `src/content.config.ts`.
 
 ### Components
 
-- `src/layouts/Layout.astro` — main layout (HTML shell, Header, Footer)
-- `src/components/Header.astro` — site navigation
-- `src/components/Footer.astro` — site footer
-- `src/components/EventCalendar.astro` — upcoming events display
-- `src/components/EventSubscribe.astro` — calendar/email subscribe
-- `src/components/MusicianProfiles.astro` — musician grid
-- `src/components/MusicianCard.astro` — individual musician card
-- `src/components/BookingForm.tsx` — React booking request form (Netlify Forms)
-- `src/components/EmailSignupForm.tsx` — React email signup (Netlify Forms)
+- `src/layouts/Layout.astro` - main layout (HTML shell, Header, Footer)
+- `src/components/Header.astro` - site navigation
+- `src/components/Footer.astro` - site footer
+- `src/components/EventCalendar.astro` - upcoming events display
+- `src/components/EventSubscribe.astro` - calendar/email subscribe
+- `src/components/MusicianProfiles.astro` - musician grid
+- `src/components/MusicianCard.astro` - individual musician card
+- `src/components/BookingForm.tsx` - React booking request form (Netlify Forms)
+- `src/components/EmailSignupForm.tsx` - React email signup (Netlify Forms)
 
 ### Forms
 
@@ -86,8 +86,8 @@ Server-side logic lives in `netlify/functions/`. Form handling and any edge func
 
 ### Tests
 
-- `test/*.test.ts` — unit tests (vitest); `build.test.ts` needs a built `dist/`
-- `test/e2e/` — Playwright e2e tests
+- `test/*.test.ts` - unit tests (vitest); `build.test.ts` needs a built `dist/`
+- `test/e2e/` - Playwright e2e tests
 
 ### CI
 
@@ -96,6 +96,6 @@ it calls voidflow's shared `site-ci.yml` (`single-environment: true`). Draft
 PRs are skipped.
 
 **This repo requires SHA-pinned actions.** Every `uses:` must name a full
-commit SHA with the version as a trailing comment — a tag (`@v4`) makes the
+commit SHA with the version as a trailing comment - a tag (`@v4`) makes the
 workflow fail at startup in 0s with no logs and no annotation. Run
 `bun run lint:actions` after editing any workflow.
