@@ -3,18 +3,18 @@
 # commands but not override these; differences go through package.json scripts
 # (here: test:unit:precommit skips tests that need a built dist/).
 remotes:
-  - git_url: https://github.com/taraxvoid/voidflow
-    ref: v0.11.0
-    configs:
-      - lefthook/site.yml
+    - git_url: https://github.com/taraxvoid/voidflow
+      ref: v0.11.0
+      configs:
+          - lefthook/site.yml
 
 pre-commit:
-  commands:
-    compress-images:
-      # Compress uploads here (not only in the build) so the compressed bytes
-      # land in this commit; otherwise the first build, at pre-push, rewrites
-      # the file and leaves a dirty tree after the uncompressed one was committed.
-      priority: 2
-      glob: "public/images/uploads/**"
-      run: bun run compress:images
-      stage_fixed: true
+    commands:
+        compress-images:
+            # Compress uploads here (not only in the build) so the compressed bytes
+            # land in this commit; otherwise the first build, at pre-push, rewrites
+            # the file and leaves a dirty tree after the uncompressed one was committed.
+            priority: 2
+            glob: "public/images/uploads/**"
+            run: bun run compress:images
+            stage_fixed: true
