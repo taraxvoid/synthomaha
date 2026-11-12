@@ -40,3 +40,7 @@ PRs against `main` will build a preview server on Netlify (details in the netlif
 Merges to `main` will auto-deploy the site on Netlify.
 
 `netlify deploy --production` to deploy manually.
+
+## License
+
+No license is granted yet. My content is excluded and all rights reserved in any case: the events and musician profiles in `src/content/`, and the site copy, logo, favicons and images. See [NOTICE](NOTICE).
