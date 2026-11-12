@@ -45,4 +45,5 @@ Merges to `main` will auto-deploy the site on Netlify.
 
 Source code is licensed under the [MIT License](LICENSE). Content (images,
 photos, logos, event and musician text under `public/` and `src/content/`) is
-not covered by it and is not available for reuse. See [NOTICE](NOTICE).
+not covered by it and is not available for reuse. My content (site copy,
+logo, favicons) is excluded and all rights reserved. See [NOTICE](NOTICE).

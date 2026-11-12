@@ -1,5 +1,13 @@
 The MIT License in LICENSE applies to the source code in this repository only.
 
+## My content
+
+My content is not covered by the MIT License and is all rights reserved: the
+site copy, logo and favicons I made for this site. If you fork this repo,
+replace it with your own.
+
+## Other people's content
+
 Content is NOT covered by the MIT License. This includes images, photos, logos,
 and the text of event listings and musician profiles, such as the files under
 public/ and src/content/. All rights in that content are reserved by their
